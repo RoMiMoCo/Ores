@@ -1,0 +1,42 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "textures": {
+      "base": "minecraft:blocks/stone",
+      "overlay": "ores:blocks/baseore_moderate",
+      "particle":"minecraft:blocks/stone"
+    },
+    "model": "ores:baseore"
+  },
+  "variants": {
+    "orevalue": {
+      "poor": {
+        "textures": {
+          "overlay": "ores:blocks/baseore_poor"
+        }
+      },
+      "low": {
+        "textures": {
+          "overlay": "ores:blocks/baseore_low"
+        }
+      },
+      "moderate": {
+        "textures": {
+          "overlay": "ores:blocks/baseore_moderate"
+        }
+      },
+      "high": {
+        "textures": {
+          "overlay": "ores:blocks/baseore_high"
+        }
+      },
+      "rich": {
+        "textures": {
+          "overlay": "ores:blocks/baseore_rich"
+        }
+      }
+    }
+  }
+}
+
+

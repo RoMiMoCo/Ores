@@ -1,0 +1,15 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "textures": {
+      "base": "minecraft:blocks/iron_block",
+      "overlay": "minecraft:blocks/iron_block",
+      "particle": "minecraft:blocks/iron_block"
+    },
+    "model": "ores:baseblock"
+  },
+  "variants":{
+    "normal":[{}],
+    "inventory":[{}]
+  }
+}
