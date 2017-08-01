@@ -52,11 +52,11 @@ public class RegistryEventHandler
 
             if(OreConfig.genVariants)
             {
-                OreDictionary.registerOre("ore"+ name + "poor", new ItemStack(i, 1, 0));
-                OreDictionary.registerOre("ore"+ name + "low", new ItemStack(i, 1, 1));
+                OreDictionary.registerOre("ore"+ name + "poor", new ItemStack(i, 1, 4));
+                OreDictionary.registerOre("ore"+ name + "low", new ItemStack(i, 1, 3));
                 OreDictionary.registerOre("ore"+ name + "moderate", new ItemStack(i, 1, 2));
-                OreDictionary.registerOre("ore"+ name + "high", new ItemStack(i, 1, 3));
-                OreDictionary.registerOre("ore"+ name, new ItemStack(i, 1, 4));
+                OreDictionary.registerOre("ore"+ name + "high", new ItemStack(i, 1, 1));
+                OreDictionary.registerOre("ore"+ name, new ItemStack(i, 1, 0));
             }else {
                 OreDictionary.registerOre("ore" + name, i);
             }
@@ -80,11 +80,11 @@ public class RegistryEventHandler
             name = name.substring(0,1).toUpperCase() + name.substring(1);
             if(OreConfig.genVariants)
             {
-                OreDictionary.registerOre("nugget"+ name, new ItemStack(i, 1, 0));
-                OreDictionary.registerOre("shard"+ name, new ItemStack(i, 1, 1));
+                OreDictionary.registerOre("nugget"+ name, new ItemStack(i, 1, 4));
+                OreDictionary.registerOre("shard"+ name, new ItemStack(i, 1, 3));
                 OreDictionary.registerOre("chunk"+ name, new ItemStack(i, 1, 2));
-                OreDictionary.registerOre("hunk"+ name, new ItemStack(i, 1, 3));
-                OreDictionary.registerOre("ingot"+ name, new ItemStack(i, 1, 4));
+                OreDictionary.registerOre("hunk"+ name, new ItemStack(i, 1, 1));
+                OreDictionary.registerOre("ingot"+ name, new ItemStack(i, 1, 0));
             }else {
                 OreDictionary.registerOre("ingot" + name, i);
             }
