@@ -93,11 +93,11 @@ public class RecipeManager {
 
         BaseIngotWithVariants baseIngot= (BaseIngotWithVariants) ModItems.INGOTS.get(b.name + "Ingot");
 
-        ItemStack nugget = new ItemStack(baseIngot, 1, 0);
-        ItemStack shard = new ItemStack(baseIngot, 1, 1);
+        ItemStack nugget = new ItemStack(baseIngot, 1, 4);
+        ItemStack shard = new ItemStack(baseIngot, 1, 3);
         ItemStack chunk = new ItemStack(baseIngot, 1, 2);
-        ItemStack hunk = new ItemStack(baseIngot, 1, 3);
-        ItemStack ingot = new ItemStack(baseIngot, 1, 4);
+        ItemStack hunk = new ItemStack(baseIngot, 1, 1);
+        ItemStack ingot = new ItemStack(baseIngot, 1, 0);
 
         Object[] size2 = new Object[2];
         Object[] size4 = new Object[4];
@@ -129,10 +129,10 @@ public class RecipeManager {
 
 
 
-        registerShapelessRecipe(resourcePathBase + "ingotToHunk", new ItemStack(baseIngot, 2, 3), Ingredient.fromStacks(ingot) );
+        registerShapelessRecipe(resourcePathBase + "ingotToHunk", new ItemStack(baseIngot, 2, 1), Ingredient.fromStacks(ingot) );
         registerShapelessRecipe(resourcePathBase + "hunkToChunk", new ItemStack(baseIngot, 2, 2), Ingredient.fromStacks(hunk) );
-        registerShapelessRecipe(resourcePathBase + "chunkToShard", new ItemStack(baseIngot, 2, 1), Ingredient.fromStacks(chunk) );
-        registerShapelessRecipe(resourcePathBase + "shardToNugget", new ItemStack(baseIngot, 2, 0), Ingredient.fromStacks(shard) );
+        registerShapelessRecipe(resourcePathBase + "chunkToShard", new ItemStack(baseIngot, 2, 3), Ingredient.fromStacks(chunk) );
+        registerShapelessRecipe(resourcePathBase + "shardToNugget", new ItemStack(baseIngot, 2, 4), Ingredient.fromStacks(shard) );
     }
 
 

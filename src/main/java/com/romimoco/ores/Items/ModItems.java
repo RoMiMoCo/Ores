@@ -13,7 +13,6 @@ import net.minecraft.item.ItemTool;
 import net.minecraftforge.common.util.EnumHelper;
 
 import java.util.HashMap;
-import java.util.LinkedList;
 
 public class ModItems {
     public static HashMap<String, Item> INGOTS = new HashMap<>();

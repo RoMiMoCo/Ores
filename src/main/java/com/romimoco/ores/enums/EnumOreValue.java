@@ -4,11 +4,11 @@ import net.minecraft.util.IStringSerializable;
 
 public enum EnumOreValue implements IStringSerializable{
 
-    POOR(0, "poor"),
-        LOW(1, "low"),
+    POOR(4, "poor"),
+        LOW(3, "low"),
         MODERATE(2, "moderate"),
-        HIGH(3, "high"),
-        RICH(4, "rich");
+        HIGH(1, "high"),
+        RICH(0, "rich");
 
 
         private final int meta;
@@ -33,11 +33,11 @@ public enum EnumOreValue implements IStringSerializable{
 
         public static String ingotNameByMetadata(int meta){
             switch(meta){
-                case 0 : return "nugget";
-                case 1 : return "shard";
+                case 4 : return "nugget";
+                case 3 : return "shard";
                 case 2 : return "chunk";
-                case 3 : return "hunk";
-                case 4 : return "ingot";
+                case 1 : return "hunk";
+                case 0 : return "ingot";
             }
             return "ingot";
         }
