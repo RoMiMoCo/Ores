@@ -10,7 +10,7 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
-@Mod(modid = Ores.MODID, version = Ores.VERSION, name = Ores.NAME)
+@Mod(modid = Ores.MODID, version = Ores.VERSION, name = Ores.NAME, acceptedMinecraftVersions = "[1.12, 1.13)")
 public class Ores
 {
     public static final String MODID = "romimocoores";
