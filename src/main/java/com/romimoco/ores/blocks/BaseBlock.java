@@ -33,7 +33,7 @@ public class BaseBlock extends Block implements IColoredItem, IHasCustomModel{
         this.setCreativeTab(CreativeTabs.MISC);
     }
 
-
+    @SideOnly(Side.CLIENT)
     @Override
     public void initModel() {
         ModelLoader.setCustomModelResourceLocation(ItemBlock.getItemFromBlock(this), 0, new ModelResourceLocation( Ores.NAME + ":baseblock"));

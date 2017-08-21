@@ -3,6 +3,8 @@ package com.romimoco.ores.Items;
 import com.romimoco.ores.Ores;
 import com.romimoco.ores.blocks.BaseOre;
 import com.romimoco.ores.enums.EnumOreValue;
+import com.romimoco.ores.util.IColoredItem;
+import com.romimoco.ores.util.IHasCustomModel;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
@@ -12,7 +14,7 @@ import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class BaseIngotWithVariants extends BaseIngot{
+public class BaseIngotWithVariants extends BaseIngot implements IHasCustomModel, IColoredItem{
 
 
     public static final PropertyEnum PROPERTYOREVALUE = PropertyEnum.create("orevalue", EnumOreValue.class);
