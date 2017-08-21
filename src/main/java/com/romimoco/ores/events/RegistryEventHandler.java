@@ -10,6 +10,7 @@ import com.romimoco.ores.blocks.itemBlocks.ItemBlockBaseOre;
 import com.romimoco.ores.crafting.RecipeManager;
 import com.romimoco.ores.util.IHasCustomModel;
 import com.romimoco.ores.util.OreConfig;
+import com.romimoco.ores.util.OreLogger;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
@@ -26,7 +27,7 @@ public class RegistryEventHandler
     @SubscribeEvent
     public void registerBlocks(RegistryEvent.Register<Block> event){
 
-        System.out.println("Registering Blocks");
+        OreLogger.info("Registering Blocks");
         IForgeRegistry<Block> r = event.getRegistry();
 
         for(Block b : ModBlocks.ORES){
@@ -48,7 +49,7 @@ public class RegistryEventHandler
             r.register(i.setRegistryName(b.getRegistryName()));
             String name = ((BaseOre)b).name;
             name = name.substring(0,1).toUpperCase() + name.substring(1);
-            System.out.println(name);
+            OreLogger.debug(name);
 
             if(OreConfig.genVariants)
             {
@@ -68,7 +69,7 @@ public class RegistryEventHandler
             r.register(i.setRegistryName(b.getRegistryName()));
             String name = ((BaseBlock)b).name;
             name = name.substring(0,1).toUpperCase() + name.substring(1);
-            System.out.println(name);
+            OreLogger.debug(name);
 
             OreDictionary.registerOre("block" +name, b);
         }

@@ -3,20 +3,25 @@ package com.romimoco.ores;
 import com.romimoco.ores.proxy.CommonProxy;
 import com.romimoco.ores.events.OreGenEventHandler;
 import com.romimoco.ores.events.RegistryEventHandler;
+import com.romimoco.ores.util.OreLogger;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.Logger;
+
 
 @Mod(modid = Ores.MODID, version = Ores.VERSION, name = Ores.NAME, acceptedMinecraftVersions = "[1.12, 1.13)")
 public class Ores
 {
     public static final String MODID = "romimocoores";
     public static final String NAME = "ores";
-    public static final String VERSION = "0.1.1";
-    
+    public static final String VERSION = "0.0.1";
+
+
     @Mod.Instance
     public static Ores instance;
 
@@ -24,9 +29,10 @@ public class Ores
     public static CommonProxy proxy;
 
     @Mod.EventHandler
-    public void init(FMLPreInitializationEvent event)
+    public void preinit(FMLPreInitializationEvent event)
     {
-        System.out.println("Romimoco ores PRE-INIT");
+        OreLogger.init(event.getModLog());
+        OreLogger.info("Romimoco ores PRE-INIT");
         proxy.preInit(event);
 
         MinecraftForge.EVENT_BUS.register(new RegistryEventHandler());
@@ -46,15 +52,14 @@ public class Ores
     @Mod.EventHandler
     public void init(FMLInitializationEvent event)
     {
-        System.out.println("Romimoco ores INIT");
+        OreLogger.info("Romimoco ores INIT");
         proxy.init(event);
-
     }
 
     @Mod.EventHandler
-    public void init(FMLPostInitializationEvent event)
+    public void postinit(FMLPostInitializationEvent event)
     {
-        System.out.println("Romimoco ores POST-INIT");
+        OreLogger.info("Romimoco ores POST-INIT");
         proxy.postInit(event);
     }
 

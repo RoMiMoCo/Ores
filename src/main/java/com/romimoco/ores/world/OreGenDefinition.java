@@ -2,6 +2,7 @@ package com.romimoco.ores.world;
 
 import com.google.gson.JsonObject;
 import com.romimoco.ores.blocks.BaseOre;
+import com.romimoco.ores.util.OreLogger;
 
 public class OreGenDefinition {
     public BaseOre ore;
@@ -35,18 +36,17 @@ public class OreGenDefinition {
         //Try to parse json
         try {
             this.minY = def.get("MinY").getAsInt();
-        }catch(Exception e){System.out.println("No such element MinY");}
+        }catch(Exception e){OreLogger.error("No such element MinY");}
 
         try {
             this.maxY = def.get("MaxY").getAsInt();
-        }catch(Exception e){System.out.println("No such element MaxY");}
+        }catch(Exception e){OreLogger.error("No such element MaxY");}
 
         try {
             this.spawnChance = def.get("SpawnChance").getAsInt();
-        }catch(Exception e){System.out.println("No such element SpawnChance");}
-
+        }catch(Exception e){OreLogger.error("No such element SpawnChance");}
         try{
             this.veinSize = def.get("VeinSize").getAsInt();
-        }catch(Exception e){System.out.println("No such element VeinSize");}
+        }catch(Exception e){OreLogger.error("No such element VeinSize");}
     }
 }

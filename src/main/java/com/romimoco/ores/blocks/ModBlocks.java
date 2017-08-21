@@ -5,6 +5,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.romimoco.ores.util.OreConfig;
+import com.romimoco.ores.util.OreLogger;
 import com.romimoco.ores.world.OreGenBase;
 import com.romimoco.ores.world.OreGenDefinition;
 import net.minecraft.block.Block;
@@ -33,15 +34,15 @@ public class ModBlocks {
         try {
             oreDefs = (JsonObject) parser.parse(new FileReader(new File("config/Romimoco/ores/oreDefinitions.json")));
         } catch (FileNotFoundException e) {
-           System.out.println("No Ore-Definitions found.  Create an oreDefinitions.json file in config/Romimoco/ores to define custom ores.");
+           OreLogger.error("No Ore-Definitions found.  Create an oreDefinitions.json file in config/Romimoco/ores to define custom ores.");
            return;
         }
-        //System.out.println("Found ore-defs");
+        OreLogger.debug("Found ore-defs");
         JsonArray oreArray = (JsonArray) oreDefs.get("OreList");
 
         for(JsonElement j : oreArray){
             String name = ((JsonObject)j).get("Name").getAsString();
-            System.out.println("Initializing " +name);
+            OreLogger.debug("Initializing " +name);
 
             if(OreConfig.genVariants){
                 ORES.push(new BaseOreWithVariants((JsonObject)j));
