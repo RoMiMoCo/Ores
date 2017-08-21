@@ -2,30 +2,34 @@ package com.romimoco.ores.Items;
 
 import com.romimoco.ores.Ores;
 import com.romimoco.ores.util.IColoredItem;
+import com.romimoco.ores.util.IHasCustomModel;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class BaseArmor extends ItemArmor implements IColoredItem{
+public class BaseArmor extends ItemArmor implements IColoredItem, IHasCustomModel{
 
     private int color = 0x000000;
     public BaseArmor(ArmorMaterial mat, int renderIndex, EntityEquipmentSlot slot, int color){
         super(mat, renderIndex, slot);
-        this.setUnlocalizedName(Ores.MODID + "." +mat.name() + getArmorPieceName());
+        this.setUnlocalizedName(Ores.MODID + "." +mat.name() + getArmorPieceName(slot));
         this.color = color;
     }
 
-
+    @SideOnly(Side.CLIENT)
     public void initModel() {
-        ModelLoader.setCustomModelResourceLocation(this, 0, new ModelResourceLocation(Ores.NAME + ":base_"+getArmorPieceName()));
+        ModelLoader.setCustomModelResourceLocation(this, 0, new ModelResourceLocation(Ores.NAME + ":base_"+getArmorPieceName(this.getEquipmentSlot())));
     }
 
-    private String getArmorPieceName(){
+
+    private String getArmorPieceName(EntityEquipmentSlot slot){
 
 
-        switch(this.getEquipmentSlot()){
+        switch(slot){
             case FEET: return "boots";
             case LEGS: return "leggings";
             case CHEST: return "chestplate";

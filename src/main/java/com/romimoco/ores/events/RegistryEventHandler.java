@@ -110,16 +110,16 @@ public class RegistryEventHandler
     @SubscribeEvent
     public void registerModels(ModelRegistryEvent event){
         for(Block b : ModBlocks.ORES){
-            ((BaseOre)b).initModel();
+            ((IHasCustomModel)b).initModel();
         }
         for(Block b : ModBlocks.BLOCKS.values()){
             ((IHasCustomModel)b).initModel();
         }
         for(Item i : ModItems.INGOTS.values()){
-            ((BaseIngot)i).initModel();
+            ((IHasCustomModel)i).initModel();
         }
         for(Item i : ModItems.ARMORS.values()){
-            ((BaseArmor)i).initModel();
+            ((IHasCustomModel)i).initModel();
         }
         for(Item i : ModItems.TOOLS.values()){
             ((IHasCustomModel)i).initModel();
