@@ -50,8 +50,9 @@ public class ModBlocks {
             }
             JsonObject OreGen = ((JsonObject)j).getAsJsonObject("Generation");
             generator.add(new OreGenDefinition((BaseOre) ORES.peek(), OreGen));
-
-            BLOCKS.put(((BaseOre) ORES.peek()).name + "Block", new BaseBlock((BaseOre)ORES.peek()));
+            if(OreConfig.genFullBlocks) {
+                BLOCKS.put(((BaseOre) ORES.peek()).name + "Block", new BaseBlock((BaseOre) ORES.peek()));
+            }
         }
         GameRegistry.registerWorldGenerator(generator, 0);
 
