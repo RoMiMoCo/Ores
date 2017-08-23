@@ -46,11 +46,7 @@ public class RecipeManager {
         BaseIngot ingot = (BaseIngot) ModItems.INGOTS.get(b.name + "Ingot");
 
         registerShapedOreRecipe(resourcePathBase + "Block", new ItemStack(block, 1, 0), "xxx", "xxx", "xxx", 'x', oreDictName);
-        if(OreConfig.genVariants) {
-            registerShapelessRecipe(resourcePathBase + "BlockToIngots", new ItemStack(ingot, 9, 4), Ingredient.fromStacks(new ItemStack(block)));
-        }else{
-            registerShapelessRecipe(resourcePathBase + "BlockToIngots", new ItemStack(ingot, 9, 0), Ingredient.fromStacks(new ItemStack(block)));
-        }
+        registerShapelessRecipe(resourcePathBase + "BlockToIngots", new ItemStack(ingot, 9), Ingredient.fromStacks(new ItemStack(block)));
     }
 
     public static void registerArmorRecipes(BaseOre b) {
