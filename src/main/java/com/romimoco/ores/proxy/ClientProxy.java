@@ -9,6 +9,7 @@ import net.minecraft.item.Item;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import scala.collection.parallel.ParIterableLike;
 
 public class ClientProxy extends CommonProxy {
 
@@ -45,6 +46,9 @@ public class ClientProxy extends CommonProxy {
         }
         for(Item i : ModItems.TOOLS.values()){
             Minecraft.getMinecraft().getItemColors().registerItemColorHandler(colorHandler, i);
+        }
+        for(Item i : ModItems.MISC.values()){
+            //Minecraft.getMinecraft().getItemColors().registerItemColorHandler(colorHandler, i);
         }
         //    ModBlocks.postInit();
     }

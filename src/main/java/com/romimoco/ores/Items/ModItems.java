@@ -9,8 +9,11 @@ import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemTool;
 import net.minecraftforge.common.util.EnumHelper;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.UniversalBucket;
 
 import java.util.HashMap;
 
@@ -19,6 +22,7 @@ public class ModItems {
     public static HashMap<String,Item> DUSTS = new HashMap<>();
     public static HashMap<String,Item> ARMORS = new HashMap<>();
     public static HashMap<String,Item> TOOLS = new HashMap<>();
+    public static HashMap<String,Item> MISC = new HashMap<>();
 
     public static void init(){
 
@@ -54,6 +58,8 @@ public class ModItems {
             ARMORS.put(ore.name + "Leggings", new BaseArmor(a, 1, EntityEquipmentSlot.LEGS, ore.getColor()).setRegistryName(Ores.MODID, a.name() + "Leggings"));
             ARMORS.put(ore.name + "Boots", new BaseArmor(a, 1, EntityEquipmentSlot.FEET, ore.getColor()).setRegistryName(Ores.MODID, a.name()+"Boots"));
 
+            //buckets
+            MISC.put(ore.name + "Bucket", new BaseBucket(ore));
             //TODO: recipes
         }
     }

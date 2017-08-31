@@ -105,6 +105,9 @@ public class RegistryEventHandler
         for(Item i: ModItems.ARMORS.values()){
             r.register(i);
         }
+        for(Item i: ModItems.MISC.values()){
+            r.register(i);
+        }
 
     }
 
@@ -123,6 +126,9 @@ public class RegistryEventHandler
             ((IHasCustomModel)i).initModel();
         }
         for(Item i : ModItems.TOOLS.values()){
+            ((IHasCustomModel)i).initModel();
+        }
+        for(Item i : ModItems.MISC.values()){
             ((IHasCustomModel)i).initModel();
         }
     }
