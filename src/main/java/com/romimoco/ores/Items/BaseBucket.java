@@ -5,6 +5,7 @@ import com.romimoco.ores.blocks.BaseOre;
 import com.romimoco.ores.util.FluidHandlerBaseBucket;
 import com.romimoco.ores.util.IColoredItem;
 import com.romimoco.ores.util.IHasCustomModel;
+import com.romimoco.ores.util.OreLogger;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
@@ -39,9 +40,11 @@ public class BaseBucket extends UniversalBucket implements IColoredItem, IHasCus
         super(Fluid.BUCKET_VOLUME, ItemStack.EMPTY, true);
         this.name = b.name;
         this.color = b.getColor();
-        this.setUnlocalizedName(Ores.MODID + ".bucket" + b.name);
+        this.setUnlocalizedName(Ores.MODID + ":bucket" + b.name);
         this.setCreativeTab(CreativeTabs.MISC);
         this.setRegistryName(Ores.MODID, "bucket"+name);
+
+        OreLogger.localize(this.getUnlocalizedName() + ".name=" + b.name.substring(0,1).toUpperCase() + b.name.substring(1) + " Bucket");
     }
 
     @Override

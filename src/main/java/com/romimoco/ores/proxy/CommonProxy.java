@@ -4,6 +4,7 @@ import com.romimoco.ores.Items.ModItems;
 import com.romimoco.ores.blocks.ModBlocks;
 //import com.romimoco.ores.util.Config;
 import com.romimoco.ores.util.OreConfig;
+import com.romimoco.ores.util.OreLogger;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -38,10 +39,7 @@ public class CommonProxy {
 
 
     public void postInit(FMLPostInitializationEvent event) {
-        //if(config.hasChanged()){
-        //    config.save();
-        //}
-
+        OreLogger.commitLocalization();
     }
 
 }

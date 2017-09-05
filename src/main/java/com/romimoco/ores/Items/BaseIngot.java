@@ -4,6 +4,7 @@ import com.romimoco.ores.Ores;
 import com.romimoco.ores.blocks.BaseOre;
 import com.romimoco.ores.util.IColoredItem;
 import com.romimoco.ores.util.IHasCustomModel;
+import com.romimoco.ores.util.OreLogger;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
@@ -20,9 +21,11 @@ public class BaseIngot extends Item implements IColoredItem, IHasCustomModel{
        super();
        this.name = b.name;
        this.color = b.getColor();
-       this.setUnlocalizedName(Ores.MODID + ".ingot" + b.name);
+       this.setUnlocalizedName(Ores.MODID + ":ingot" + b.name);
         this.setCreativeTab(CreativeTabs.MISC);
         this.setRegistryName(Ores.MODID, "ingot"+name);
+
+        OreLogger.localize(this.getUnlocalizedName() + ".name=" + b.name.substring(0,1).toUpperCase() + b.name.substring(1) + " Ingot");
 
     }
 

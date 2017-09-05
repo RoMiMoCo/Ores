@@ -3,6 +3,7 @@ package com.romimoco.ores.blocks;
 import com.romimoco.ores.Ores;
 import com.romimoco.ores.util.IColoredItem;
 import com.romimoco.ores.util.IHasCustomModel;
+import com.romimoco.ores.util.OreLogger;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -28,9 +29,11 @@ public class BaseBlock extends Block implements IColoredItem, IHasCustomModel{
         this.color = ore.getColor();
         this.name = "block" + ore.name;
 
-        this.setUnlocalizedName(Ores.MODID +"." + name);
+        this.setUnlocalizedName(Ores.MODID +":" + name);
         this.setRegistryName(Ores.MODID, name);
         this.setCreativeTab(CreativeTabs.MISC);
+        OreLogger.localize(this.getUnlocalizedName() + ".name=" + ore.name.substring(0,1).toUpperCase() + ore.name.substring(1) + " Block");
+
     }
 
     @SideOnly(Side.CLIENT)

@@ -4,6 +4,7 @@ import com.google.gson.JsonObject;
 import com.romimoco.ores.Ores;
 import com.romimoco.ores.util.IColoredItem;
 import com.romimoco.ores.util.IHasCustomModel;
+import com.romimoco.ores.util.OreLogger;
 import net.minecraft.block.BlockOre;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
@@ -64,9 +65,11 @@ public class BaseOre extends BlockOre implements IColoredItem, IHasCustomModel{
         this.customHarvestLevel = harvestLevel;
         this.setHarvestLevel("pickaxe", harvestLevel);
 
-        this.setUnlocalizedName(Ores.MODID +".ore" + name);
+        this.setUnlocalizedName(Ores.MODID +":ore" + name);
         this.setRegistryName(Ores.MODID, name);
         this.setCreativeTab(CreativeTabs.MISC);
+
+        OreLogger.localize(this.getUnlocalizedName() + ".name=" + this.name.substring(0,1).toUpperCase() + this.name.substring(1) + " Ore");
     }
 
 

@@ -3,6 +3,7 @@ package com.romimoco.ores.Items;
 import com.romimoco.ores.Ores;
 import com.romimoco.ores.util.IColoredItem;
 import com.romimoco.ores.util.IHasCustomModel;
+import com.romimoco.ores.util.OreLogger;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.ItemPickaxe;
 import net.minecraftforge.client.model.ModelLoader;
@@ -16,7 +17,9 @@ public class BasePickaxe extends ItemPickaxe implements IHasCustomModel,IColored
     public BasePickaxe(ToolMaterial t, int color) {
         super(t);
         this.color = color;
-        this.setUnlocalizedName(Ores.MODID + ".pickaxe"+t.name());
+        this.setUnlocalizedName(Ores.MODID + ":pickaxe"+t.name());
+        OreLogger.localize(this.getUnlocalizedName() + ".name=" + t.name().substring(0,1).toUpperCase() + t.name().substring(1) + " Pickaxe");
+
     }
 
     @SideOnly(Side.CLIENT)

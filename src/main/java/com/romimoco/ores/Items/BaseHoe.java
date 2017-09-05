@@ -3,6 +3,7 @@ package com.romimoco.ores.Items;
 import com.romimoco.ores.Ores;
 import com.romimoco.ores.util.IColoredItem;
 import com.romimoco.ores.util.IHasCustomModel;
+import com.romimoco.ores.util.OreLogger;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.ItemHoe;
 import net.minecraftforge.client.model.ModelLoader;
@@ -17,7 +18,9 @@ public class BaseHoe extends ItemHoe implements IHasCustomModel, IColoredItem{
         super(t);
         this.color = color;
 
-        this.setUnlocalizedName(Ores.MODID + ".hoe"+t.name());
+        this.setUnlocalizedName(Ores.MODID + ":hoe"+t.name());
+
+        OreLogger.localize(this.getUnlocalizedName() + ".name=" + t.name().substring(0,1).toUpperCase() + t.name().substring(1) + " Hoe");
     }
 
     @SideOnly(Side.CLIENT)
