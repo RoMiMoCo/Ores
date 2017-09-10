@@ -74,12 +74,14 @@ public class RecipeManager {
         BasePickaxe pickaxe = (BasePickaxe)ModItems.TOOLS.get(b.name + "Pickaxe");
         BaseShovel shovel = (BaseShovel) ModItems.TOOLS.get(b.name + "Shovel");
         BaseSword sword = (BaseSword) ModItems.TOOLS.get(b.name + "Sword");
+        BaseShears shears = (BaseShears) ModItems.TOOLS.get(b.name + "Shears");
 
         registerShapedOreRecipe(resourcePathBase + "Axe", new ItemStack(axe, 1, 0), "xx", "xy"," y", 'x', oreDictName, 'y', "stickWood");
         registerShapedOreRecipe(resourcePathBase + "Hoe", new ItemStack(hoe, 1, 0), "xx", " y", " y", 'x', oreDictName, 'y', "stickWood");
         registerShapedOreRecipe(resourcePathBase + "Pickaxe", new ItemStack(pickaxe, 1, 0), "xxx", " y "," y ", 'x', oreDictName, 'y', "stickWood");
         registerShapedOreRecipe(resourcePathBase + "Shovel", new ItemStack(shovel, 1, 0), "x", "y","y", 'x', oreDictName, 'y', "stickWood");
         registerShapedOreRecipe(resourcePathBase + "Sword", new ItemStack(sword, 1, 0), "x", "x", "y", 'x', oreDictName, 'y', "stickWood");
+        registerShapedOreRecipe(resourcePathBase + "Shears", new ItemStack(shears, 1, 0), " x", "x ", 'x', oreDictName);
     }
 
 

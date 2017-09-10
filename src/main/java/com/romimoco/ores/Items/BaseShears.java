@@ -19,9 +19,9 @@ public class BaseShears extends ItemShears implements IHasCustomModel,IColoredIt
 
         super();
         this.color = color;
-        this.setUnlocalizedName(Ores.MODID + ":axe"+t.name());
+        this.setUnlocalizedName(Ores.MODID + ":shears"+t.name());
 
-        OreLogger.localize(this.getUnlocalizedName() + ".name=" + t.name().substring(0,1).toUpperCase() + t.name().substring(1) + " Axe");
+        OreLogger.localize(this.getUnlocalizedName() + ".name=" + t.name().substring(0,1).toUpperCase() + t.name().substring(1) + " Shears");
 
     }
 
