@@ -132,6 +132,20 @@ public class RecipeManager {
     }
 
 
+    public static void registerMiscRecipes(BaseOre b){
+        String resourcePathBase = "recipe" + b.name;
+        String oreDictName = "ingot" + b.name.substring(0, 1).toUpperCase() + b.name.substring(1);
+
+        //Buckets
+        if(OreConfig.genBuckets) {
+            BaseBucket bucket = (BaseBucket) ModItems.MISC.get(b.name + "Bucket");
+            registerShapedOreRecipe(resourcePathBase + "Bucket", new ItemStack(bucket, 1, 0), "x x", " x ", 'x', oreDictName);
+        }
+
+
+    }
+
+
     /*
      * The Following methods are used in accordance with the CoFH "Don't Be a Jerk" License
      * All credit goes to the CoFH team, I am in no way claiming any ownership, partial or ortherwise

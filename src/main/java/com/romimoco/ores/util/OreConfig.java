@@ -38,6 +38,9 @@ public class OreConfig {
         @Comment("Generate armor sets for each ore")
         public static boolean genArmor;
 
+        @Comment("Generate buckets for each ore")
+        public static boolean genBuckets;
+
         @Comment("Create a resource pack for english localization")
         public static boolean createResourcePack;
 

@@ -153,6 +153,8 @@ public class RegistryEventHandler
             if(OreConfig.genVariants && OreConfig.recipes.variantCombinationRecipes){
                 RecipeManager.registerVariantCombinationRecipes((BaseOre)b);
             }
+
+            RecipeManager.registerMiscRecipes((BaseOre)b);
         }
 
     }

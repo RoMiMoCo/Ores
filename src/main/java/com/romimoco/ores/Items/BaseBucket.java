@@ -6,6 +6,7 @@ import com.romimoco.ores.util.FluidHandlerBaseBucket;
 import com.romimoco.ores.util.IColoredItem;
 import com.romimoco.ores.util.IHasCustomModel;
 import com.romimoco.ores.util.OreLogger;
+import net.minecraft.client.renderer.block.model.ModelBakery;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
@@ -18,7 +19,9 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
+import net.minecraftforge.client.model.ModelDynBucket;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.fluids.*;
@@ -53,11 +56,13 @@ public class BaseBucket extends UniversalBucket implements IColoredItem, IHasCus
             subItems.add(empty);
 
             for(Fluid fluid : FluidRegistry.getRegisteredFluids().values()){
-                FluidStack fluidStack = new FluidStack(fluid, getCapacity());
-                IFluidHandlerItem fluidHandler = (new ItemStack(this)).getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null);
-
-                if(fluidHandler != null && fluidHandler.fill(fluidStack, true) == fluidStack.amount){
-                    subItems.add(fluidHandler.getContainer());
+                 // Add all fluids that the bucket can be filled with
+                final FluidStack fs = new FluidStack(fluid, getCapacity());
+                final ItemStack stack = new ItemStack(this);
+                final IFluidHandlerItem fluidHandler = stack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null);
+                if (fluidHandler != null && fluidHandler.fill(fs, true) == fs.amount) {
+                    final ItemStack filled = fluidHandler.getContainer();
+                    subItems.add(filled);
                 }
             }
         }
@@ -106,7 +111,19 @@ public class BaseBucket extends UniversalBucket implements IColoredItem, IHasCus
 
     @Override
     public String getItemStackDisplayName(final ItemStack stack){
-         return this.name + "bucket";
+        final FluidStack fluidStack = getFluid(stack);
+        final String unlocalisedName = this.getUnlocalizedNameInefficiently(stack);
+        // If the bucket is empty, translate the unlocalised name directly
+        if (fluidStack == null) {
+            return I18n.translateToLocal(unlocalisedName + ".name").trim();
+        }
+        // If there's a fluid-specific translation, use it
+        final String fluidUnlocalisedName = unlocalisedName + ".filled." + fluidStack.getFluid().getName() + ".name";
+        if (I18n.canTranslate(fluidUnlocalisedName)) {
+            return I18n.translateToLocal(fluidUnlocalisedName);
+        }
+        // Else translate the filled name directly, formatting it with the fluid name
+        return I18n.translateToLocalFormatted(unlocalisedName + ".filled.name", fluidStack.getLocalizedName());
     }
 
     @Override
@@ -127,7 +144,9 @@ public class BaseBucket extends UniversalBucket implements IColoredItem, IHasCus
 
     @SideOnly(Side.CLIENT)
     public void initModel(){
-        ModelLoader.setCustomModelResourceLocation(this, 0, new ModelResourceLocation("forge:bucket"));
+        //ModelLoader.setCustomModelResourceLocation(this, 0, new ModelResourceLocation(  "forge:bucket"));
+        ModelLoader.setCustomMeshDefinition(this, stack -> ModelDynBucket.LOCATION);
+        ModelBakery.registerItemVariants(this, ModelDynBucket.LOCATION);
     }
 
     public int getColor() {
