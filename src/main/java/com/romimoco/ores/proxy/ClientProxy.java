@@ -41,6 +41,9 @@ public class ClientProxy extends CommonProxy {
         for(Item i : ModItems.INGOTS.values()){
             Minecraft.getMinecraft().getItemColors().registerItemColorHandler(colorHandler, i);
         }
+        for(Item i : ModItems.DUSTS.values()){
+            Minecraft.getMinecraft().getItemColors().registerItemColorHandler(colorHandler, i);
+        }
         for(Item i : ModItems.ARMORS.values()){
             Minecraft.getMinecraft().getItemColors().registerItemColorHandler(colorHandler, i);
         }

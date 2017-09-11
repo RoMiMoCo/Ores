@@ -7,6 +7,7 @@ import com.romimoco.ores.blocks.BaseOre;
 import com.romimoco.ores.blocks.ModBlocks;
 import com.romimoco.ores.enums.EnumOreValue;
 import com.romimoco.ores.util.OreConfig;
+import com.romimoco.ores.util.OreLogger;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.item.crafting.ShapelessRecipes;
@@ -32,7 +33,10 @@ public class RecipeManager {
         if(OreConfig.genVariants){
             for(EnumOreValue v: EnumOreValue.values()){
                 GameRegistry.addSmelting(new ItemStack(b, 1, v.getMetadata()), new ItemStack(ModItems.INGOTS.get(b.name + "Ingot"), 1, v.getMetadata()), 0.0f);
+                GameRegistry.addSmelting(new ItemStack(ModItems.DUSTS.get(b.name + "Dust"), 1, v.getMetadata()), new ItemStack(ModItems.INGOTS.get(b.name + "Ingot"), 1, v.getMetadata()), 0.0f);
             }
+
+
         }else{
             GameRegistry.addSmelting(b, new ItemStack(ModItems.INGOTS.get(b.name + "Ingot")), 0.0f);
         }
@@ -90,12 +94,19 @@ public class RecipeManager {
         String oreDictName = "ingot" + b.name.substring(0, 1).toUpperCase() + b.name.substring(1);
 
         BaseIngotWithVariants baseIngot= (BaseIngotWithVariants) ModItems.INGOTS.get(b.name + "Ingot");
+        BaseDustWithVariants baseDust= (BaseDustWithVariants) ModItems.DUSTS.get(b.name + "Dust");
 
         ItemStack nugget = new ItemStack(baseIngot, 1, 4);
         ItemStack shard = new ItemStack(baseIngot, 1, 3);
         ItemStack chunk = new ItemStack(baseIngot, 1, 2);
         ItemStack hunk = new ItemStack(baseIngot, 1, 1);
         ItemStack ingot = new ItemStack(baseIngot, 1, 0);
+
+        ItemStack tinyPile = new ItemStack(baseDust, 1, 4);
+        ItemStack smallPile = new ItemStack(baseDust, 1, 3);
+        ItemStack medPile = new ItemStack(baseDust, 1, 2);
+        ItemStack largePile = new ItemStack(baseDust, 1, 1);
+        ItemStack hugePile = new ItemStack(baseDust, 1, 0);
 
         Object[] size2 = new Object[2];
         Object[] size4 = new Object[4];
@@ -108,6 +119,12 @@ public class RecipeManager {
         registerShapelessRecipe(resourcePathBase + "nuggetToChunk", chunk, size4 );
         registerShapelessRecipe(resourcePathBase + "nuggetToHunk", hunk, size8 );
 
+        Arrays.fill(size2, Ingredient.fromStacks(tinyPile));
+        Arrays.fill(size4, Ingredient.fromStacks(tinyPile));
+        Arrays.fill(size8, Ingredient.fromStacks(tinyPile));
+        registerShapelessRecipe(resourcePathBase + "tinyToSmallDust", smallPile, size2 );
+        registerShapelessRecipe(resourcePathBase + "tinyToMedDust", medPile, size4 );
+        registerShapelessRecipe(resourcePathBase + "tinyToLargeDust", largePile, size8 );
 
         Arrays.fill(size2, Ingredient.fromStacks(shard));
         Arrays.fill(size4, Ingredient.fromStacks(shard));
@@ -116,21 +133,39 @@ public class RecipeManager {
         registerShapelessRecipe(resourcePathBase + "shardToHunk", hunk, size4 );
         registerShapelessRecipe(resourcePathBase + "shardToIngot", ingot, size8 );
 
+        Arrays.fill(size2, Ingredient.fromStacks(smallPile));
+        Arrays.fill(size4, Ingredient.fromStacks(smallPile));
+        Arrays.fill(size8, Ingredient.fromStacks(smallPile));
+        registerShapelessRecipe(resourcePathBase + "smallToMedDust", medPile, size2 );
+        registerShapelessRecipe(resourcePathBase + "smallToLargeDust", largePile, size4 );
+        registerShapelessRecipe(resourcePathBase + "smallToHugeDust", hugePile, size8 );
+
         Arrays.fill(size2, Ingredient.fromStacks(chunk));
         Arrays.fill(size4, Ingredient.fromStacks(chunk));
         registerShapelessRecipe(resourcePathBase + "chunkToHunk", hunk, size2 );
         registerShapelessRecipe(resourcePathBase + "chunkToIngot", ingot,size4 );
 
+        Arrays.fill(size2, Ingredient.fromStacks(medPile));
+        Arrays.fill(size4, Ingredient.fromStacks(medPile));
+        registerShapelessRecipe(resourcePathBase + "medToLargeDust", largePile, size2 );
+        registerShapelessRecipe(resourcePathBase + "medToHugeDust", hugePile, size4 );
 
         Arrays.fill(size2, Ingredient.fromStacks(hunk));
         registerShapelessRecipe(resourcePathBase + "hunkToIngot", ingot, size2);
 
+        Arrays.fill(size2, Ingredient.fromStacks(largePile));
+        registerShapelessRecipe(resourcePathBase + "LargeToHugeDust", hugePile, size2 );
 
-
+        //Reverse recipes
         registerShapelessRecipe(resourcePathBase + "ingotToHunk", new ItemStack(baseIngot, 2, 1), Ingredient.fromStacks(ingot) );
         registerShapelessRecipe(resourcePathBase + "hunkToChunk", new ItemStack(baseIngot, 2, 2), Ingredient.fromStacks(hunk) );
         registerShapelessRecipe(resourcePathBase + "chunkToShard", new ItemStack(baseIngot, 2, 3), Ingredient.fromStacks(chunk) );
         registerShapelessRecipe(resourcePathBase + "shardToNugget", new ItemStack(baseIngot, 2, 4), Ingredient.fromStacks(shard) );
+
+        registerShapelessRecipe(resourcePathBase + "HugeToLargeDust", new ItemStack(baseDust, 2, 1), Ingredient.fromStacks(hugePile) );
+        registerShapelessRecipe(resourcePathBase + "LargeToMedDust", new ItemStack(baseDust, 2, 2), Ingredient.fromStacks(largePile) );
+        registerShapelessRecipe(resourcePathBase + "MedToSmallDust", new ItemStack(baseDust, 2, 3), Ingredient.fromStacks(medPile) );
+        registerShapelessRecipe(resourcePathBase + "SmallToTinyDust", new ItemStack(baseDust, 2, 4), Ingredient.fromStacks(smallPile) );
     }
 
 
@@ -142,6 +177,30 @@ public class RecipeManager {
         if(OreConfig.genBuckets) {
             BaseBucket bucket = (BaseBucket) ModItems.MISC.get(b.name + "Bucket");
             registerShapedOreRecipe(resourcePathBase + "Bucket", new ItemStack(bucket, 1, 0), "x x", " x ", 'x', oreDictName);
+        }
+
+        //Ore-Doubling recipe
+        //TODO: Fix so helper items aren't consumed
+        if(OreConfig.recipes.simpleDustRecipe){
+            if(OreConfig.genVariants) {
+                OreLogger.info("Registering crushing recipes for " + b.name);
+                BaseDustWithVariants baseDust = (BaseDustWithVariants) ModItems.DUSTS.get(b.name + "Dust");
+                ItemStack smallPile = new ItemStack(baseDust, 1, 3);
+                ItemStack medPile = new ItemStack(baseDust, 1, 2);
+                ItemStack largePile = new ItemStack(baseDust, 1, 1);
+                ItemStack hugePile = new ItemStack(baseDust, 1, 0);
+                ItemStack hugePilex2 = new ItemStack(baseDust, 2, 0);
+
+                registerShapedOreCrushingRecipe(resourcePathBase + "smallPileCrush", smallPile, "rpr","oxo","ooo", 'r', "dustRedstone", 'p', "craftingPiston", 'o', "obsidian", 'x', "ore"+b.name+"poor" );
+                registerShapedOreCrushingRecipe(resourcePathBase + "medPileCrush", medPile, "rpr","oxo","ooo", 'r', "dustRedstone", 'p', "craftingPiston", 'o', "obsidian", 'x', "ore"+b.name+"low" );
+                registerShapedOreCrushingRecipe(resourcePathBase + "largePileCrush", largePile, "rpr","oxo","ooo", 'r', "dustRedstone", 'p', "craftingPiston", 'o', "obsidian", 'x', "ore"+b.name+"moderate" );
+                registerShapedOreCrushingRecipe(resourcePathBase + "hugePileCrush", hugePile, "rpr","oxo","ooo", 'r', "dustRedstone", 'p', "craftingPiston", 'o', "obsidian", 'x', "ore"+b.name+"high" );
+                registerShapedOreCrushingRecipe(resourcePathBase + "hugePilex2Crush", hugePilex2, "rpr","oxo","ooo", 'r', "dustRedstone", 'p', "craftingPiston", 'o', "obsidian", 'x', "ore"+b.name);
+            }else{
+                BaseDust baseDust = (BaseDust) ModItems.DUSTS.get(b.name + "Dust");
+                ItemStack dust = new ItemStack(baseDust, 2, 0);
+                registerShapedOreCrushingRecipe(resourcePathBase + "dustCrush", dust, "rpr","oxo","ooo", 'r', "blockRedstone", 'p', "craftingPiston", 'o', "blockObsidian", 'x', "ore"+b.name);
+            }
         }
 
 
@@ -158,6 +217,15 @@ public class RecipeManager {
 
         ResourceLocation location = new ResourceLocation(Ores.MODID, id);
         ShapedOreRecipe or = new ShapedOreRecipe(location, output, recipe);
+        or.setRegistryName(location);
+        GameData.register_impl(or);
+    }
+
+
+    private static void registerShapedOreCrushingRecipe(String id, ItemStack output, Object... recipe ){
+
+        ResourceLocation location = new ResourceLocation(Ores.MODID, id);
+        ShapedOreCrushingRecipe or = new ShapedOreCrushingRecipe(location, output, recipe);
         or.setRegistryName(location);
         GameData.register_impl(or);
     }

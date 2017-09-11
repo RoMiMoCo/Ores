@@ -1,6 +1,7 @@
 package com.romimoco.ores.events;
 
 import com.romimoco.ores.Items.BaseArmor;
+import com.romimoco.ores.Items.BaseDust;
 import com.romimoco.ores.Items.BaseIngot;
 import com.romimoco.ores.Items.ModItems;
 import com.romimoco.ores.blocks.BaseBlock;
@@ -93,9 +94,18 @@ public class RegistryEventHandler
 
         for(Item i: ModItems.DUSTS.values()){
             r.register(i);
-            String name = ((BaseIngot)i).name;
+            String name = ((BaseDust)i).name;
             name = name.substring(0,1).toUpperCase() + name.substring(1);
-            OreDictionary.registerOre("dust" + name, i);
+            if(OreConfig.genVariants)
+            {
+                OreDictionary.registerOre("dust"+ name + "tiny", new ItemStack(i, 1, 4));
+                OreDictionary.registerOre("dust"+ name + "small", new ItemStack(i, 1, 3));
+                OreDictionary.registerOre("dust"+ name + "med", new ItemStack(i, 1, 2));
+                OreDictionary.registerOre("dust"+ name + "large", new ItemStack(i, 1, 1));
+                OreDictionary.registerOre("dust"+ name, new ItemStack(i, 1, 0));
+            }else {
+                OreDictionary.registerOre("dust" + name, i);
+            }
         }
 
 
@@ -120,6 +130,9 @@ public class RegistryEventHandler
             ((IHasCustomModel)b).initModel();
         }
         for(Item i : ModItems.INGOTS.values()){
+            ((IHasCustomModel)i).initModel();
+        }
+        for(Item i : ModItems.DUSTS.values()){
             ((IHasCustomModel)i).initModel();
         }
         for(Item i : ModItems.ARMORS.values()){

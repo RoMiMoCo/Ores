@@ -36,8 +36,13 @@ public class ModItems {
                 INGOTS.put(ore.name + "Ingot", new BaseIngot(ore));
             }
             //dusts
-
-
+            if(OreConfig.genDusts){
+                if(OreConfig.genVariants){
+                    DUSTS.put(ore.name + "Dust", new BaseDustWithVariants(ore));
+                }else{
+                    DUSTS.put(ore.name + "Dust", new BaseDust(ore));
+                }
+            }
             //fluid
 
 
