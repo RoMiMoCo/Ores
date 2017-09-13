@@ -24,11 +24,11 @@ public class ShapedOreCrushingRecipe extends ShapedOreRecipe {
         for (int i = 0; i < remainingItems.size(); ++i) {
             final ItemStack itemstack = inventoryCrafting.getStackInSlot(i);
 
-            if (!itemstack.isEmpty() && !(itemstack.getItem() instanceof ItemBlockBaseOre)) {
+            if (!itemstack.isEmpty() && !(itemstack.getItem().getUnlocalizedName().contains("ore"))) {
                 remainingItems.set(i, itemstack.copy());
-            } //else {
-              //  remainingItems.set(i, ForgeHooks.getContainerItem(itemstack));
-            //}
+            } else {
+                remainingItems.set(i, ForgeHooks.getContainerItem(itemstack));
+            }
         }
 
         return remainingItems;

@@ -8,6 +8,8 @@ import com.romimoco.ores.blocks.ModBlocks;
 import com.romimoco.ores.enums.EnumOreValue;
 import com.romimoco.ores.util.OreConfig;
 import com.romimoco.ores.util.OreLogger;
+import com.romimoco.ores.util.StringUtil;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.item.crafting.ShapelessRecipes;
@@ -182,24 +184,23 @@ public class RecipeManager {
         //Ore-Doubling recipe
         //TODO: Fix so helper items aren't consumed
         if(OreConfig.recipes.simpleDustRecipe){
+            String name = StringUtil.toSentenceCase(b.name);
             if(OreConfig.genVariants) {
-                OreLogger.info("Registering crushing recipes for " + b.name);
                 BaseDustWithVariants baseDust = (BaseDustWithVariants) ModItems.DUSTS.get(b.name + "Dust");
                 ItemStack smallPile = new ItemStack(baseDust, 1, 3);
                 ItemStack medPile = new ItemStack(baseDust, 1, 2);
                 ItemStack largePile = new ItemStack(baseDust, 1, 1);
                 ItemStack hugePile = new ItemStack(baseDust, 1, 0);
                 ItemStack hugePilex2 = new ItemStack(baseDust, 2, 0);
-
-                registerShapedOreCrushingRecipe(resourcePathBase + "smallPileCrush", smallPile, "rpr","oxo","ooo", 'r', "dustRedstone", 'p', "craftingPiston", 'o', "obsidian", 'x', "ore"+b.name+"poor" );
-                registerShapedOreCrushingRecipe(resourcePathBase + "medPileCrush", medPile, "rpr","oxo","ooo", 'r', "dustRedstone", 'p', "craftingPiston", 'o', "obsidian", 'x', "ore"+b.name+"low" );
-                registerShapedOreCrushingRecipe(resourcePathBase + "largePileCrush", largePile, "rpr","oxo","ooo", 'r', "dustRedstone", 'p', "craftingPiston", 'o', "obsidian", 'x', "ore"+b.name+"moderate" );
-                registerShapedOreCrushingRecipe(resourcePathBase + "hugePileCrush", hugePile, "rpr","oxo","ooo", 'r', "dustRedstone", 'p', "craftingPiston", 'o', "obsidian", 'x', "ore"+b.name+"high" );
-                registerShapedOreCrushingRecipe(resourcePathBase + "hugePilex2Crush", hugePilex2, "rpr","oxo","ooo", 'r', "dustRedstone", 'p', "craftingPiston", 'o', "obsidian", 'x', "ore"+b.name);
+                registerShapedOreCrushingRecipe(resourcePathBase + "smallPileCrush", smallPile, "ooo","oxo","rpr", 'r', "dustRedstone", 'p', Blocks.PISTON, 'o', "obsidian", 'x', "ore"+ name +"poor" );
+                registerShapedOreCrushingRecipe(resourcePathBase + "medPileCrush", medPile, "ooo","oxo","rpr", 'r', "dustRedstone", 'p', Blocks.PISTON, 'o', "obsidian", 'x', "ore"+name+"low" );
+                registerShapedOreCrushingRecipe(resourcePathBase + "largePileCrush", largePile, "ooo","oxo","rpr", 'r', "dustRedstone", 'p', Blocks.PISTON, 'o', "obsidian", 'x', "ore"+name+"moderate" );
+                registerShapedOreCrushingRecipe(resourcePathBase + "hugePileCrush", hugePile, "ooo","oxo","rpr", 'r', "dustRedstone", 'p', Blocks.PISTON, 'o', "obsidian", 'x', "ore"+name+"high" );
+                registerShapedOreCrushingRecipe(resourcePathBase + "hugePilex2Crush", hugePilex2, "ooo","oxo","rpr", 'r', "dustRedstone", 'p', Blocks.PISTON, 'o', "obsidian", 'x', "ore"+name);
             }else{
                 BaseDust baseDust = (BaseDust) ModItems.DUSTS.get(b.name + "Dust");
                 ItemStack dust = new ItemStack(baseDust, 2, 0);
-                registerShapedOreCrushingRecipe(resourcePathBase + "dustCrush", dust, "rpr","oxo","ooo", 'r', "blockRedstone", 'p', "craftingPiston", 'o', "blockObsidian", 'x', "ore"+b.name);
+                registerShapedOreCrushingRecipe(resourcePathBase + "dustCrush", dust, "ooo","oxo","rpr", 'r', "dustRedstone", 'p', Blocks.PISTON, 'o', "blockObsidian", 'x', "ore"+name);
             }
         }
 
