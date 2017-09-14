@@ -39,7 +39,9 @@ public class CommonProxy {
 
 
     public void postInit(FMLPostInitializationEvent event) {
-        OreLogger.commitLocalization();
+        if(OreConfig.createResourcePack) {
+            OreLogger.commitLocalization();
+        }
     }
 
 }
