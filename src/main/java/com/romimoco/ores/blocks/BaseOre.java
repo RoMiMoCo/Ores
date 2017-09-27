@@ -53,7 +53,7 @@ public class BaseOre extends BlockOre implements IColoredItem, IHasCustomModel{
         }
 
         try {
-            harvestLevel = oreDefinition.get("Level").getAsInt();
+            harvestLevel = oreDefinition.get("Harvestlevel").getAsInt();
         }catch (Exception e){
         }
 
