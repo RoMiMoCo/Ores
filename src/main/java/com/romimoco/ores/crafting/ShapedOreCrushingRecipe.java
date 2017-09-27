@@ -1,7 +1,5 @@
 package com.romimoco.ores.crafting;
 
-import com.romimoco.ores.blocks.itemBlocks.ItemBlockBaseOre;
-import net.minecraft.block.Block;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;

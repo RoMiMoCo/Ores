@@ -41,6 +41,7 @@ public class RecipeManager {
 
         }else{
             GameRegistry.addSmelting(b, new ItemStack(ModItems.INGOTS.get(b.name + "Ingot")), 0.0f);
+            GameRegistry.addSmelting(b, new ItemStack(ModItems.DUSTS.get(b.name + "Dust")), 0.0f);
         }
     }
 
@@ -64,7 +65,7 @@ public class RecipeManager {
         BaseArmor leggings = (BaseArmor)ModItems.ARMORS.get(b.name + "Leggings");
         BaseArmor boots = (BaseArmor)ModItems.ARMORS.get(b.name + "Boots");
 
-        registerShapedOreRecipe(resourcePathBase + "Helmet", new ItemStack(helmet, 1, 0), "xxx", "x x", 'x', oreDictName);
+        registerShapedOreMetadataRecipe(resourcePathBase + "Helmet", new ItemStack(helmet, 1, 0), "xxx", "x x", 'x', oreDictName);
         registerShapedOreRecipe(resourcePathBase + "Chestplate", new ItemStack(chestplate, 1, 0), "x x", "xxx", "xxx", 'x', oreDictName);
         registerShapedOreRecipe(resourcePathBase + "Leggings", new ItemStack(leggings, 1, 0), "xxx", "x x","x x", 'x', oreDictName);
         registerShapedOreRecipe(resourcePathBase + "Boots", new ItemStack(boots, 1, 0), "x x", "x x", 'x', oreDictName);
@@ -227,6 +228,14 @@ public class RecipeManager {
 
         ResourceLocation location = new ResourceLocation(Ores.MODID, id);
         ShapedOreCrushingRecipe or = new ShapedOreCrushingRecipe(location, output, recipe);
+        or.setRegistryName(location);
+        GameData.register_impl(or);
+    }
+
+    private static void registerShapedOreMetadataRecipe(String id, ItemStack output, Object... recipe ){
+
+        ResourceLocation location = new ResourceLocation(Ores.MODID, id);
+        ShapedOreMetadataRecipe or = new ShapedOreMetadataRecipe(location, output, recipe);
         or.setRegistryName(location);
         GameData.register_impl(or);
     }
