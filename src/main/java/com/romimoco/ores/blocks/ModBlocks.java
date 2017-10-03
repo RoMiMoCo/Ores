@@ -21,6 +21,7 @@ import java.util.LinkedList;
 public class ModBlocks {
 
     public static LinkedList<Block> ORES = new LinkedList<>();
+    public static LinkedList<Block> GEMS = new LinkedList<>();
     public static HashMap<String, Block> BLOCKS = new HashMap<>();
 
 
@@ -53,6 +54,24 @@ public class ModBlocks {
             generator.add(new OreGenDefinition((BaseOre) ORES.peek(), OreGen));
             if(OreConfig.genFullBlocks) {
                 BLOCKS.put(((BaseOre) ORES.peek()).name + "Block", new BaseBlock((BaseOre) ORES.peek()));
+            }
+        }
+
+        JsonArray gemArray = (JsonArray) oreDefs.get("GemList");
+
+        for(JsonElement j : gemArray){
+            String name = ((JsonObject)j).get("Name").getAsString();
+            OreLogger.debug("Initializing " +name);
+
+            if(OreConfig.genVariants){
+                //GEMS.push(new BaseGemWithVariants((JsonObject)j));
+            }else {
+                GEMS.push(new BaseGem((JsonObject) j));
+            }
+            JsonObject OreGen = ((JsonObject)j).getAsJsonObject("Generation");
+            generator.add(new OreGenDefinition((BaseOre) GEMS.peek(), OreGen));
+            if(OreConfig.genFullBlocks) {
+                //BLOCKS.put(((BaseGem) GEMS.peek()).name + "Block", new BaseGemBlock((BaseGem) GEMS.peek()));
             }
         }
         GameRegistry.registerWorldGenerator(generator, 0);

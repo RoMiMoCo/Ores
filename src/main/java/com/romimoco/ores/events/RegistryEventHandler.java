@@ -34,6 +34,10 @@ public class RegistryEventHandler
         for(Block b : ModBlocks.ORES){
             r.register(b);
         }
+        for(Block b : ModBlocks.GEMS){
+            r.register(b);
+        }
+
         for(Block b : ModBlocks.BLOCKS.values()){
             r.register(b);
         }
@@ -45,6 +49,25 @@ public class RegistryEventHandler
         IForgeRegistry<Item> r = event.getRegistry();
         //Register ItemBlocks for blocks
         for(Block b : ModBlocks.ORES){
+            ItemBlock i = new ItemBlockBaseOre(b);
+
+            r.register(i.setRegistryName(b.getRegistryName()));
+            String name = ((BaseOre)b).name;
+            name = name.substring(0,1).toUpperCase() + name.substring(1);
+            OreLogger.debug(name);
+
+            if(OreConfig.genVariants)
+            {
+                OreDictionary.registerOre("ore"+ name + "poor", new ItemStack(i, 1, 4));
+                OreDictionary.registerOre("ore"+ name + "low", new ItemStack(i, 1, 3));
+                OreDictionary.registerOre("ore"+ name + "moderate", new ItemStack(i, 1, 2));
+                OreDictionary.registerOre("ore"+ name + "high", new ItemStack(i, 1, 1));
+                OreDictionary.registerOre("ore"+ name, new ItemStack(i, 1, 0));
+            }else {
+                OreDictionary.registerOre("ore" + name, i);
+            }
+        }
+        for(Block b : ModBlocks.GEMS){
             ItemBlock i = new ItemBlockBaseOre(b);
 
             r.register(i.setRegistryName(b.getRegistryName()));
@@ -132,6 +155,9 @@ public class RegistryEventHandler
     @SubscribeEvent
     public void registerModels(ModelRegistryEvent event){
         for(Block b : ModBlocks.ORES){
+            ((IHasCustomModel)b).initModel();
+        }
+        for(Block b : ModBlocks.GEMS){
             ((IHasCustomModel)b).initModel();
         }
         for(Block b : ModBlocks.BLOCKS.values()){
