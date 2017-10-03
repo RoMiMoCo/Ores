@@ -58,23 +58,32 @@ public class RecipeManager {
 
     public static void registerArmorRecipes(BaseOre b) {
         String resourcePathBase = "recipe" + b.name;
-        String oreDictName = "ingot" + b.name.substring(0, 1).toUpperCase() + b.name.substring(1);
-
+        String oreDictName;
+        if(OreConfig.recipes.recipesRequireIngot){
+            oreDictName = "ingot" + b.name.substring(0, 1).toUpperCase() + b.name.substring(1);
+        }else {
+            oreDictName = "mat" + b.name.substring(0, 1).toUpperCase() + b.name.substring(1);
+        }
         BaseArmor helmet = (BaseArmor)ModItems.ARMORS.get(b.name + "Helmet");
         BaseArmor chestplate = (BaseArmor)ModItems.ARMORS.get(b.name + "Chestplate");
         BaseArmor leggings = (BaseArmor)ModItems.ARMORS.get(b.name + "Leggings");
         BaseArmor boots = (BaseArmor)ModItems.ARMORS.get(b.name + "Boots");
 
         registerShapedOreMetadataRecipe(resourcePathBase + "Helmet", new ItemStack(helmet, 1, 0), "xxx", "x x", 'x', oreDictName);
-        registerShapedOreRecipe(resourcePathBase + "Chestplate", new ItemStack(chestplate, 1, 0), "x x", "xxx", "xxx", 'x', oreDictName);
-        registerShapedOreRecipe(resourcePathBase + "Leggings", new ItemStack(leggings, 1, 0), "xxx", "x x","x x", 'x', oreDictName);
-        registerShapedOreRecipe(resourcePathBase + "Boots", new ItemStack(boots, 1, 0), "x x", "x x", 'x', oreDictName);
+        registerShapedOreMetadataRecipe(resourcePathBase + "Chestplate", new ItemStack(chestplate, 1, 0), "x x", "xxx", "xxx", 'x', oreDictName);
+        registerShapedOreMetadataRecipe(resourcePathBase + "Leggings", new ItemStack(leggings, 1, 0), "xxx", "x x","x x", 'x', oreDictName);
+        registerShapedOreMetadataRecipe(resourcePathBase + "Boots", new ItemStack(boots, 1, 0), "x x", "x x", 'x', oreDictName);
 
     }
 
     public static void registerToolRecipes(BaseOre b){
         String resourcePathBase = "recipe" + b.name;
-        String oreDictName = "ingot" + b.name.substring(0, 1).toUpperCase() + b.name.substring(1);
+        String oreDictName;
+        if(OreConfig.recipes.recipesRequireIngot){
+            oreDictName = "ingot" + b.name.substring(0, 1).toUpperCase() + b.name.substring(1);
+        }else {
+            oreDictName = "mat" + b.name.substring(0, 1).toUpperCase() + b.name.substring(1);
+        }
 
         BaseAxe axe = (BaseAxe)ModItems.TOOLS.get(b.name + "Axe");
         BaseHoe hoe = (BaseHoe)ModItems.TOOLS.get(b.name + "Hoe");
@@ -83,12 +92,12 @@ public class RecipeManager {
         BaseSword sword = (BaseSword) ModItems.TOOLS.get(b.name + "Sword");
         BaseShears shears = (BaseShears) ModItems.TOOLS.get(b.name + "Shears");
 
-        registerShapedOreRecipe(resourcePathBase + "Axe", new ItemStack(axe, 1, 0), "xx", "xy"," y", 'x', oreDictName, 'y', "stickWood");
-        registerShapedOreRecipe(resourcePathBase + "Hoe", new ItemStack(hoe, 1, 0), "xx", " y", " y", 'x', oreDictName, 'y', "stickWood");
-        registerShapedOreRecipe(resourcePathBase + "Pickaxe", new ItemStack(pickaxe, 1, 0), "xxx", " y "," y ", 'x', oreDictName, 'y', "stickWood");
-        registerShapedOreRecipe(resourcePathBase + "Shovel", new ItemStack(shovel, 1, 0), "x", "y","y", 'x', oreDictName, 'y', "stickWood");
-        registerShapedOreRecipe(resourcePathBase + "Sword", new ItemStack(sword, 1, 0), "x", "x", "y", 'x', oreDictName, 'y', "stickWood");
-        registerShapedOreRecipe(resourcePathBase + "Shears", new ItemStack(shears, 1, 0), " x", "x ", 'x', oreDictName);
+        registerShapedOreMetadataRecipe(resourcePathBase + "Axe", new ItemStack(axe, 1, 0), "xx", "xy"," y", 'x', oreDictName, 'y', "stickWood");
+        registerShapedOreMetadataRecipe(resourcePathBase + "Hoe", new ItemStack(hoe, 1, 0), "xx", " y", " y", 'x', oreDictName, 'y', "stickWood");
+        registerShapedOreMetadataRecipe(resourcePathBase + "Pickaxe", new ItemStack(pickaxe, 1, 0), "xxx", " y "," y ", 'x', oreDictName, 'y', "stickWood");
+        registerShapedOreMetadataRecipe(resourcePathBase + "Shovel", new ItemStack(shovel, 1, 0), "x", "y","y", 'x', oreDictName, 'y', "stickWood");
+        registerShapedOreMetadataRecipe(resourcePathBase + "Sword", new ItemStack(sword, 1, 0), "x", "x", "y", 'x', oreDictName, 'y', "stickWood");
+        registerShapedOreMetadataRecipe(resourcePathBase + "Shears", new ItemStack(shears, 1, 0), " x", "x ", 'x', oreDictName);
     }
 
 
@@ -183,7 +192,6 @@ public class RecipeManager {
         }
 
         //Ore-Doubling recipe
-        //TODO: Fix so helper items aren't consumed
         if(OreConfig.recipes.simpleDustRecipe){
             String name = StringUtil.toSentenceCase(b.name);
             if(OreConfig.genVariants) {

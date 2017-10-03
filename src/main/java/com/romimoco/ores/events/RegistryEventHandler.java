@@ -87,6 +87,14 @@ public class RegistryEventHandler
                 OreDictionary.registerOre("chunk"+ name, new ItemStack(i, 1, 2));
                 OreDictionary.registerOre("hunk"+ name, new ItemStack(i, 1, 1));
                 OreDictionary.registerOre("ingot"+ name, new ItemStack(i, 1, 0));
+
+                //TODO: Revisit making this a custom ingredient.  this is hacky as all hell
+                OreDictionary.registerOre("mat"+ name, new ItemStack(i, 1, 4));
+                OreDictionary.registerOre("mat"+ name, new ItemStack(i, 1, 3));
+                OreDictionary.registerOre("mat"+ name, new ItemStack(i, 1, 2));
+                OreDictionary.registerOre("mat"+ name, new ItemStack(i, 1, 1));
+                OreDictionary.registerOre("mat"+ name, new ItemStack(i, 1, 0));
+
             }else {
                 OreDictionary.registerOre("ingot" + name, i);
             }

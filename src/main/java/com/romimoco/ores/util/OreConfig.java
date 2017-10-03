@@ -66,6 +66,9 @@ public class OreConfig {
         @Comment("Add a recipe to create dusts by crafting the ore with cobblestone")
         public boolean simpleDustRecipe;
 
+        @Comment("Make tool and armor recipes require full ingots rather ingot variants")
+        public boolean recipesRequireIngot;
+
         @Comment("Allow combining nuggets -> shards, shards -> chunks etc")
         public boolean variantCombinationRecipes;
 

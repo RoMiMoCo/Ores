@@ -9,6 +9,8 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 
+import java.util.ArrayList;
+
 public class ShapedOreMetadataRecipe extends ShapedOreRecipe {
 
 
@@ -32,8 +34,14 @@ public class ShapedOreMetadataRecipe extends ShapedOreRecipe {
                count++;
                meta += 5 - itemstack.getMetadata();
             }else{
-                //TODO: Filter for item to compare against item in itemstack
-                if(!OreDictionary.getOres("stickWood").contains(itemstack)) { //make sure it's not a stick
+                boolean stick=false;
+                for(int id : OreDictionary.getOreIDs(itemstack)){
+                    if(OreDictionary.getOreName(id) == "stickWood"){
+                        stick = true;
+                        break;
+                    }
+                }
+                if(!stick) { //make sure it's not a stick
                     count++;
                     meta += 5; //if not one of my ingots, assume full ingot
                 }
