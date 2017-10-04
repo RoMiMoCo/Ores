@@ -19,7 +19,7 @@ public class Ores
 {
     public static final String MODID = "romimocoores";
     public static final String NAME = "ores";
-    public static final String VERSION = "0.0.1";
+    public static final String VERSION = "0.2.0";
 
 
     @Mod.Instance
@@ -40,11 +40,7 @@ public class Ores
 
 
         //0.2.0
-        //TODO: Dusts
-        //TODO: Recipes -  Variant Armors/tools
-        //TODO: Gem generation (coal, diamonds, emeralds)
         //TODO: Fluids
-        //TODO: Config option for gems to drop multiple or variants
 
     }
 

@@ -19,6 +19,7 @@ import java.util.HashMap;
 
 public class ModItems {
     public static HashMap<String, Item> INGOTS = new HashMap<>();
+    public static HashMap<String, Item> GEMS = new HashMap<>();
     public static HashMap<String,Item> DUSTS = new HashMap<>();
     public static HashMap<String,Item> ARMORS = new HashMap<>();
     public static HashMap<String,Item> TOOLS = new HashMap<>();
@@ -28,6 +29,7 @@ public class ModItems {
 
         //for each of the ores we generated in ModBlocks:
         for(Block b : ModBlocks.ORES){
+
             BaseOre ore = (BaseOre)b;
             //ingot
             if( OreConfig.genVariants) {
@@ -36,18 +38,36 @@ public class ModItems {
                 INGOTS.put(ore.name + "Ingot", new BaseIngot(ore));
             }
             //dusts
-            if(OreConfig.genDusts){
-                if(OreConfig.genVariants){
+            if(OreConfig.genDusts) {
+                if (OreConfig.genVariants) {
                     DUSTS.put(ore.name + "Dust", new BaseDustWithVariants(ore));
-                }else{
+                } else {
                     DUSTS.put(ore.name + "Dust", new BaseDust(ore));
                 }
             }
-            //fluid
-
-
             //tools
-            if(OreConfig.genTools) {
+            genTools(ore);
+            //armors
+            genArmor(ore);
+            //buckets
+            if(OreConfig.genBuckets) {
+                MISC.put(ore.name + "Bucket", new BaseBucket(ore));
+            }
+        }
+
+        //GEMS
+        for(Block b : ModBlocks.GEMS){
+            BaseOre ore = (BaseOre)b;
+
+            genTools(ore);
+
+            genArmor(ore);
+        }
+    }
+
+
+    private static void genTools(BaseOre ore){
+        if(OreConfig.genTools) {
                 ItemTool.ToolMaterial t = EnumHelper.addToolMaterial(ore.name, ore.getHarvestLevel() + 1, (int) (ore.getHardness() * 100), ore.getHardness() * 2, ore.getHardness() * .66f, 9);
                 TOOLS.put(ore.name + "Pickaxe", new BasePickaxe(t, ore.getColor()).setRegistryName(Ores.MODID, ore.name + "Pickaxe"));
                 TOOLS.put(ore.name + "Axe", new BaseAxe(t, ore.getColor()).setRegistryName(Ores.MODID, ore.name + "Axe"));
@@ -56,21 +76,16 @@ public class ModItems {
                 TOOLS.put(ore.name + "Sword", new BaseSword(t, ore.getColor()).setRegistryName(Ores.MODID, ore.name + "Sword"));
                 TOOLS.put(ore.name + "Shears", new BaseShears(t, ore.getColor()).setRegistryName(Ores.MODID, ore.name + "Shears"));
             }
-            //armors
-            if(OreConfig.genArmor) {
-                int[] durabilities = new int[]{(int) (ore.getHardness() / 3.0f * 2), (int) (ore.getHardness() / 3.0f * 5), (int) (ore.getHardness() / 3.0f * 6), (int) (ore.getHardness() / 3.0f * 2)};
-                ItemArmor.ArmorMaterial a = EnumHelper.addArmorMaterial(ore.name, Ores.NAME + ":baseArmor", (int) (ore.getHardness() * 5), durabilities, 9, SoundEvents.ITEM_ARMOR_EQUIP_GENERIC, 0.0F);
-                ARMORS.put(ore.name + "Helmet", new BaseArmor(a, 1, EntityEquipmentSlot.HEAD, ore.getColor()).setRegistryName(Ores.MODID, a.name() + "Helmet"));
-                ARMORS.put(ore.name + "Chestplate", new BaseArmor(a, 1, EntityEquipmentSlot.CHEST, ore.getColor()).setRegistryName(Ores.MODID, a.name() + "Chestplate"));
-                ARMORS.put(ore.name + "Leggings", new BaseArmor(a, 1, EntityEquipmentSlot.LEGS, ore.getColor()).setRegistryName(Ores.MODID, a.name() + "Leggings"));
-                ARMORS.put(ore.name + "Boots", new BaseArmor(a, 1, EntityEquipmentSlot.FEET, ore.getColor()).setRegistryName(Ores.MODID, a.name() + "Boots"));
-            }
-            //buckets
-            if(OreConfig.genBuckets) {
-                MISC.put(ore.name + "Bucket", new BaseBucket(ore));
-            }
+    }
 
-            //TODO: recipes
+    private static void genArmor(BaseOre ore){
+        if(OreConfig.genArmor) {
+            int[] durabilities = new int[]{(int) (ore.getHardness() / 3.0f * 2), (int) (ore.getHardness() / 3.0f * 5), (int) (ore.getHardness() / 3.0f * 6), (int) (ore.getHardness() / 3.0f * 2)};
+            ItemArmor.ArmorMaterial a = EnumHelper.addArmorMaterial(ore.name, Ores.NAME + ":baseArmor", (int) (ore.getHardness() * 5), durabilities, 9, SoundEvents.ITEM_ARMOR_EQUIP_GENERIC, 0.0F);
+            ARMORS.put(ore.name + "Helmet", new BaseArmor(a, 1, EntityEquipmentSlot.HEAD, ore.getColor()).setRegistryName(Ores.MODID, a.name() + "Helmet"));
+            ARMORS.put(ore.name + "Chestplate", new BaseArmor(a, 1, EntityEquipmentSlot.CHEST, ore.getColor()).setRegistryName(Ores.MODID, a.name() + "Chestplate"));
+            ARMORS.put(ore.name + "Leggings", new BaseArmor(a, 1, EntityEquipmentSlot.LEGS, ore.getColor()).setRegistryName(Ores.MODID, a.name() + "Leggings"));
+            ARMORS.put(ore.name + "Boots", new BaseArmor(a, 1, EntityEquipmentSlot.FEET, ore.getColor()).setRegistryName(Ores.MODID, a.name() + "Boots"));
         }
     }
 }

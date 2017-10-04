@@ -1,9 +1,6 @@
 package com.romimoco.ores.events;
 
-import com.romimoco.ores.Items.BaseArmor;
-import com.romimoco.ores.Items.BaseDust;
-import com.romimoco.ores.Items.BaseIngot;
-import com.romimoco.ores.Items.ModItems;
+import com.romimoco.ores.Items.*;
 import com.romimoco.ores.blocks.BaseBlock;
 import com.romimoco.ores.blocks.BaseOre;
 import com.romimoco.ores.blocks.ModBlocks;
@@ -12,6 +9,7 @@ import com.romimoco.ores.crafting.RecipeManager;
 import com.romimoco.ores.util.IHasCustomModel;
 import com.romimoco.ores.util.OreConfig;
 import com.romimoco.ores.util.OreLogger;
+import com.romimoco.ores.util.StringUtil;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
@@ -139,6 +137,15 @@ public class RegistryEventHandler
             }
         }
 
+        for(Item i: ModItems.GEMS.values()){
+            r.register(i);
+
+            String name = ((BaseGemDrop)i).name;
+            name = StringUtil.toSentenceCase(name);
+
+            OreDictionary.registerOre("gem" + name, i);
+        }
+
 
         for(Item i: ModItems.TOOLS.values()){
             r.register(i);
@@ -164,6 +171,9 @@ public class RegistryEventHandler
             ((IHasCustomModel)b).initModel();
         }
         for(Item i : ModItems.INGOTS.values()){
+            ((IHasCustomModel)i).initModel();
+        }
+        for(Item i : ModItems.GEMS.values()){
             ((IHasCustomModel)i).initModel();
         }
         for(Item i : ModItems.DUSTS.values()){
@@ -202,6 +212,21 @@ public class RegistryEventHandler
             }
 
             RecipeManager.registerMiscRecipes((BaseOre)b);
+        }
+        for(Block b: ModBlocks.GEMS){
+
+            if(OreConfig.genArmor){
+                RecipeManager.registerGemArmorRecipes((BaseOre)b);
+            }
+
+            if(OreConfig.genTools){
+                RecipeManager.registerGemToolRecipes((BaseOre)b);
+            }
+
+            if(OreConfig.genFullBlocks){
+                //RecipeManager.registerMetalBlockRecipes((BaseOre)b);
+            }
+
         }
 
     }
