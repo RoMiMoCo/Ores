@@ -1,5 +1,6 @@
 package com.romimoco.ores.proxy;
 
+import com.romimoco.ores.Items.BaseBucket;
 import com.romimoco.ores.Items.ModItems;
 import com.romimoco.ores.blocks.ModBlocks;
 import com.romimoco.ores.util.OreColor;
@@ -58,7 +59,9 @@ public class ClientProxy extends CommonProxy {
             Minecraft.getMinecraft().getItemColors().registerItemColorHandler(colorHandler, i);
         }
         for(Item i : ModItems.MISC.values()){
-            //Minecraft.getMinecraft().getItemColors().registerItemColorHandler(colorHandler, i);
+            if(!(i instanceof BaseBucket)) {
+                Minecraft.getMinecraft().getItemColors().registerItemColorHandler(colorHandler, i);
+            }
         }
         //    ModBlocks.postInit();
     }

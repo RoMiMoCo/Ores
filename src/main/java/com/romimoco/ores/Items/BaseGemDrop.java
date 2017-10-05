@@ -51,7 +51,11 @@ public class BaseGemDrop extends Item implements IColoredItem, IHasCustomModel {
 
     @Override
     public void initModel() {
-        ModelLoader.setCustomModelResourceLocation(this, 0, new ModelResourceLocation(Ores.NAME +":gem_" + this.cut));
+        if(this.cut.equals("dust")){
+            ModelLoader.setCustomModelResourceLocation(this, 0, new ModelResourceLocation(Ores.NAME + ":basedust_rich"));
+        }else{
+            ModelLoader.setCustomModelResourceLocation(this, 0, new ModelResourceLocation(Ores.NAME +":gem_" + this.cut));
+        }
     }
 
     @Override
