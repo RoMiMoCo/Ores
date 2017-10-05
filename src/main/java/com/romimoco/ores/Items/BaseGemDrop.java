@@ -9,6 +9,7 @@ import com.romimoco.ores.util.OreLogger;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.model.ModelLoader;
 
 
@@ -17,6 +18,7 @@ public class BaseGemDrop extends Item implements IColoredItem, IHasCustomModel {
     private int color;
     public String name;
     private String cut;
+    private int burnTime;
 
     public BaseGemDrop(JsonObject definition, BaseGem b) {
 
@@ -32,6 +34,10 @@ public class BaseGemDrop extends Item implements IColoredItem, IHasCustomModel {
             this.cut = definition.get("Cut").getAsString();
         }catch(Exception e){}
 
+        this.burnTime = 0;
+        try{
+            this.burnTime = definition.get("BurnTime").getAsInt();
+        }catch(Exception e){}
 
 
 
@@ -46,5 +52,10 @@ public class BaseGemDrop extends Item implements IColoredItem, IHasCustomModel {
     @Override
     public void initModel() {
         ModelLoader.setCustomModelResourceLocation(this, 0, new ModelResourceLocation(Ores.NAME +":gem_" + this.cut));
+    }
+
+    @Override
+    public int getItemBurnTime(ItemStack stack){
+       return this.burnTime;
     }
 }

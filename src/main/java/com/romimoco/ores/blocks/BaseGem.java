@@ -57,7 +57,6 @@ public class BaseGem extends BaseOre implements IColoredItem, IHasCustomModel {
 
     @Override
     public Item getItemDropped(IBlockState state, Random rand, int fortune){
-        //TODO: extend this to custom gems
         return ForgeRegistries.ITEMS.getValue(new ResourceLocation(drop));
     }
 }

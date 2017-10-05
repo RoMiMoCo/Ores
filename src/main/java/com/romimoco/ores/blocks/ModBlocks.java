@@ -64,7 +64,7 @@ public class ModBlocks {
             OreLogger.debug("Initializing " +name);
 
             if(OreConfig.genVariants){
-                //GEMS.push(new BaseGemWithVariants((JsonObject)j));
+                GEMS.push(new BaseGemWithVariants((JsonObject)j));
             }else {
                 GEMS.push(new BaseGem((JsonObject) j));
             }
