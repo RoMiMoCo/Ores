@@ -45,7 +45,7 @@ public class BaseGem extends BaseOre implements IColoredItem, IHasCustomModel {
             this.drop = gemDrop.getUnlocalizedName().replaceFirst("item.","");
             String type = def.get("Type").getAsString();
 
-            if(type == null || !type.equals("gemstone")){
+            if(type == null || !type.equals("gem")){
                 ModItems.MISC.put(this.name , gemDrop);
             }else{
                 ModItems.GEMS.put(this.name , gemDrop);

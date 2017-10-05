@@ -2,6 +2,7 @@ package com.romimoco.ores.events;
 
 import com.romimoco.ores.Items.*;
 import com.romimoco.ores.blocks.BaseBlock;
+import com.romimoco.ores.blocks.BaseGem;
 import com.romimoco.ores.blocks.BaseOre;
 import com.romimoco.ores.blocks.ModBlocks;
 import com.romimoco.ores.blocks.itemBlocks.ItemBlockBaseOre;
@@ -155,6 +156,10 @@ public class RegistryEventHandler
         }
         for(Item i: ModItems.MISC.values()){
             r.register(i);
+
+            if(i instanceof BaseGemDrop ){
+                OreDictionary.registerOre(((BaseGemDrop)i).type + StringUtil.toSentenceCase((((BaseGemDrop) i).name)), i);
+            }
         }
 
     }
@@ -214,7 +219,7 @@ public class RegistryEventHandler
             RecipeManager.registerMiscRecipes((BaseOre)b);
         }
         for(Block b: ModBlocks.GEMS){
-
+            //TODO: Refactor this to only create Armor and Tools for gemstones
             if(OreConfig.genArmor){
                 RecipeManager.registerGemArmorRecipes((BaseOre)b);
             }

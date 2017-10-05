@@ -19,6 +19,7 @@ public class BaseGemDrop extends Item implements IColoredItem, IHasCustomModel {
     public String name;
     private String cut;
     private int burnTime;
+    public String type;
 
     public BaseGemDrop(JsonObject definition, BaseGem b) {
 
