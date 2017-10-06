@@ -45,12 +45,6 @@ public class BaseOre extends BlockOre implements IColoredItem, IHasCustomModel{
 
         try {
             hardness = oreDefinition.get("Hardness").getAsFloat();
-            //Clamp the hardness values to keep tools and armor inline with vanilla.  May be a bad idea in the long run
-            if(hardness < 2.0f){
-                hardness = 2.0f;
-            }else if (hardness > 4.5f){
-                hardness = 4.5f;
-            }
         }catch (Exception e){
         }
 
