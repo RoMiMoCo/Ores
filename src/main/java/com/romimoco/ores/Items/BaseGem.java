@@ -2,7 +2,7 @@ package com.romimoco.ores.Items;
 
 import com.google.gson.JsonObject;
 import com.romimoco.ores.Ores;
-import com.romimoco.ores.blocks.BaseGem;
+import com.romimoco.ores.blocks.BaseGemOre;
 import com.romimoco.ores.util.IColoredItem;
 import com.romimoco.ores.util.IHasCustomModel;
 import com.romimoco.ores.util.OreLogger;
@@ -13,7 +13,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.model.ModelLoader;
 
 
-public class BaseGemDrop extends Item implements IColoredItem, IHasCustomModel {
+public class BaseGem extends Item implements IColoredItem, IHasCustomModel {
 
     private int color;
     public String name;
@@ -21,7 +21,7 @@ public class BaseGemDrop extends Item implements IColoredItem, IHasCustomModel {
     private int burnTime;
     public String type;
 
-    public BaseGemDrop(JsonObject definition, BaseGem b) {
+    public BaseGem(JsonObject definition, BaseGemOre b) {
 
         super();
         this.name = b.name;

@@ -22,12 +22,12 @@ import java.util.Random;
 import static net.minecraftforge.client.model.ModelLoader.setCustomModelResourceLocation;
 
 
-public class BaseGemWithVariants extends BaseGem {
+public class BaseGemOreWithVariants extends BaseGemOre {
 
 
     public static final PropertyEnum PROPERTYOREVALUE = PropertyEnum.create("orevalue", EnumOreValue.class);
 
-    public BaseGemWithVariants(JsonObject gemDefinition){
+    public BaseGemOreWithVariants(JsonObject gemDefinition){
         super(gemDefinition);
         this.setDefaultState(this.blockState.getBaseState().withProperty(PROPERTYOREVALUE, EnumOreValue.MODERATE));
     }

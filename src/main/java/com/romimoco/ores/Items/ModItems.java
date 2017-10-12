@@ -56,8 +56,8 @@ public class ModItems {
         }
 
         //GEMS
-        for(Block b : ModBlocks.GEMS){
-            BaseOre ore = (BaseOre)b;
+        for(Item i : ModItems.GEMS.values()){
+            BaseOre ore = (BaseOre)ModBlocks.GEMS.get(((BaseGem)i).name);
 
             genTools(ore);
 

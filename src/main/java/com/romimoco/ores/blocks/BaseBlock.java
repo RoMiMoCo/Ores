@@ -22,12 +22,20 @@ public class BaseBlock extends Block implements IColoredItem, IHasCustomModel{
 
     private int color = 0x000000;
     public String name = "";
+    private String type = "";
 
     public BaseBlock(BaseOre ore) {
         super(Material.IRON);
         this.setSoundType(SoundType.METAL);
         this.color = ore.getColor();
         this.name = "block" + ore.name;
+
+        if(ore instanceof BaseGemOre){
+            this.type="Gem";
+            this.setSoundType(SoundType.STONE);
+        }else{
+            this.type="Metal";
+        }
 
         this.setUnlocalizedName(Ores.MODID +":" + name);
         this.setRegistryName(Ores.MODID, name);
@@ -39,14 +47,28 @@ public class BaseBlock extends Block implements IColoredItem, IHasCustomModel{
     @SideOnly(Side.CLIENT)
     @Override
     public void initModel() {
-        ModelLoader.setCustomModelResourceLocation(ItemBlock.getItemFromBlock(this), 0, new ModelResourceLocation( Ores.NAME + ":baseblock"));
 
-        ModelLoader.setCustomStateMapper(this, new StateMapperBase() {
-            @Override
-            protected ModelResourceLocation getModelResourceLocation(IBlockState state) {
-                return new ModelResourceLocation(Ores.NAME+":baseblock");
-            }
-        });
+
+        if(this.type.equals("Gem")){
+
+            ModelLoader.setCustomModelResourceLocation(ItemBlock.getItemFromBlock(this), 0, new ModelResourceLocation( Ores.NAME + ":basegemblock"));
+
+            ModelLoader.setCustomStateMapper(this, new StateMapperBase() {
+                @Override
+                protected ModelResourceLocation getModelResourceLocation(IBlockState state) {
+                    return new ModelResourceLocation(Ores.NAME+":basegemblock");
+                }
+            });
+        }else{
+            ModelLoader.setCustomModelResourceLocation(ItemBlock.getItemFromBlock(this), 0, new ModelResourceLocation( Ores.NAME + ":baseblock"));
+
+            ModelLoader.setCustomStateMapper(this, new StateMapperBase() {
+                @Override
+                protected ModelResourceLocation getModelResourceLocation(IBlockState state) {
+                    return new ModelResourceLocation(Ores.NAME+":baseblock");
+                }
+            });
+        }
     }
 
     @Override

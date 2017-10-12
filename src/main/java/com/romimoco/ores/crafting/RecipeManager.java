@@ -7,7 +7,6 @@ import com.romimoco.ores.blocks.BaseOre;
 import com.romimoco.ores.blocks.ModBlocks;
 import com.romimoco.ores.enums.EnumOreValue;
 import com.romimoco.ores.util.OreConfig;
-import com.romimoco.ores.util.OreLogger;
 import com.romimoco.ores.util.StringUtil;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
@@ -20,7 +19,6 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 import net.minecraftforge.registries.GameData;
-import scala.xml.dtd.impl.Base;
 
 import java.util.Arrays;
 
@@ -74,6 +72,19 @@ public class RecipeManager {
         registerShapedOreMetadataRecipe(resourcePathBase + "Leggings", new ItemStack(leggings, 1, 0), "xxx", "x x","x x", 'x', oreDictName);
         registerShapedOreMetadataRecipe(resourcePathBase + "Boots", new ItemStack(boots, 1, 0), "x x", "x x", 'x', oreDictName);
 
+    }
+
+    public static void registerGemBlockRecipes(BaseOre b){
+        String resourcePathBase = "recipe" + b.name;
+        String oreDictName = "gem" + b.name.substring(0, 1).toUpperCase() + b.name.substring(1);
+
+        BaseBlock block = (BaseBlock) ModBlocks.BLOCKS.get(b.name + "Block");
+        BaseGem gem = (BaseGem) ModItems.GEMS.get(b.name + "Gem");
+
+        if(gem != null) {
+            registerShapedOreRecipe(resourcePathBase + "Block", new ItemStack(block, 1, 0), "xxx", "xxx", "xxx", 'x', oreDictName);
+            registerShapelessRecipe(resourcePathBase + "BlockToIngots", new ItemStack(gem, 9), Ingredient.fromStacks(new ItemStack(block)));
+        }
     }
 
     public static void registerToolRecipes(BaseOre b){

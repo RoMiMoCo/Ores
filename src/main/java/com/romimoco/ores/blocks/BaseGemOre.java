@@ -1,7 +1,7 @@
 package com.romimoco.ores.blocks;
 
 import com.google.gson.JsonObject;
-import com.romimoco.ores.Items.BaseGemDrop;
+import com.romimoco.ores.Items.BaseGem;
 import com.romimoco.ores.Items.ModItems;
 import com.romimoco.ores.util.IColoredItem;
 import com.romimoco.ores.util.IHasCustomModel;
@@ -13,11 +13,11 @@ import net.minecraftforge.fml.common.registry.ForgeRegistries;
 
 import java.util.Random;
 
-public class BaseGem extends BaseOre implements IColoredItem, IHasCustomModel {
+public class BaseGemOre extends BaseOre implements IColoredItem, IHasCustomModel {
 
     private String drop;
 
-    public BaseGem(JsonObject gemDefinition) {
+    public BaseGemOre(JsonObject gemDefinition) {
         super(gemDefinition);
 
         float hardness=4.5f;
@@ -31,7 +31,6 @@ public class BaseGem extends BaseOre implements IColoredItem, IHasCustomModel {
         try{
             drop = gemDefinition.get("Drops").toString();
         }catch(Exception e){
-            e.printStackTrace();
         }
 
         if(drop.charAt(0) != '{'){
@@ -40,17 +39,16 @@ public class BaseGem extends BaseOre implements IColoredItem, IHasCustomModel {
         }else{
             JsonParser parser = new JsonParser();
             JsonObject def = (JsonObject) parser.parse(drop);
-            BaseGemDrop gemDrop = new BaseGemDrop(def, this);
+            BaseGem gem = new BaseGem(def, this);
 
-            this.drop = gemDrop.getUnlocalizedName().replaceFirst("item.","");
+            this.drop = gem.getUnlocalizedName().replaceFirst("item.","");
             String type = def.get("Type").getAsString();
 
             if(type == null || !type.equals("gem")){
-                ModItems.MISC.put(this.name , gemDrop);
+                ModItems.MISC.put(this.name + "Gem" , gem);
             }else{
-                ModItems.GEMS.put(this.name , gemDrop);
+                ModItems.GEMS.put(this.name + "Gem" , gem);
             }
-
         }
         this.setHardness(hardness);
     }

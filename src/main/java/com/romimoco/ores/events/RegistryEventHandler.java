@@ -2,7 +2,6 @@ package com.romimoco.ores.events;
 
 import com.romimoco.ores.Items.*;
 import com.romimoco.ores.blocks.BaseBlock;
-import com.romimoco.ores.blocks.BaseGem;
 import com.romimoco.ores.blocks.BaseOre;
 import com.romimoco.ores.blocks.ModBlocks;
 import com.romimoco.ores.blocks.itemBlocks.ItemBlockBaseOre;
@@ -33,7 +32,7 @@ public class RegistryEventHandler
         for(Block b : ModBlocks.ORES){
             r.register(b);
         }
-        for(Block b : ModBlocks.GEMS){
+        for(Block b : ModBlocks.GEMS.values()){
             r.register(b);
         }
 
@@ -66,7 +65,7 @@ public class RegistryEventHandler
                 OreDictionary.registerOre("ore" + name, i);
             }
         }
-        for(Block b : ModBlocks.GEMS){
+        for(Block b : ModBlocks.GEMS.values()){
             ItemBlock i = new ItemBlockBaseOre(b);
 
             r.register(i.setRegistryName(b.getRegistryName()));
@@ -141,7 +140,7 @@ public class RegistryEventHandler
         for(Item i: ModItems.GEMS.values()){
             r.register(i);
 
-            String name = ((BaseGemDrop)i).name;
+            String name = ((BaseGem)i).name;
             name = StringUtil.toSentenceCase(name);
 
             OreDictionary.registerOre("gem" + name, i);
@@ -157,8 +156,8 @@ public class RegistryEventHandler
         for(Item i: ModItems.MISC.values()){
             r.register(i);
 
-            if(i instanceof BaseGemDrop ){
-                OreDictionary.registerOre(((BaseGemDrop)i).type + StringUtil.toSentenceCase((((BaseGemDrop) i).name)), i);
+            if(i instanceof BaseGem){
+                OreDictionary.registerOre(((BaseGem)i).type + StringUtil.toSentenceCase((((BaseGem) i).name)), i);
             }
         }
 
@@ -169,7 +168,7 @@ public class RegistryEventHandler
         for(Block b : ModBlocks.ORES){
             ((IHasCustomModel)b).initModel();
         }
-        for(Block b : ModBlocks.GEMS){
+        for(Block b : ModBlocks.GEMS.values()){
             ((IHasCustomModel)b).initModel();
         }
         for(Block b : ModBlocks.BLOCKS.values()){
@@ -197,6 +196,7 @@ public class RegistryEventHandler
 
     @SubscribeEvent
     public void registerRecipes(RegistryEvent.Register<IRecipe> event){
+        IForgeRegistry registry = event.getRegistry();
         for(Block b: ModBlocks.ORES){
             RecipeManager.registerSmeltingRecipes((BaseOre)b);
 
@@ -218,7 +218,8 @@ public class RegistryEventHandler
 
             RecipeManager.registerMiscRecipes((BaseOre)b);
         }
-        for(Block b: ModBlocks.GEMS){
+        for(Item i: ModItems.GEMS.values()){
+            Block b = ModBlocks.GEMS.get(((BaseGem)i).name);
             //TODO: Refactor this to only create Armor and Tools for gemstones
             if(OreConfig.genArmor){
                 RecipeManager.registerGemArmorRecipes((BaseOre)b);
@@ -229,7 +230,7 @@ public class RegistryEventHandler
             }
 
             if(OreConfig.genFullBlocks){
-                //RecipeManager.registerMetalBlockRecipes((BaseOre)b);
+                RecipeManager.registerGemBlockRecipes((BaseOre)b);
             }
 
         }
