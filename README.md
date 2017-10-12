@@ -30,17 +30,62 @@ oreDefinitions.json has the following format.
         "VeinSize": 8
       }
     }
+  ],
+ "GemList":[
+    {
+      "Name" : "diamond",
+      "Color": "0x1589ff",
+      "Hardness":"2.2",
+      "Harvestlevel":"4",
+      "Drops":"minecraft:diamond",
+      "Generation":{
+        "MinY": 64,
+        "MaxY": 96,
+        "SpawnChance": 5,
+        "VeinSize": 24
+      }
+    },
+    {
+      "Name" : "ruby",
+      "Color": "0xff0000",
+      "Hardness":"2.2",
+      "Harvestlevel":"4",
+      "Drops":{
+          "Type":"gem",
+          "Cut":"round"
+      },
+      "Generation":{
+          "MinY": 64,
+          "MaxY": 96,
+          "SpawnChance": 5,
+          "VeinSize": 24
+      }
+    }
   ]
 }
 ```
 
-By default Ore, Ingot, Block, Tools and Armor will be generated for each ore defined.  They will also be registered into the OreDictionary so as to be useable by other mods (they will be registered based on the Name attribute, oreXXXXX, ingotXXXXX et cetera).
+Ores:
+  * Drops itself when mined
+  * Smelts into an ingot
+  * Variants smelt into variant ingots
+  * Will generate Ore, Ingots, Block, Tools, Armor, Dusts (based on config entries)
+
+Gems: ( >= v0.2.0)
+  * Drops an Item when mined
+  * Unsmeltable (currently)
+  * Drops can be custom defined or a string such as "minecraft:diamond" 
+  * Will generate Ore, Drops (if custom defined)
+  * If the Drop type is "gem", Tools, Armor, and Blocks will be generated.
+  * Custom Drops can have a BurnTime, which is the number of ticks they will burn in a furnace for. 
+  * The "cut" of a custom drop will define what it looks like.  Options are ball, chunk1, chunk2, crystal, rhomboid, round, square, teardrop, and trilliant.
+
 
 Armor and Tools will get their attributes from the Hardness value, with a value of 3 being equivalent to vanilla iron.
 Each tool can harvest one level above it's materials harvest level.
 
 If genVariants is enabled in the config, 5 variants will be generated for each ore, ranging from poor to rich, with rich ores being equivalent to vanilla ores.
-These variants will smelt into their own variant items, and those items can be combined to the next higher value variant or broken into the next lower variant.
+These variants will smelt into their own variant items (Gem variants will drop multiple items), and those items can be combined to the next higher value variant or broken into the next lower variant.
 
 
 **may not actually be the easiest, but hey, it's catchy*
