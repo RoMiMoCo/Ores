@@ -42,6 +42,17 @@ public enum EnumOreValue implements IStringSerializable{
             return "ingot";
         }
 
+        public static String dustNameByMetadata(int meta){
+            switch(meta){
+                case 4 : return "tiny";
+                case 3 : return "small";
+                case 2 : return "medium";
+                case 1 : return "large";
+                case 0 : return "huge";
+        }
+        return "ingot";
+    }
+
         public String getName(){
             return this.name;
         }

@@ -1,5 +1,6 @@
 package com.romimoco.ores.proxy;
 
+import com.romimoco.ores.Items.BaseBucket;
 import com.romimoco.ores.Items.ModItems;
 import com.romimoco.ores.blocks.ModBlocks;
 import com.romimoco.ores.util.OreColor;
@@ -9,6 +10,7 @@ import net.minecraft.item.Item;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import scala.collection.parallel.ParIterableLike;
 
 public class ClientProxy extends CommonProxy {
 
@@ -33,6 +35,10 @@ public class ClientProxy extends CommonProxy {
             Minecraft.getMinecraft().getBlockColors().registerBlockColorHandler(colorHandler, B);
             Minecraft.getMinecraft().getItemColors().registerItemColorHandler(colorHandler, B);
         }
+        for(Block B : ModBlocks.GEMS.values()) {
+            Minecraft.getMinecraft().getBlockColors().registerBlockColorHandler(colorHandler, B);
+            Minecraft.getMinecraft().getItemColors().registerItemColorHandler(colorHandler, B);
+        }
         for(Block B : ModBlocks.BLOCKS.values()) {
             Minecraft.getMinecraft().getBlockColors().registerBlockColorHandler(colorHandler, B);
             Minecraft.getMinecraft().getItemColors().registerItemColorHandler(colorHandler, B);
@@ -40,11 +46,22 @@ public class ClientProxy extends CommonProxy {
         for(Item i : ModItems.INGOTS.values()){
             Minecraft.getMinecraft().getItemColors().registerItemColorHandler(colorHandler, i);
         }
+        for(Item i : ModItems.GEMS.values()){
+            Minecraft.getMinecraft().getItemColors().registerItemColorHandler(colorHandler, i);
+        }
+        for(Item i : ModItems.DUSTS.values()){
+            Minecraft.getMinecraft().getItemColors().registerItemColorHandler(colorHandler, i);
+        }
         for(Item i : ModItems.ARMORS.values()){
             Minecraft.getMinecraft().getItemColors().registerItemColorHandler(colorHandler, i);
         }
         for(Item i : ModItems.TOOLS.values()){
             Minecraft.getMinecraft().getItemColors().registerItemColorHandler(colorHandler, i);
+        }
+        for(Item i : ModItems.MISC.values()){
+            if(!(i instanceof BaseBucket)) {
+                Minecraft.getMinecraft().getItemColors().registerItemColorHandler(colorHandler, i);
+            }
         }
         //    ModBlocks.postInit();
     }

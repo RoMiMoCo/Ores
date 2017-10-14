@@ -38,6 +38,11 @@ public class OreConfig {
         @Comment("Generate armor sets for each ore")
         public static boolean genArmor;
 
+        @Comment("Generate buckets for each ore")
+        public static boolean genBuckets;
+
+        @Comment("Create a resource pack for english localization")
+        public static boolean createResourcePack;
 
     public static class Worldgen {
 
@@ -60,6 +65,9 @@ public class OreConfig {
     public static class Recipes {
         @Comment("Add a recipe to create dusts by crafting the ore with cobblestone")
         public boolean simpleDustRecipe;
+
+        @Comment("Make tool and armor recipes require full ingots rather ingot variants")
+        public boolean recipesRequireIngot;
 
         @Comment("Allow combining nuggets -> shards, shards -> chunks etc")
         public boolean variantCombinationRecipes;

@@ -11,24 +11,23 @@ import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
-import net.minecraft.util.WeightedRandom;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class BaseIngotWithVariants extends BaseIngot implements IHasCustomModel, IColoredItem{
+public class BaseDustWithVariants extends BaseDust implements IHasCustomModel, IColoredItem{
 
 
     public static final PropertyEnum PROPERTYOREVALUE = PropertyEnum.create("orevalue", EnumOreValue.class);
 
-    public BaseIngotWithVariants(BaseOre b){
+    public BaseDustWithVariants(BaseOre b){
        super(b);
        this.setHasSubtypes(true);
        this.setCreativeTab(CreativeTabs.MISC);
 
        for(EnumOreValue v :EnumOreValue.values()) {
-           OreLogger.localize(this.getUnlocalizedName(new ItemStack(this, 1, v.getMetadata())) + ".name=" + b.name.substring(0, 1).toUpperCase() + b.name.substring(1) + " " +
-                                EnumOreValue.ingotNameByMetadata(v.getMetadata()).substring(0,1).toUpperCase() + EnumOreValue.ingotNameByMetadata(v.getMetadata()).substring(1));
+           OreLogger.localize(this.getUnlocalizedName(new ItemStack(this, 1, v.getMetadata())) + ".name="+ EnumOreValue.dustNameByMetadata(v.getMetadata()).substring(0,1).toUpperCase() +
+                                                                    EnumOreValue.dustNameByMetadata(v.getMetadata()).substring(1) + " pile of " + b.name.substring(0,1).toUpperCase() + b.name.substring(1) + " Dust" );
        }
     }
 
@@ -38,7 +37,7 @@ public class BaseIngotWithVariants extends BaseIngot implements IHasCustomModel,
 
         for(int i = 0; i < EnumOreValue.values().length; i++)
         {
-            ModelLoader.setCustomModelResourceLocation(this, i, new ModelResourceLocation(Ores.NAME+":baseIngot_"+ EnumOreValue.byMetadata(i)  ));
+            ModelLoader.setCustomModelResourceLocation(this, i, new ModelResourceLocation(Ores.NAME+":basedust_"+ EnumOreValue.byMetadata(i)  ));
         }
     }
 
@@ -54,6 +53,6 @@ public class BaseIngotWithVariants extends BaseIngot implements IHasCustomModel,
 
     @Override
     public String getUnlocalizedName(ItemStack stack){
-        return super.getUnlocalizedName().replaceFirst("ingot", EnumOreValue.ingotNameByMetadata(stack.getMetadata()));
+        return super.getUnlocalizedName().replaceFirst("dust", EnumOreValue.dustNameByMetadata(stack.getMetadata())) + "dust";
     }
 }

@@ -4,6 +4,8 @@ import com.google.gson.JsonObject;
 import com.romimoco.ores.Ores;
 import com.romimoco.ores.util.IColoredItem;
 import com.romimoco.ores.util.IHasCustomModel;
+import com.romimoco.ores.util.OreLogger;
+import com.romimoco.ores.util.StringUtil;
 import net.minecraft.block.BlockOre;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
@@ -43,12 +45,6 @@ public class BaseOre extends BlockOre implements IColoredItem, IHasCustomModel{
 
         try {
             hardness = oreDefinition.get("Hardness").getAsFloat();
-            //Clamp the hardness values to keep tools and armor inline with vanilla.  May be a bad idea in the long run
-            if(hardness < 2.0f){
-                hardness = 2.0f;
-            }else if (hardness > 4.5f){
-                hardness = 4.5f;
-            }
         }catch (Exception e){
         }
 
@@ -64,9 +60,11 @@ public class BaseOre extends BlockOre implements IColoredItem, IHasCustomModel{
         this.customHarvestLevel = harvestLevel;
         this.setHarvestLevel("pickaxe", harvestLevel);
 
-        this.setUnlocalizedName(Ores.MODID +".ore" + name);
+        this.setUnlocalizedName(Ores.MODID +":ore" + name);
         this.setRegistryName(Ores.MODID, name);
         this.setCreativeTab(CreativeTabs.MISC);
+
+        OreLogger.localize(this.getUnlocalizedName() + ".name=" + StringUtil.toSentenceCase(this.name)+ " Ore");
     }
 
 

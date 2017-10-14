@@ -5,6 +5,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.romimoco.ores.util.OreConfig;
+import com.romimoco.ores.util.OreLogger;
 import com.romimoco.ores.world.OreGenBase;
 import com.romimoco.ores.world.OreGenDefinition;
 import net.minecraft.block.Block;
@@ -20,6 +21,7 @@ import java.util.LinkedList;
 public class ModBlocks {
 
     public static LinkedList<Block> ORES = new LinkedList<>();
+    public static HashMap<String, Block> GEMS = new HashMap();
     public static HashMap<String, Block> BLOCKS = new HashMap<>();
 
 
@@ -33,15 +35,15 @@ public class ModBlocks {
         try {
             oreDefs = (JsonObject) parser.parse(new FileReader(new File("config/Romimoco/ores/oreDefinitions.json")));
         } catch (FileNotFoundException e) {
-           System.out.println("No Ore-Definitions found.  Create an oreDefinitions.json file in config/Romimoco/ores to define custom ores.");
+           OreLogger.error("No Ore-Definitions found.  Create an oreDefinitions.json file in config/Romimoco/ores to define custom ores.");
            return;
         }
-        //System.out.println("Found ore-defs");
+        OreLogger.debug("Found ore-defs");
         JsonArray oreArray = (JsonArray) oreDefs.get("OreList");
 
         for(JsonElement j : oreArray){
             String name = ((JsonObject)j).get("Name").getAsString();
-            System.out.println("Initializing " +name);
+            OreLogger.debug("Initializing " +name);
 
             if(OreConfig.genVariants){
                 ORES.push(new BaseOreWithVariants((JsonObject)j));
@@ -52,6 +54,24 @@ public class ModBlocks {
             generator.add(new OreGenDefinition((BaseOre) ORES.peek(), OreGen));
             if(OreConfig.genFullBlocks) {
                 BLOCKS.put(((BaseOre) ORES.peek()).name + "Block", new BaseBlock((BaseOre) ORES.peek()));
+            }
+        }
+
+        JsonArray gemArray = (JsonArray) oreDefs.get("GemList");
+
+        for(JsonElement j : gemArray){
+            String name = ((JsonObject)j).get("Name").getAsString();
+            OreLogger.debug("Initializing " +name);
+
+            if(OreConfig.genVariants){
+                GEMS.put(name, new BaseGemOreWithVariants((JsonObject)j));
+            }else {
+                GEMS.put(name, new BaseGemOre((JsonObject) j));
+            }
+            JsonObject OreGen = ((JsonObject)j).getAsJsonObject("Generation");
+            generator.add(new OreGenDefinition((BaseOre) GEMS.get(name), OreGen));
+            if(OreConfig.genFullBlocks) {
+                BLOCKS.put(name + "Block", new BaseBlock((BaseGemOre) GEMS.get(name)));
             }
         }
         GameRegistry.registerWorldGenerator(generator, 0);

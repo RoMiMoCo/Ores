@@ -3,6 +3,7 @@ package com.romimoco.ores.Items;
 import com.romimoco.ores.Ores;
 import com.romimoco.ores.util.IColoredItem;
 import com.romimoco.ores.util.IHasCustomModel;
+import com.romimoco.ores.util.OreLogger;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemArmor;
@@ -16,8 +17,11 @@ public class BaseArmor extends ItemArmor implements IColoredItem, IHasCustomMode
     private int color = 0x000000;
     public BaseArmor(ArmorMaterial mat, int renderIndex, EntityEquipmentSlot slot, int color){
         super(mat, renderIndex, slot);
-        this.setUnlocalizedName(Ores.MODID + "." +mat.name() + getArmorPieceName(slot));
+        this.setUnlocalizedName(Ores.MODID + ":" +mat.name() + getArmorPieceName(slot));
         this.color = color;
+
+        OreLogger.localize(this.getUnlocalizedName() + ".name=" + mat.name().substring(0,1).toUpperCase() + mat.name().substring(1) +
+                            " " + getArmorPieceName(slot).substring(0,1).toUpperCase() + getArmorPieceName(slot).substring(1));
     }
 
     @SideOnly(Side.CLIENT)
