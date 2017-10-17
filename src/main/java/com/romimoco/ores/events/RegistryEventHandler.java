@@ -30,10 +30,12 @@ public class RegistryEventHandler
         IForgeRegistry<Block> r = event.getRegistry();
 
         for(Block b : ModBlocks.ORES){
-            r.register(b);
+            if(((BaseOre)b).shouldRegister)
+                r.register(b);
         }
         for(Block b : ModBlocks.GEMS.values()){
-            r.register(b);
+            if(((BaseOre)b).shouldRegister)
+                r.register(b);
         }
 
         for(Block b : ModBlocks.BLOCKS.values()){
@@ -47,6 +49,10 @@ public class RegistryEventHandler
         IForgeRegistry<Item> r = event.getRegistry();
         //Register ItemBlocks for blocks
         for(Block b : ModBlocks.ORES){
+            if(!((BaseOre)b).shouldRegister){
+                continue;
+            }
+
             ItemBlock i = new ItemBlockBaseOre(b);
 
             r.register(i.setRegistryName(b.getRegistryName()));
@@ -66,6 +72,10 @@ public class RegistryEventHandler
             }
         }
         for(Block b : ModBlocks.GEMS.values()){
+            if(!((BaseOre)b).shouldRegister){
+                continue;
+            }
+
             ItemBlock i = new ItemBlockBaseOre(b);
 
             r.register(i.setRegistryName(b.getRegistryName()));
@@ -198,8 +208,9 @@ public class RegistryEventHandler
     public void registerRecipes(RegistryEvent.Register<IRecipe> event){
         IForgeRegistry registry = event.getRegistry();
         for(Block b: ModBlocks.ORES){
-            RecipeManager.registerSmeltingRecipes((BaseOre)b);
-
+            if(((BaseOre)b).shouldRegister) {
+                RecipeManager.registerSmeltingRecipes((BaseOre) b);
+            }
             if(OreConfig.genArmor){
                 RecipeManager.registerArmorRecipes((BaseOre)b);
             }

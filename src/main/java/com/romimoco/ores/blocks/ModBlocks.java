@@ -53,6 +53,8 @@ public class ModBlocks {
             JsonObject OreGen = ((JsonObject)j).getAsJsonObject("Generation");
             if(OreGen != null) {
                 generator.add(new OreGenDefinition((BaseOre) ORES.peek(), OreGen));
+            }else{
+                ((BaseOre)ORES.peek()).shouldRegister = false;//do not register ore blocks for ores that shouldn't generate
             }
             if(OreConfig.genFullBlocks) {
                 BLOCKS.put(((BaseOre) ORES.peek()).name + "Block", new BaseBlock((BaseOre) ORES.peek()));
@@ -71,7 +73,11 @@ public class ModBlocks {
                 GEMS.put(name, new BaseGemOre((JsonObject) j));
             }
             JsonObject OreGen = ((JsonObject)j).getAsJsonObject("Generation");
-            generator.add(new OreGenDefinition((BaseOre) GEMS.get(name), OreGen));
+            if(OreGen != null) {
+                generator.add(new OreGenDefinition((BaseOre) GEMS.get(name), OreGen));
+            }else{
+                ((BaseOre)GEMS.get(name)).shouldRegister = false;
+            }
             if(OreConfig.genFullBlocks) {
                 BLOCKS.put(name + "Block", new BaseBlock((BaseGemOre) GEMS.get(name)));
             }

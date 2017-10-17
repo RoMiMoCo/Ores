@@ -26,6 +26,7 @@ public class BaseOre extends BlockOre implements IColoredItem, IHasCustomModel{
     private int color;
     public String name;
     private int customHarvestLevel;
+    public boolean shouldRegister = true;
 
     public BaseOre(JsonObject oreDefinition){
         super();
