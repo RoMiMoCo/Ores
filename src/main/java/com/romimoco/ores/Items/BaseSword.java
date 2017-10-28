@@ -33,6 +33,7 @@ public class BaseSword extends ItemSword implements IHasCustomModel, IColoredIte
         return this.color;
     }
 
+    @SideOnly(Side.CLIENT)
     @Override
     public String getItemStackDisplayName(ItemStack stack)
     {

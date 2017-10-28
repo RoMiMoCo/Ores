@@ -36,6 +36,7 @@ public class BaseShears extends ItemShears implements IHasCustomModel,IColoredIt
         return this.color;
     }
 
+    @SideOnly(Side.CLIENT)
     @Override
     public String getItemStackDisplayName(ItemStack stack)
     {

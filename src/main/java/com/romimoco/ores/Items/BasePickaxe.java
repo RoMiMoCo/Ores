@@ -33,6 +33,7 @@ public class BasePickaxe extends ItemPickaxe implements IHasCustomModel,IColored
         return this.color;
     }
 
+    @SideOnly(Side.CLIENT)
     @Override
     public String getItemStackDisplayName(ItemStack stack)
     {

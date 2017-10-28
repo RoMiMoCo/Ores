@@ -106,14 +106,29 @@ public class BaseBucket extends UniversalBucket implements IColoredItem, IHasCus
  		return new ActionResult<>(EnumActionResult.PASS, heldItem);
  	}
 
+/*
     @Override
     public String getItemStackDisplayName(final ItemStack stack){
-        if(OreConfig.requireResourcePack) {
-            return net.minecraft.client.resources.I18n.format(this.getUnlocalizedNameInefficiently(stack));
-        }
-        return Ores.proxy.langs.translate(this.getUnlocalizedNameInefficiently(stack) + ".name").trim();
-    }
 
+        final FluidStack fluidStack = getFluid(stack);
+        final String unlocalisedName = this.getUnlocalizedNameInefficiently(stack);
+
+        if(OreConfig.requireResourcePack) {
+                    // If the bucket is empty, translate the unlocalised name directly
+                    if (fluidStack == null) {
+                        return I18n.translateToLocal(unlocalisedName + ".name").trim();
+                    }
+                    // If there's a fluid-specific translation, use it
+                    final String fluidUnlocalisedName = unlocalisedName + ".filled." + fluidStack.getFluid().getName() + ".name";
+                    if (I18n.canTranslate(fluidUnlocalisedName)) {
+                        return I18n.translateToLocal(fluidUnlocalisedName);
+                    }
+                    // Else translate the filled name directly, formatting it with the fluid name
+                    return I18n.translateToLocalFormatted(unlocalisedName + ".filled.name", fluidStack.getLocalizedName());
+                }
+        return Ores.proxy.langs.translate(unlocalisedName).trim();
+    }
+*/
     @Override
     public ItemStack getEmpty(){
         return empty;

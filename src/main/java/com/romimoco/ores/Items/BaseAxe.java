@@ -35,6 +35,7 @@ public class BaseAxe extends ItemAxe implements IHasCustomModel,IColoredItem {
         return this.color;
     }
 
+    @SideOnly(Side.CLIENT)
     @Override
     public String getItemStackDisplayName(ItemStack stack)
     {

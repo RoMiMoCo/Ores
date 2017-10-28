@@ -41,6 +41,7 @@ public class BaseIngot extends Item implements IColoredItem, IHasCustomModel{
         return color;
     }
 
+    @SideOnly(Side.CLIENT)
     @Override
     public String getItemStackDisplayName(ItemStack stack)
     {

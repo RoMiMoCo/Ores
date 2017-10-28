@@ -56,9 +56,9 @@ public class ModItems {
                 genArmor(ore);
             }
             //buckets
-            if(OreConfig.genBuckets) {
-                MISC.put(ore.name + "Bucket", new BaseBucket(ore));
-            }
+           // if(OreConfig.genBuckets) {
+            //    MISC.put(ore.name + "Bucket", new BaseBucket(ore));
+           // }
         }
 
         //GEMS
