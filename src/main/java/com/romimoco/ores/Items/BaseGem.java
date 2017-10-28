@@ -5,6 +5,7 @@ import com.romimoco.ores.Ores;
 import com.romimoco.ores.blocks.BaseGemOre;
 import com.romimoco.ores.util.IColoredItem;
 import com.romimoco.ores.util.IHasCustomModel;
+import com.romimoco.ores.util.OreConfig;
 import com.romimoco.ores.util.OreLogger;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
@@ -62,5 +63,14 @@ public class BaseGem extends Item implements IColoredItem, IHasCustomModel {
     @Override
     public int getItemBurnTime(ItemStack stack){
        return this.burnTime;
+    }
+
+    @Override
+    public String getItemStackDisplayName(ItemStack stack)
+    {
+        if(OreConfig.requireResourcePack) {
+            return super.getItemStackDisplayName(stack);
+        }
+        return Ores.proxy.langs.translate(this.getUnlocalizedNameInefficiently(stack) + ".name").trim();
     }
 }

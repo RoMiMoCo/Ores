@@ -3,9 +3,11 @@ package com.romimoco.ores.Items;
 import com.romimoco.ores.Ores;
 import com.romimoco.ores.util.IColoredItem;
 import com.romimoco.ores.util.IHasCustomModel;
+import com.romimoco.ores.util.OreConfig;
 import com.romimoco.ores.util.OreLogger;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.ItemHoe;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -30,5 +32,14 @@ public class BaseHoe extends ItemHoe implements IHasCustomModel, IColoredItem{
 
     public int getColor(){
         return this.color;
+    }
+
+    @Override
+    public String getItemStackDisplayName(ItemStack stack)
+    {
+        if(OreConfig.requireResourcePack) {
+            return super.getItemStackDisplayName(stack);
+        }
+        return Ores.proxy.langs.translate(this.getUnlocalizedNameInefficiently(stack) + ".name").trim();
     }
 }

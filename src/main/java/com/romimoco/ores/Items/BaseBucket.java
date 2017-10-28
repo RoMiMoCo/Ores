@@ -2,10 +2,7 @@ package com.romimoco.ores.Items;
 
 import com.romimoco.ores.Ores;
 import com.romimoco.ores.blocks.BaseOre;
-import com.romimoco.ores.util.FluidHandlerBaseBucket;
-import com.romimoco.ores.util.IColoredItem;
-import com.romimoco.ores.util.IHasCustomModel;
-import com.romimoco.ores.util.OreLogger;
+import com.romimoco.ores.util.*;
 import net.minecraft.client.renderer.block.model.ModelBakery;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
@@ -111,19 +108,10 @@ public class BaseBucket extends UniversalBucket implements IColoredItem, IHasCus
 
     @Override
     public String getItemStackDisplayName(final ItemStack stack){
-        final FluidStack fluidStack = getFluid(stack);
-        final String unlocalisedName = this.getUnlocalizedNameInefficiently(stack);
-        // If the bucket is empty, translate the unlocalised name directly
-        if (fluidStack == null) {
-            return I18n.translateToLocal(unlocalisedName + ".name").trim();
+        if(OreConfig.requireResourcePack) {
+            return net.minecraft.client.resources.I18n.format(this.getUnlocalizedNameInefficiently(stack));
         }
-        // If there's a fluid-specific translation, use it
-        final String fluidUnlocalisedName = unlocalisedName + ".filled." + fluidStack.getFluid().getName() + ".name";
-        if (I18n.canTranslate(fluidUnlocalisedName)) {
-            return I18n.translateToLocal(fluidUnlocalisedName);
-        }
-        // Else translate the filled name directly, formatting it with the fluid name
-        return I18n.translateToLocalFormatted(unlocalisedName + ".filled.name", fluidStack.getLocalizedName());
+        return Ores.proxy.langs.translate(this.getUnlocalizedNameInefficiently(stack) + ".name").trim();
     }
 
     @Override

@@ -72,13 +72,16 @@ public class ModBlocks {
             }else {
                 GEMS.put(name, new BaseGemOre((JsonObject) j));
             }
+
             JsonObject OreGen = ((JsonObject)j).getAsJsonObject("Generation");
+
             if(OreGen != null) {
                 generator.add(new OreGenDefinition((BaseOre) GEMS.get(name), OreGen));
             }else{
                 ((BaseOre)GEMS.get(name)).shouldRegister = false;
             }
-            if(OreConfig.genFullBlocks) {
+
+            if(OreConfig.genFullBlocks && ((JsonObject)j).get("Drops") != null &&((JsonObject)j).get("Drops").toString().charAt(0) == '{') {
                 BLOCKS.put(name + "Block", new BaseBlock((BaseGemOre) GEMS.get(name)));
             }
         }
