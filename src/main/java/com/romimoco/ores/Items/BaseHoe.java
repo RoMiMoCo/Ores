@@ -34,6 +34,7 @@ public class BaseHoe extends ItemHoe implements IHasCustomModel, IColoredItem{
         return this.color;
     }
 
+    @SideOnly(Side.CLIENT)
     @Override
     public String getItemStackDisplayName(ItemStack stack)
     {

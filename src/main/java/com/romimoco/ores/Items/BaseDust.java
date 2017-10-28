@@ -41,6 +41,7 @@ public class BaseDust extends Item implements IColoredItem, IHasCustomModel{
         return color;
     }
 
+    @SideOnly(Side.CLIENT)
     @Override
     public String getItemStackDisplayName(ItemStack stack)
     {

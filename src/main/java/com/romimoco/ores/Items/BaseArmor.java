@@ -54,6 +54,7 @@ public class BaseArmor extends ItemArmor implements IColoredItem, IHasCustomMode
         return getColor(ItemStack.EMPTY);
     }
 
+    @SideOnly(Side.CLIENT)
     @Override
     public String getItemStackDisplayName(ItemStack stack)
     {

@@ -29,6 +29,7 @@ public class ItemBlockBaseOre extends ItemBlock {
         return metadata;
     }
 
+    @SideOnly(Side.CLIENT)
     @Override
     public String getItemStackDisplayName(ItemStack stack)
     {

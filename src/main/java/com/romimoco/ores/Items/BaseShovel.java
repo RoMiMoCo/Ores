@@ -33,6 +33,7 @@ public class BaseShovel extends ItemSpade  implements IHasCustomModel,IColoredIt
         return this.color;
     }
 
+    @SideOnly(Side.CLIENT)
     @Override
     public String getItemStackDisplayName(ItemStack stack)
     {
