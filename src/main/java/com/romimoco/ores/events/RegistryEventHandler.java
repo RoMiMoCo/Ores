@@ -4,6 +4,7 @@ import com.romimoco.ores.Items.*;
 import com.romimoco.ores.blocks.BaseBlock;
 import com.romimoco.ores.blocks.BaseOre;
 import com.romimoco.ores.blocks.ModBlocks;
+import com.romimoco.ores.blocks.itemBlocks.ItemBlockBaseBlock;
 import com.romimoco.ores.blocks.itemBlocks.ItemBlockBaseOre;
 import com.romimoco.ores.crafting.RecipeManager;
 import com.romimoco.ores.util.IHasCustomModel;
@@ -96,7 +97,7 @@ public class RegistryEventHandler
         }
 
         for(Block b : ModBlocks.BLOCKS.values()){
-            ItemBlock i = new ItemBlock(b);
+            ItemBlock i = new ItemBlockBaseBlock(b);
 
             r.register(i.setRegistryName(b.getRegistryName()));
             String name = ((BaseBlock)b).name;

@@ -3,6 +3,7 @@ package com.romimoco.ores.Items;
 import com.romimoco.ores.Ores;
 import com.romimoco.ores.util.IColoredItem;
 import com.romimoco.ores.util.IHasCustomModel;
+import com.romimoco.ores.util.OreConfig;
 import com.romimoco.ores.util.OreLogger;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.inventory.EntityEquipmentSlot;
@@ -51,5 +52,14 @@ public class BaseArmor extends ItemArmor implements IColoredItem, IHasCustomMode
     @Override
     public int getColor() {
         return getColor(ItemStack.EMPTY);
+    }
+
+    @Override
+    public String getItemStackDisplayName(ItemStack stack)
+    {
+        if(OreConfig.requireResourcePack) {
+            return super.getItemStackDisplayName(stack);
+        }
+        return Ores.proxy.langs.translate(this.getUnlocalizedNameInefficiently(stack) + ".name").trim();
     }
 }

@@ -20,55 +20,84 @@ public class OreConfig {
     public static final Worldgen worldgen = new Worldgen();
     public static final Recipes recipes = new Recipes();
 
+        @Config.RequiresMcRestart
         @Comment("Generate Variants for ores")
         public static boolean genVariants;
 
+        @Config.RequiresMcRestart
         @Comment("Generate dusts for each ore")
         public static boolean genDusts;
 
+        @Config.RequiresMcRestart
         @Comment("Generate ingots for each ore")
         public static boolean genIngots;
 
+        @Config.RequiresMcRestart
         @Comment("Generate full Blocks for each ore")
         public static boolean genFullBlocks;
 
+        @Config.RequiresMcRestart
         @Comment("Generate tools for each ore")
         public static boolean genTools;
 
+        @Config.RequiresMcRestart
         @Comment("Generate armor sets for each ore")
         public static boolean genArmor;
 
+        @Config.RequiresMcRestart
         @Comment("Generate buckets for each ore")
         public static boolean genBuckets;
 
+        @Config.RequiresMcRestart
         @Comment("Create a resource pack for english localization")
         public static boolean createResourcePack;
 
+        @Config.RequiresMcRestart
+        @Comment("Require a resource pack to be installed for localizations to work.  Slight memory decrease and faster lookups")
+        public static boolean requireResourcePack;
+
     public static class Worldgen {
 
+        @Config.RequiresWorldRestart
         @Comment("Disable world generation of minecraft iron ore")
         public  boolean disableVanillaIron;
+
+        @Config.RequiresWorldRestart
         @Comment("Disable world generation of minecraft coal ore")
         public  boolean disableVanillaCoal;
+
+        @Config.RequiresWorldRestart
         @Comment("Disable world generation of minecraft gold ore")
         public  boolean disableVanillaGold;
+
+        @Config.RequiresWorldRestart
         @Comment("Disable world generation of minecraft redstone ore")
         public static boolean disableVanillaRedstone;
+
+        @Config.RequiresWorldRestart
         @Comment("Disable world generation of minecraft diamonds")
         public boolean disableVanillaDiamond;
+
+        @Config.RequiresWorldRestart
         @Comment("Disable world generation of minecraft emeralds")
         public boolean disableVanillaEmerald;
+
+        @Config.RequiresWorldRestart
         @Comment("Disable world generation of minecraft nether quartz")
         public boolean disableVanillaQuartz;
     }
 
     public static class Recipes {
-        @Comment("Add a recipe to create dusts by crafting the ore with cobblestone")
+
+        @Config.RequiresMcRestart
+        @Comment("Add a recipe to create dusts by crafting the ore with obsidian, a piston and redstone")
         public boolean simpleDustRecipe;
 
+        @Config.RequiresMcRestart
         @Comment("Make tool and armor recipes require full ingots rather ingot variants")
         public boolean recipesRequireIngot;
 
+        @Config.RequiresMcRestart
         @Comment("Allow combining nuggets -> shards, shards -> chunks etc")
         public boolean variantCombinationRecipes;
 
