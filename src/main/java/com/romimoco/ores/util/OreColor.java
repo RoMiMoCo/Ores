@@ -20,8 +20,9 @@ public class OreColor implements IBlockColor, IItemColor {
         return 0;
     }
 
+
     @Override
-    public int getColorFromItemstack(ItemStack stack, int tintIndex) {
+    public int colorMultiplier(ItemStack stack, int tintIndex) {
         if(stack.getItem() instanceof ItemBlock && ((ItemBlock)stack.getItem()).getBlock() instanceof IColoredItem){
             return ((IColoredItem)((ItemBlock)stack.getItem()).getBlock()).getColor();
         }

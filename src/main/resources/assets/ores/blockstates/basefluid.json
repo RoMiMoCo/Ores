@@ -1,0 +1,13 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "textures": {
+      "base": "ores:blocks/fluid_still"
+    },
+    "model": "forge:fluid"
+  },
+  "variants":{
+    "normal":[{}],
+    "inventory":[{}]
+  }
+}

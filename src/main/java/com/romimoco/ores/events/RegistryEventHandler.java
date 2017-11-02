@@ -1,12 +1,14 @@
 package com.romimoco.ores.events;
 
 import com.romimoco.ores.Items.*;
+import com.romimoco.ores.Ores;
 import com.romimoco.ores.blocks.BaseBlock;
 import com.romimoco.ores.blocks.BaseOre;
 import com.romimoco.ores.blocks.ModBlocks;
 import com.romimoco.ores.blocks.itemBlocks.ItemBlockBaseBlock;
 import com.romimoco.ores.blocks.itemBlocks.ItemBlockBaseOre;
 import com.romimoco.ores.crafting.RecipeManager;
+import com.romimoco.ores.fluids.OreFluid;
 import com.romimoco.ores.util.IHasCustomModel;
 import com.romimoco.ores.util.OreConfig;
 import com.romimoco.ores.util.OreLogger;
@@ -16,8 +18,11 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.fluids.BlockFluidClassic;
+import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.registries.IForgeRegistry;
@@ -42,6 +47,10 @@ public class RegistryEventHandler
         for(Block b : ModBlocks.BLOCKS.values()){
             r.register(b);
         }
+
+        for(Block b : ModBlocks.FLUIDBLOCKS.values()){
+            r.register(b);
+        }
     }
 
     @SubscribeEvent
@@ -50,6 +59,8 @@ public class RegistryEventHandler
         IForgeRegistry<Item> r = event.getRegistry();
         //Register ItemBlocks for blocks
         for(Block b : ModBlocks.ORES){
+
+
             if(!((BaseOre)b).shouldRegister){
                 continue;
             }
@@ -174,6 +185,7 @@ public class RegistryEventHandler
 
     }
 
+
     @SubscribeEvent
     public void registerModels(ModelRegistryEvent event){
         for(Block b : ModBlocks.ORES){
@@ -183,6 +195,9 @@ public class RegistryEventHandler
             ((IHasCustomModel)b).initModel();
         }
         for(Block b : ModBlocks.BLOCKS.values()){
+            ((IHasCustomModel)b).initModel();
+        }
+        for(Block b : ModBlocks.FLUIDBLOCKS.values()){
             ((IHasCustomModel)b).initModel();
         }
         for(Item i : ModItems.INGOTS.values()){

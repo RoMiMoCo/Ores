@@ -1,10 +1,14 @@
 package com.romimoco.ores;
 
+import com.romimoco.ores.integrations.OreIntegrations;
+import com.romimoco.ores.integrations.TiConIntegration;
 import com.romimoco.ores.proxy.CommonProxy;
 import com.romimoco.ores.events.OreGenEventHandler;
 import com.romimoco.ores.events.RegistryEventHandler;
+import com.romimoco.ores.util.OreConfig;
 import com.romimoco.ores.util.OreLogger;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -33,6 +37,16 @@ public class Ores
     {
         OreLogger.init(event.getModLog());
         OreLogger.info("Romimoco ores PRE-INIT");
+
+        //Set up all of the integrations here
+        if(OreConfig.integrations.TiConIntegration){
+            if(Loader.isModLoaded("tconstruct")){
+                OreIntegrations.addIntegration(new TiConIntegration());
+            }else{
+                OreLogger.error("Tinkers construct integration requested but tinkers not loaded");
+            }
+        }
+
         proxy.preInit(event);
 
         MinecraftForge.EVENT_BUS.register(new RegistryEventHandler());

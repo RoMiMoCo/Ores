@@ -2,6 +2,8 @@ package com.romimoco.ores.proxy;
 
 import com.romimoco.ores.Items.ModItems;
 import com.romimoco.ores.blocks.ModBlocks;
+import com.romimoco.ores.integrations.IOreIntegration;
+import com.romimoco.ores.integrations.OreIntegrations;
 import com.romimoco.ores.lang.i18n;
 import com.romimoco.ores.util.OreConfig;
 import com.romimoco.ores.util.OreLogger;
@@ -23,7 +25,6 @@ public class CommonProxy {
 
         ModBlocks.init();
         ModItems.init();
-        //ModRecipes.init();
 
         //All items are created, can write the .lang file now if needed
         if(OreConfig.createResourcePack) {
@@ -34,16 +35,27 @@ public class CommonProxy {
             //init the i18n system
             langs = new i18n();
         }
+
+        //All items are created, can integrate them now
+        for(IOreIntegration i: OreIntegrations.integrations){
+            i.preInit(event);
+        }
     }
 
 
     public void init(FMLInitializationEvent event) {
 
-
+        for(IOreIntegration i: OreIntegrations.integrations){
+            i.Init(event);
+        }
     }
 
 
     public void postInit(FMLPostInitializationEvent event) {
+
+        for(IOreIntegration i: OreIntegrations.integrations){
+            i.postInit(event);
+        }
     }
 
 }

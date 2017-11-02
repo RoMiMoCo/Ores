@@ -19,6 +19,7 @@ public class OreConfig {
 
     public static final Worldgen worldgen = new Worldgen();
     public static final Recipes recipes = new Recipes();
+    public static final Integrations integrations = new Integrations();
 
         @Config.RequiresMcRestart
         @Comment("Generate Variants for ores")
@@ -47,6 +48,10 @@ public class OreConfig {
         @Config.RequiresMcRestart
         @Comment("Generate buckets for each ore")
         public static boolean genBuckets;
+
+        @Config.RequiresMcRestart
+        @Comment("Generate fluids for each ore")
+        public static boolean genFluids;
 
         @Config.RequiresMcRestart
         @Comment("Create a resource pack for english localization")
@@ -101,6 +106,11 @@ public class OreConfig {
         @Comment("Allow combining nuggets -> shards, shards -> chunks etc")
         public boolean variantCombinationRecipes;
 
+    }
+
+    public static class Integrations{
+        @Comment("Add Smelting and Casting for all ores")
+        public boolean TiConIntegration;
     }
 
     @Mod.EventBusSubscriber(modid = Ores.MODID)
