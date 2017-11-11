@@ -61,10 +61,20 @@ public class TiConIntegration implements IOreIntegration {
                 for(int i = 0; i < 5; i ++){
                     int amt = (int)Math.pow(2, 4-i) * 18;
                     TinkerRegistry.registerMelting(new ItemStack(b, 1, i), moltenOre , amt);
-                    TinkerRegistry.registerMelting(new ItemStack(ModItems.INGOTS.get(b.name), 1, i), moltenOre, amt / 2 );
+                    TinkerRegistry.registerMelting(new ItemStack(ModItems.INGOTS.get(b.name+"Ingot"), 1, i), moltenOre, amt / 2 );
+                }
+            }else{ //just register the melting for the meta 0's
+                TinkerRegistry.registerMelting(b, moltenOre, 288);
+                TinkerRegistry.registerMelting(new ItemStack(ModItems.INGOTS.get(b.name + "Ingot"), 1, 0), moltenOre, 144 );
+            }
+        }else{ //Even if we don't register the ore, we still need to add melting for the ingots
+            if(OreConfig.genVariants){
+                for(int i = 0; i < 5; i ++){
+                    int amt = (int)Math.pow(2, 4-i) * 18;
+                    TinkerRegistry.registerMelting(new ItemStack(ModItems.INGOTS.get(b.name + "Ingot"), 1, i), moltenOre, amt / 2 );
                 }
             }else{
-                TinkerRegistry.registerMelting(b, moltenOre, 288);
+                TinkerRegistry.registerMelting(new ItemStack(ModItems.INGOTS.get(b.name + "Ingot"), 1, 0), moltenOre, 144 );
             }
         }
     }
