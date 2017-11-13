@@ -8,7 +8,6 @@ import com.romimoco.ores.blocks.ModBlocks;
 import com.romimoco.ores.blocks.itemBlocks.ItemBlockBaseBlock;
 import com.romimoco.ores.blocks.itemBlocks.ItemBlockBaseOre;
 import com.romimoco.ores.crafting.RecipeManager;
-import com.romimoco.ores.fluids.OreFluid;
 import com.romimoco.ores.util.IHasCustomModel;
 import com.romimoco.ores.util.OreConfig;
 import com.romimoco.ores.util.OreLogger;
@@ -48,9 +47,6 @@ public class RegistryEventHandler
             r.register(b);
         }
 
-        for(Block b : ModBlocks.FLUIDBLOCKS.values()){
-            r.register(b);
-        }
     }
 
     @SubscribeEvent
@@ -195,9 +191,6 @@ public class RegistryEventHandler
             ((IHasCustomModel)b).initModel();
         }
         for(Block b : ModBlocks.BLOCKS.values()){
-            ((IHasCustomModel)b).initModel();
-        }
-        for(Block b : ModBlocks.FLUIDBLOCKS.values()){
             ((IHasCustomModel)b).initModel();
         }
         for(Item i : ModItems.INGOTS.values()){

@@ -5,8 +5,6 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.romimoco.ores.Ores;
-import com.romimoco.ores.fluids.OreFluid;
-import com.romimoco.ores.fluids.OreFluidBlock;
 import com.romimoco.ores.util.OreConfig;
 import com.romimoco.ores.util.OreLogger;
 import com.romimoco.ores.world.OreGenBase;
@@ -30,7 +28,6 @@ public class ModBlocks {
     public static LinkedList<Block> ORES = new LinkedList<>();
     public static HashMap<String, Block> GEMS = new HashMap();
     public static HashMap<String, Block> BLOCKS = new HashMap<>();
-    public static HashMap<String, Block> FLUIDBLOCKS = new HashMap<>();
 
 
     public static void init(){
@@ -66,14 +63,6 @@ public class ModBlocks {
             }
             if(OreConfig.genFullBlocks) {
                 BLOCKS.put(((BaseOre) ORES.peek()).name + "Block", new BaseBlock((BaseOre) ORES.peek()));
-            }
-
-            if(OreConfig.genFluids){
-                BaseOre b = (BaseOre)ORES.peek();
-                OreFluid fluid = new OreFluid(((BaseOre)b), new ResourceLocation(Ores.NAME + ":blocks/fluid_still"), new ResourceLocation(Ores.NAME + ":blocks/fluid_flow"));
-                FluidRegistry.registerFluid(fluid);
-                FluidRegistry.addBucketForFluid(fluid);
-                FLUIDBLOCKS.put(b.name + "FluidBlock",  new OreFluidBlock(fluid, Material.LAVA).setUnlocalizedName(Ores.MODID + ":block" + fluid.getName()).setRegistryName(Ores.MODID, fluid.getName()));
             }
         }
 

@@ -43,10 +43,6 @@ public class ClientProxy extends CommonProxy {
             Minecraft.getMinecraft().getBlockColors().registerBlockColorHandler(colorHandler, B);
             Minecraft.getMinecraft().getItemColors().registerItemColorHandler(colorHandler, B);
         }
-        for(Block B : ModBlocks.FLUIDBLOCKS.values()){
-            Minecraft.getMinecraft().getBlockColors().registerBlockColorHandler(colorHandler, B);
-            Minecraft.getMinecraft().getItemColors().registerItemColorHandler(colorHandler, B);
-        }
         for(Item i : ModItems.INGOTS.values()){
             Minecraft.getMinecraft().getItemColors().registerItemColorHandler(colorHandler, i);
         }
