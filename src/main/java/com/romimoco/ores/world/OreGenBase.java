@@ -32,7 +32,9 @@ public class OreGenBase implements IWorldGenerator {
     @Override
     public void generate(Random random, int chunkX, int chunkZ, World world, IChunkGenerator chunkGenerator, IChunkProvider chunkProvider) {
        for(OreGenDefinition d : ores) {
-           addOreSpawn(world, random, chunkX * 16, chunkZ * 16, 16, 16, d);
+           if(d.biomes == null || d.biomes.contains((world.getBiome(new BlockPos(chunkX * 16, 0, chunkZ * 16)).getBiomeName()))) { //if no biomes specified for spawn, or the current biome is specified
+               addOreSpawn(world, random, chunkX * 16, chunkZ * 16, 16, 16, d);
+           }
        }
     }
 
@@ -44,7 +46,7 @@ public class OreGenBase implements IWorldGenerator {
             int z = zPos + random.nextInt(maxZ);
 
             if(OreConfig.genVariants) {
-                (new WorldGenMinable(def.ore.getStateFromMeta(random.nextInt(EnumOreValue.values().length)), def.veinSize, BlockMatcher.forBlock(Blocks.STONE))).generate(world, random, new BlockPos(x, y, z));
+                (new WorldGenMinable(def.ore.getStateFromMeta(def.getMetaToSpawn(random.nextInt(100))), def.veinSize, BlockMatcher.forBlock(Blocks.STONE))).generate(world, random, new BlockPos(x, y, z));
             }else{
                 (new WorldGenMinable(def.ore.getDefaultState(), def.veinSize, BlockMatcher.forBlock(Blocks.STONE))).generate(world, random, new BlockPos(x, y, z));
             }
