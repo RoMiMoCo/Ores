@@ -40,15 +40,19 @@ public class OreGenBase implements IWorldGenerator {
 
 
     private void addOreSpawn(World world, Random random, int xPos, int zPos, int maxX, int maxZ, OreGenDefinition def){
+        String currentBiome = world.getBiome(new BlockPos(xPos, 64, zPos)).getBiomeName();
         for(int i = 0; i < def.spawnChance; i++){
             int x = xPos + random.nextInt(maxX);
             int y = def.minY + random.nextInt(def.maxY - def.minY);
             int z = zPos + random.nextInt(maxZ);
 
-            if(OreConfig.genVariants) {
-                (new WorldGenMinable(def.ore.getStateFromMeta(def.getMetaToSpawn(random.nextInt(100))), def.veinSize, BlockMatcher.forBlock(Blocks.STONE))).generate(world, random, new BlockPos(x, y, z));
-            }else{
-                (new WorldGenMinable(def.ore.getDefaultState(), def.veinSize, BlockMatcher.forBlock(Blocks.STONE))).generate(world, random, new BlockPos(x, y, z));
+            //no biome defined, or biome list contains the current biome
+            if(def.biomes == null || def.biomes.contains(currentBiome)){
+                if(OreConfig.genVariants) {
+                    (new WorldGenMinable(def.ore.getStateFromMeta(def.getMetaToSpawn(random.nextInt(100))), def.veinSize, BlockMatcher.forBlock(Blocks.STONE))).generate(world, random, new BlockPos(x, y, z));
+                }else{
+                    (new WorldGenMinable(def.ore.getDefaultState(), def.veinSize, BlockMatcher.forBlock(Blocks.STONE))).generate(world, random, new BlockPos(x, y, z));
+                }
             }
         }
     }

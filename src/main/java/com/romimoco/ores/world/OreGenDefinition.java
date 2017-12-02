@@ -105,9 +105,17 @@ public class OreGenDefinition {
 
         try{
             JsonArray biomes = def.get("Biomes").getAsJsonArray();
-            this.biomes = new ArrayList<>();
+            ArrayList localBiomes =  new ArrayList<>();
             for(JsonElement j : biomes){
-                try(this.biomes)
+                try{
+                    String biome = j.getAsString();
+                    localBiomes.add(j.getAsString());
+                }catch (Exception e){
+                    e.printStackTrace();
+                    OreLogger.error("Malformed biome name");}
+            }
+            if(!localBiomes.isEmpty()){
+                this.biomes = localBiomes;
             }
         }catch (Exception e){OreLogger.error("No biomes specified, ore will generate in all biomes");}
     }
