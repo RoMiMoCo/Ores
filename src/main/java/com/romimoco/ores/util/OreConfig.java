@@ -53,6 +53,11 @@ public class OreConfig {
         @Comment("Generate fluids for each ore")
         public static boolean genFluids;
 
+
+        @Config.RequiresMcRestart
+        @Comment("Generate Shields for each ore")
+        public static boolean genShields;
+
         @Config.RequiresMcRestart
         @Comment("Create a resource pack for english localization")
         public static boolean createResourcePack;
@@ -60,6 +65,7 @@ public class OreConfig {
         @Config.RequiresMcRestart
         @Comment("Require a resource pack to be installed for localizations to work.  Slight memory decrease and faster lookups")
         public static boolean requireResourcePack;
+
 
     public static class Worldgen {
 

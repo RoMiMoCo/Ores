@@ -74,6 +74,21 @@ public class RecipeManager {
 
     }
 
+    public static void registerShieldRecipes(BaseOre b) {
+        String resourcePathBase = "recipe" + b.name + "shield";
+        String oreDictName;
+        if (OreConfig.recipes.recipesRequireIngot) {
+            oreDictName = "ingot" + b.name.substring(0, 1).toUpperCase() + b.name.substring(1);
+        } else {
+            oreDictName = "mat" + b.name.substring(0, 1).toUpperCase() + b.name.substring(1);
+        }
+
+        BaseShield shield = ((BaseShield)ModItems.MISC.get(b.name + "Shield"));
+        registerShapedOreMetadataRecipe(resourcePathBase + "Shield", new ItemStack(shield, 1, 0), "xyx", "xxx", " x ", 'x', "plankWood", 'y', oreDictName);
+
+
+    }
+
     public static void registerGemBlockRecipes(BaseOre b){
         String resourcePathBase = "recipe" + b.name;
         String oreDictName = "gem" + b.name.substring(0, 1).toUpperCase() + b.name.substring(1);

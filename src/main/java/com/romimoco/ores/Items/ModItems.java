@@ -59,6 +59,10 @@ public class ModItems {
            // if(OreConfig.genBuckets) {
             //    MISC.put(ore.name + "Bucket", new BaseBucket(ore));
            // }
+
+            if(OreConfig.genShields){
+                MISC.put(ore.name + "Shield", new BaseShield(ore));
+            }
         }
 
         //GEMS
@@ -74,6 +78,7 @@ public class ModItems {
             }
         }
     }
+
 
 
     private static void genTools(BaseOre ore){

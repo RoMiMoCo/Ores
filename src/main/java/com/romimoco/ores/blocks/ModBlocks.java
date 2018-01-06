@@ -46,6 +46,7 @@ public class ModBlocks {
         OreLogger.debug("Found ore-defs");
         JsonArray oreArray = (JsonArray) oreDefs.get("OreList");
 
+        if(oreArray != null){
         for(JsonElement j : oreArray){
             String name = ((JsonObject)j).get("Name").getAsString();
             OreLogger.debug("Initializing " +name);
@@ -64,10 +65,10 @@ public class ModBlocks {
             if(OreConfig.genFullBlocks) {
                 BLOCKS.put(((BaseOre) ORES.peek()).name + "Block", new BaseBlock((BaseOre) ORES.peek()));
             }
-        }
+        }}
 
         JsonArray gemArray = (JsonArray) oreDefs.get("GemList");
-
+        if(gemArray != null){
         for(JsonElement j : gemArray){
             String name = ((JsonObject)j).get("Name").getAsString();
             OreLogger.debug("Initializing " +name);
@@ -89,7 +90,7 @@ public class ModBlocks {
             if(OreConfig.genFullBlocks && ((JsonObject)j).get("Drops") != null &&((JsonObject)j).get("Drops").toString().charAt(0) == '{') {
                 BLOCKS.put(name + "Block", new BaseBlock((BaseGemOre) GEMS.get(name)));
             }
-        }
+        }}
         GameRegistry.registerWorldGenerator(generator, 0);
 
     }

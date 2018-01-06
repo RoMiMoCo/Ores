@@ -36,7 +36,7 @@ public class ShapedOreMetadataRecipe extends ShapedOreRecipe {
             }else{
                 boolean stick=false;
                 for(int id : OreDictionary.getOreIDs(itemstack)){
-                    if(OreDictionary.getOreName(id) == "stickWood"){
+                    if(OreDictionary.getOreName(id) == "stickWood" || OreDictionary.getOreName(id) == "plankWood"){
                         stick = true;
                         break;
                     }

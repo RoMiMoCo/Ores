@@ -12,6 +12,7 @@ import com.romimoco.ores.util.IHasCustomModel;
 import com.romimoco.ores.util.OreConfig;
 import com.romimoco.ores.util.OreLogger;
 import com.romimoco.ores.util.StringUtil;
+import com.sun.org.apache.regexp.internal.RE;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
@@ -226,6 +227,10 @@ public class RegistryEventHandler
 
             if(OreConfig.genTools){
                 RecipeManager.registerToolRecipes((BaseOre)b);
+            }
+
+            if(OreConfig.genShields){
+                RecipeManager.registerShieldRecipes((BaseOre)b);
             }
 
             if(OreConfig.genFullBlocks){
