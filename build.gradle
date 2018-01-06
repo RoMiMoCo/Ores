@@ -38,6 +38,8 @@ repositories {
         name 'DVS1 Maven FS'
         url 'http://dvs1.progwml6.com/files/maven'
     }
+
+
 }
 
 dependencies {
@@ -63,6 +65,7 @@ dependencies {
     // http://www.gradle.org/docs/current/userguide/dependency_management.html
 
     compileOnly "slimeknights:TConstruct:1.12-2.7.+"
+    //deobfProvided "blusunrize:ImmersiveEngineering-0.12-+"
 }
 
 processResources {

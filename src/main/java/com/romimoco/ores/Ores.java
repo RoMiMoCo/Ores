@@ -1,5 +1,6 @@
 package com.romimoco.ores;
 
+import com.romimoco.ores.integrations.IEIntegration;
 import com.romimoco.ores.integrations.OreIntegrations;
 import com.romimoco.ores.integrations.TiConIntegration;
 import com.romimoco.ores.proxy.CommonProxy;
@@ -47,6 +48,13 @@ public class Ores
             }
         }
 
+        if(OreConfig.integrations.IEIntegration){
+            if(Loader.isModLoaded("immersiveengineering")){
+                OreIntegrations.addIntegration(new IEIntegration());
+            }else{
+                OreLogger.error("Immersive Engineering integration requested but tinkers not loaded");
+            }
+        }
         proxy.preInit(event);
 
         MinecraftForge.EVENT_BUS.register(new RegistryEventHandler());

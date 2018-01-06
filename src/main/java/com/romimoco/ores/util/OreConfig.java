@@ -115,8 +115,12 @@ public class OreConfig {
     }
 
     public static class Integrations{
-        @Comment("Add Smelting and Casting for all ores")
+        @Comment("Add Tinkers Construct Smelting and Casting for all ores")
         public boolean TiConIntegration;
+
+        @Comment("Add Immersive Engineering Smelting and Crushing for all ores")
+        public boolean IEIntegration;
+
     }
 
     @Mod.EventBusSubscriber(modid = Ores.MODID)
