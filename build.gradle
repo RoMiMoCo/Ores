@@ -35,7 +35,7 @@ minecraft {
 
 repositories {
     maven { //Tinkers
-        name 'DVS1 Maven FS'
+       name 'DVS1 Maven FS'
         url 'http://dvs1.progwml6.com/files/maven'
     }
 
@@ -65,7 +65,7 @@ dependencies {
     // http://www.gradle.org/docs/current/userguide/dependency_management.html
 
     compileOnly "slimeknights:TConstruct:1.12-2.7.+"
-    //deobfProvided "blusunrize:ImmersiveEngineering-0.12-+"
+    provided "blusunrize:ImmersiveEngineering-0.12-+"
 }
 
 processResources {

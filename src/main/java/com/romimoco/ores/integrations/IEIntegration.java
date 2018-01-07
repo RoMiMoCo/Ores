@@ -46,8 +46,8 @@ public class IEIntegration implements IOreIntegration {
                         IERecipes.addCrusherRecipe(new ItemStack(ModItems.DUSTS.get(b.name + "Dust"), 2, i), b, 6000);
                         IERecipes.addCrusherRecipe(new ItemStack(ModItems.DUSTS.get(b.name + "Dust"), 1, i), ModItems.INGOTS.get(b.name + "Ingot"), 3600);
                     } else {
-                        IERecipes.addCrusherRecipe(new ItemStack(ModItems.DUSTS.get(b.name + "Dust"), 1, i-1), b, 6000);
-                        IERecipes.addCrusherRecipe(new ItemStack(ModItems.DUSTS.get(b.name + "Dust"), 1, i), ModItems.INGOTS.get(b.name + StringUtil.toSentenceCase(EnumOreValue.ingotNameByMetadata(i))), (int)Math.pow(2,4-i) * 225);
+                        IERecipes.addCrusherRecipe(new ItemStack(ModItems.DUSTS.get(b.name + "Dust"), 1, i-1), new ItemStack(b, 1, i), 6000);
+                        IERecipes.addCrusherRecipe(new ItemStack(ModItems.DUSTS.get(b.name + "Dust"), 1, i), new ItemStack(ModItems.INGOTS.get(b.name + "Ingot"), 1, i), (int)Math.pow(2,4-i) * 225);
                     }
                 }
             }else{ //just register for the meta 0's
@@ -57,7 +57,7 @@ public class IEIntegration implements IOreIntegration {
         }else{ //Even if we don't register the ore, we still need to add melting for the ingots / dusts
             if(OreConfig.genVariants){
                 for(int i = 0; i < 5; i ++) {
-                    IERecipes.addCrusherRecipe(new ItemStack(ModItems.DUSTS.get(b.name + "Dust"), 1, i), ModItems.INGOTS.get(b.name + StringUtil.toSentenceCase(EnumOreValue.ingotNameByMetadata(i))), (int) Math.pow(2, 4 - i) * 225);
+                    IERecipes.addCrusherRecipe(new ItemStack(ModItems.DUSTS.get(b.name + "Dust"), 1, i), ModItems.INGOTS.get(b.name + "Ingot"), (int) Math.pow(2, 4 - i) * 225);
                 }
             }else{
                     IERecipes.addCrusherRecipe(new ItemStack(ModItems.DUSTS.get(b.name + "Dust"), 1, 0), ModItems.INGOTS.get(b.name + "Ingot"), 3600);
@@ -77,9 +77,9 @@ public class IEIntegration implements IOreIntegration {
                             IERecipes.addArcRecipe(new ItemStack(ModItems.INGOTS.get(b.name + "Ingot"), 1, i), new ItemStack(ModItems.DUSTS.get(b.name + "Dust"), 1, 0), 200, 512, new ItemStack(IEContent.itemMaterial,1,7)).setSpecialRecipeType("Ores");
                         }
                     } else {
-                        IERecipes.addArcRecipe(new ItemStack(ModItems.INGOTS.get(b.name + StringUtil.toSentenceCase(EnumOreValue.ingotNameByMetadata(i-1))), 1, i), new ItemStack(b, 1, i), 200, 512, new ItemStack(IEContent.itemMaterial,1,7)).setSpecialRecipeType("Ores");
+                        IERecipes.addArcRecipe(new ItemStack(ModItems.INGOTS.get(b.name + "Ingot"), 1, i-1), new ItemStack(b, 1, i), 200, 512, new ItemStack(IEContent.itemMaterial,1,7)).setSpecialRecipeType("Ores");
                         if(OreConfig.genDusts) {
-                            IERecipes.addArcRecipe(new ItemStack(ModItems.INGOTS.get(b.name + StringUtil.toSentenceCase(EnumOreValue.ingotNameByMetadata(i))), 1, i), new ItemStack(ModItems.DUSTS.get(b.name + "Dust"), 1, i), (int) Math.pow(2, 4 - i) * 12, 512, new ItemStack(IEContent.itemMaterial, 1, 7)).setSpecialRecipeType("Ores");
+                            IERecipes.addArcRecipe(new ItemStack(ModItems.INGOTS.get(b.name + "Ingot"), 1, i), new ItemStack(ModItems.DUSTS.get(b.name + "Dust"), 1, i), (int) Math.pow(2, 4 - i) * 12, 512, new ItemStack(IEContent.itemMaterial, 1, 7)).setSpecialRecipeType("Ores");
                         }
                     }
                 }
@@ -95,7 +95,7 @@ public class IEIntegration implements IOreIntegration {
             }
             if(OreConfig.genVariants){
                 for(int i = 0; i < 5; i ++) {
-                    IERecipes.addArcRecipe(new ItemStack(ModItems.INGOTS.get(b.name + StringUtil.toSentenceCase(EnumOreValue.ingotNameByMetadata(i))), 1, i), new ItemStack(ModItems.DUSTS.get(b.name + "Dust"), 1, i),(int)Math.pow(2,4-i) * 12, 512, new ItemStack(IEContent.itemMaterial,1,7)).setSpecialRecipeType("Ores");
+                    IERecipes.addArcRecipe(new ItemStack(ModItems.INGOTS.get(b.name + "Ingot"), 1, i), new ItemStack(ModItems.DUSTS.get(b.name + "Dust"), 1, i),(int)Math.pow(2,4-i) * 12, 512, new ItemStack(IEContent.itemMaterial,1,7)).setSpecialRecipeType("Ores");
                 }
             }else{
                 IERecipes.addArcRecipe(new ItemStack(ModItems.INGOTS.get(b.name + "Ingot"), 1, 0), new ItemStack(ModItems.DUSTS.get(b.name + "Dust"), 1, 0), 200, 512, new ItemStack(IEContent.itemMaterial,1,7)).setSpecialRecipeType("Ores");
