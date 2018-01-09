@@ -19,6 +19,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 import net.minecraftforge.registries.GameData;
+import net.minecraftforge.registries.IForgeRegistry;
 
 import java.util.Arrays;
 
@@ -29,6 +30,11 @@ import java.util.Arrays;
  */
 public class RecipeManager {
 
+    private static IForgeRegistry recipeRegistry=null;
+
+    public static void init(IForgeRegistry in){
+        recipeRegistry = in;
+    }
     public static void registerSmeltingRecipes(BaseOre b){
         if(OreConfig.genVariants){
             for(EnumOreValue v: EnumOreValue.values()){
@@ -54,7 +60,7 @@ public class RecipeManager {
         registerShapelessRecipe(resourcePathBase + "BlockToIngots", new ItemStack(ingot, 9), Ingredient.fromStacks(new ItemStack(block)));
     }
 
-    public static void registerArmorRecipes(BaseOre b) {
+    public static void registerArmorRecipes(BaseOre b, IForgeRegistry registry) {
         String resourcePathBase = "recipe" + b.name;
         String oreDictName;
         if(OreConfig.recipes.recipesRequireIngot){
@@ -290,7 +296,7 @@ public class RecipeManager {
         ResourceLocation location = new ResourceLocation(Ores.MODID, id);
         ShapedOreRecipe or = new ShapedOreRecipe(location, output, recipe);
         or.setRegistryName(location);
-        GameData.register_impl(or);
+        recipeRegistry.register(or);
     }
 
 
@@ -299,7 +305,8 @@ public class RecipeManager {
         ResourceLocation location = new ResourceLocation(Ores.MODID, id);
         ShapedOreCrushingRecipe or = new ShapedOreCrushingRecipe(location, output, recipe);
         or.setRegistryName(location);
-        GameData.register_impl(or);
+        //GameData.register_impl(or);
+        recipeRegistry.register(or);
     }
 
     private static void registerShapedOreMetadataRecipe(String id, ItemStack output, Object... recipe ){
@@ -307,7 +314,8 @@ public class RecipeManager {
         ResourceLocation location = new ResourceLocation(Ores.MODID, id);
         ShapedOreMetadataRecipe or = new ShapedOreMetadataRecipe(location, output, recipe);
         or.setRegistryName(location);
-        GameData.register_impl(or);
+        //GameData.register_impl(or);
+        recipeRegistry.register(or);
     }
 
     private static void registerShapelessOreRecipe(String id, ItemStack output, Object... recipe ){
@@ -315,7 +323,8 @@ public class RecipeManager {
         ResourceLocation location = new ResourceLocation(Ores.MODID, id);
         ShapelessOreRecipe or = new ShapelessOreRecipe(location, output, recipe);
         or.setRegistryName(location);
-        GameData.register_impl(or);
+        //GameData.register_impl(or);
+        recipeRegistry.register(or);
     }
 
 
@@ -324,7 +333,8 @@ public class RecipeManager {
         ResourceLocation location = new ResourceLocation(Ores.MODID, id);
         ShapelessRecipes or = new ShapelessRecipes(location.getResourceDomain(), output, buildInput(recipe));
         or.setRegistryName(location);
-        GameData.register_impl(or);
+        //GameData.register_impl(or);
+        recipeRegistry.register(or);
     }
 
 

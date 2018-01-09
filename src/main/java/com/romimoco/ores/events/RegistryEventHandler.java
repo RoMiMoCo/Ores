@@ -216,13 +216,18 @@ public class RegistryEventHandler
 
     @SubscribeEvent
     public void registerRecipes(RegistryEvent.Register<IRecipe> event){
+
+        //initialize the recipe manager
         IForgeRegistry registry = event.getRegistry();
+        RecipeManager.init(registry);
+
+        //now register all the recipes
         for(Block b: ModBlocks.ORES){
             if(((BaseOre)b).shouldRegister) {
                 RecipeManager.registerSmeltingRecipes((BaseOre) b);
             }
             if(OreConfig.genArmor){
-                RecipeManager.registerArmorRecipes((BaseOre)b);
+                RecipeManager.registerArmorRecipes((BaseOre)b, registry);
             }
 
             if(OreConfig.genTools){
