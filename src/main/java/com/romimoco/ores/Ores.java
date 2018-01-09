@@ -2,6 +2,7 @@ package com.romimoco.ores;
 
 import com.romimoco.ores.integrations.IEIntegration;
 import com.romimoco.ores.integrations.OreIntegrations;
+import com.romimoco.ores.integrations.TEIntegration;
 import com.romimoco.ores.integrations.TiConIntegration;
 import com.romimoco.ores.proxy.CommonProxy;
 import com.romimoco.ores.events.OreGenEventHandler;
@@ -55,6 +56,14 @@ public class Ores
                 OreLogger.error("Immersive Engineering integration requested but tinkers not loaded");
             }
         }
+        if(OreConfig.integrations.TEIntegration){
+            if(Loader.isModLoaded("thermalexpansion")){
+                OreIntegrations.addIntegration(new TEIntegration());
+            }else{
+                OreLogger.error("Thermal Expansion integration requested but Thermal Expansion not loaded");
+            }
+        }
+
         proxy.preInit(event);
 
         MinecraftForge.EVENT_BUS.register(new RegistryEventHandler());

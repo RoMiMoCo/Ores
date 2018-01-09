@@ -66,7 +66,6 @@ public class OreConfig {
         @Comment("Require a resource pack to be installed for localizations to work.  Slight memory decrease and faster lookups")
         public static boolean requireResourcePack;
 
-
     public static class Worldgen {
 
         @Config.RequiresWorldRestart
@@ -117,6 +116,9 @@ public class OreConfig {
     public static class Integrations{
         @Comment("Add Tinkers Construct Smelting and Casting for all ores")
         public boolean TiConIntegration;
+
+        @Comment("Add Thermal Expansion Pulverizer, Compactor and Magma Crucible recipes")
+        public boolean TEIntegration;
 
         @Comment("Add Immersive Engineering Smelting and Crushing for all ores")
         public boolean IEIntegration;
