@@ -9,6 +9,7 @@ import com.romimoco.ores.events.OreGenEventHandler;
 import com.romimoco.ores.events.RegistryEventHandler;
 import com.romimoco.ores.util.OreConfig;
 import com.romimoco.ores.util.OreLogger;
+import net.minecraft.item.crafting.IRecipe;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
@@ -16,6 +17,8 @@ import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.registry.ForgeRegistries;
+import net.minecraftforge.registries.IForgeRegistry;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.Logger;
 
@@ -86,6 +89,7 @@ public class Ores
     @Mod.EventHandler
     public void postinit(FMLPostInitializationEvent event)
     {
+        IForgeRegistry<IRecipe> recipes = ForgeRegistries.RECIPES;
         OreLogger.info("Romimoco ores POST-INIT");
         proxy.postInit(event);
     }

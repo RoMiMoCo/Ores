@@ -7,9 +7,11 @@ import com.romimoco.ores.blocks.BaseOre;
 import com.romimoco.ores.blocks.ModBlocks;
 import com.romimoco.ores.enums.EnumOreValue;
 import com.romimoco.ores.util.OreConfig;
+import com.romimoco.ores.util.OreLogger;
 import com.romimoco.ores.util.StringUtil;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.item.crafting.ShapelessRecipes;
 import net.minecraft.util.NonNullList;
@@ -18,7 +20,6 @@ import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
-import net.minecraftforge.registries.GameData;
 import net.minecraftforge.registries.IForgeRegistry;
 
 import java.util.Arrays;
@@ -50,6 +51,10 @@ public class RecipeManager {
     }
 
     public static void registerMetalBlockRecipes(BaseOre b){
+        if(b.name.equals("iron") || b.name.equals("gold")){
+            removeVanillaRecipes(b.name +"_block");
+        }
+
         String resourcePathBase = "recipe" + b.name;
         String oreDictName = "ingot" + b.name.substring(0, 1).toUpperCase() + b.name.substring(1);
 
@@ -68,6 +73,16 @@ public class RecipeManager {
         }else {
             oreDictName = "mat" + b.name.substring(0, 1).toUpperCase() + b.name.substring(1);
         }
+
+        if(b.name.equals("iron") || b.name.equals("gold")){
+            String name = b.name.equals("gold")?"golden":"iron";
+            removeVanillaRecipes(name+"_helmet");
+            removeVanillaRecipes(name+"_chestplate");
+            removeVanillaRecipes(name+"_boots");
+            removeVanillaRecipes(name+"_leggings");
+
+        }
+
         BaseArmor helmet = (BaseArmor)ModItems.ARMORS.get(b.name + "Helmet");
         BaseArmor chestplate = (BaseArmor)ModItems.ARMORS.get(b.name + "Chestplate");
         BaseArmor leggings = (BaseArmor)ModItems.ARMORS.get(b.name + "Leggings");
@@ -81,6 +96,10 @@ public class RecipeManager {
     }
 
     public static void registerShieldRecipes(BaseOre b) {
+        if(b.name.equals("iron")) {
+            removeVanillaRecipes("shield");
+        }
+
         String resourcePathBase = "recipe" + b.name + "shield";
         String oreDictName;
         if (OreConfig.recipes.recipesRequireIngot) {
@@ -96,6 +115,7 @@ public class RecipeManager {
     }
 
     public static void registerGemBlockRecipes(BaseOre b){
+
         String resourcePathBase = "recipe" + b.name;
         String oreDictName = "gem" + b.name.substring(0, 1).toUpperCase() + b.name.substring(1);
 
@@ -109,6 +129,17 @@ public class RecipeManager {
     }
 
     public static void registerToolRecipes(BaseOre b){
+        if(b.name.equals("iron") || b.name.equals("gold")){
+            String name = b.name.equals("gold")?"golden":b.name;
+            removeVanillaRecipes(name + "_hoe");
+            removeVanillaRecipes(name + "_pickaxe");
+            removeVanillaRecipes(name + "_axe");
+            removeVanillaRecipes(name + "_shovel");
+            removeVanillaRecipes(name + "_sword");
+            removeVanillaRecipes(name + "_shears");
+        }
+
+
         String resourcePathBase = "recipe" + b.name;
         String oreDictName;
         if(OreConfig.recipes.recipesRequireIngot){
@@ -170,6 +201,13 @@ public class RecipeManager {
     }
 
     public static void registerVariantCombinationRecipes(BaseOre b) {
+
+        if(b.name.equals("iron") || b.name.equals("gold")){
+            removeVanillaRecipes(b.name + "_ingot_from_nuggets");
+            removeVanillaRecipes(b.name + "_nugget");
+        }
+
+
         String resourcePathBase = "recipe" + b.name;
         String oreDictName = "ingot" + b.name.substring(0, 1).toUpperCase() + b.name.substring(1);
 
@@ -284,6 +322,12 @@ public class RecipeManager {
 
     }
 
+    private static void removeVanillaRecipes(String recipe){
+        OreLogger.error("Overriding vanilla recipes, ignore following \"Dangerous alternative prefix\" errors");
+        IRecipe replacement = new NoOpRecipe();
+        replacement.setRegistryName(new ResourceLocation("minecraft", recipe));
+        recipeRegistry.register(replacement);
+    }
 
     /*
      * The Following methods are used in accordance with the CoFH "Don't Be a Jerk" License
