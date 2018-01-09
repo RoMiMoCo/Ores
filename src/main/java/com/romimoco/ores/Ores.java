@@ -1,6 +1,7 @@
 package com.romimoco.ores;
 
 import com.romimoco.ores.integrations.OreIntegrations;
+import com.romimoco.ores.integrations.TEIntegration;
 import com.romimoco.ores.integrations.TiConIntegration;
 import com.romimoco.ores.proxy.CommonProxy;
 import com.romimoco.ores.events.OreGenEventHandler;
@@ -44,6 +45,14 @@ public class Ores
                 OreIntegrations.addIntegration(new TiConIntegration());
             }else{
                 OreLogger.error("Tinkers construct integration requested but tinkers not loaded");
+            }
+        }
+
+        if(OreConfig.integrations.TEIntegration){
+            if(Loader.isModLoaded("thermalexpansion")){
+                OreIntegrations.addIntegration(new TEIntegration());
+            }else{
+                OreLogger.error("Thermal Expansion integration requested but Thermal Expansion not loaded");
             }
         }
 

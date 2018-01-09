@@ -111,6 +111,9 @@ public class OreConfig {
     public static class Integrations{
         @Comment("Add Smelting and Casting for all ores")
         public boolean TiConIntegration;
+
+        @Comment("Add Thermal Expansion Pulverizer, Compactor and Magma Crucible recipes")
+        public boolean TEIntegration;
     }
 
     @Mod.EventBusSubscriber(modid = Ores.MODID)
