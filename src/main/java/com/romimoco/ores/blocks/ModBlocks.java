@@ -4,16 +4,11 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.romimoco.ores.Ores;
 import com.romimoco.ores.util.OreConfig;
 import com.romimoco.ores.util.OreLogger;
 import com.romimoco.ores.world.OreGenBase;
 import com.romimoco.ores.world.OreGenDefinition;
 import net.minecraft.block.Block;
-import net.minecraft.block.material.Material;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fluids.BlockFluidClassic;
-import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 import java.io.File;

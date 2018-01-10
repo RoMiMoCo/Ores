@@ -95,7 +95,7 @@ public class TiConIntegration implements IOreIntegration {
 
         public ticonFluid(BaseOre b){
             super(b.name, b.getColor());
-            this.setTemperature(100);
+            this.setTemperature(800);
         }
     }
 

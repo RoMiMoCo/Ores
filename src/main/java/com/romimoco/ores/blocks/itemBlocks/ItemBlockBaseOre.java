@@ -2,8 +2,6 @@ package com.romimoco.ores.blocks.itemBlocks;
 
 
 import com.romimoco.ores.Ores;
-import com.romimoco.ores.blocks.BaseOre;
-import com.romimoco.ores.proxy.ClientProxy;
 import com.romimoco.ores.util.OreConfig;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemBlock;

@@ -1,6 +1,8 @@
 package com.romimoco.ores.integrations;
 
-import cofh.thermalexpansion.util.managers.machine.*;
+import cofh.thermalexpansion.util.managers.machine.CompactorManager;
+import cofh.thermalexpansion.util.managers.machine.CrucibleManager;
+import cofh.thermalexpansion.util.managers.machine.PulverizerManager;
 import com.romimoco.ores.Items.BaseDust;
 import com.romimoco.ores.Items.BaseIngot;
 import com.romimoco.ores.Items.ModItems;

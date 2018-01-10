@@ -1,15 +1,12 @@
 package com.romimoco.ores.crafting;
 
 import com.romimoco.ores.Items.BaseIngotWithVariants;
-import com.romimoco.ores.util.OreLogger;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
-
-import java.util.ArrayList;
 
 public class ShapedOreMetadataRecipe extends ShapedOreRecipe {
 

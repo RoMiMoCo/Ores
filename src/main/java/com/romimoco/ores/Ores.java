@@ -1,12 +1,12 @@
 package com.romimoco.ores;
 
+import com.romimoco.ores.events.OreGenEventHandler;
+import com.romimoco.ores.events.RegistryEventHandler;
 import com.romimoco.ores.integrations.IEIntegration;
 import com.romimoco.ores.integrations.OreIntegrations;
 import com.romimoco.ores.integrations.TEIntegration;
 import com.romimoco.ores.integrations.TiConIntegration;
 import com.romimoco.ores.proxy.CommonProxy;
-import com.romimoco.ores.events.OreGenEventHandler;
-import com.romimoco.ores.events.RegistryEventHandler;
 import com.romimoco.ores.util.OreConfig;
 import com.romimoco.ores.util.OreLogger;
 import net.minecraft.item.crafting.IRecipe;
@@ -19,8 +19,6 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.registries.IForgeRegistry;
-import org.apache.logging.log4j.Level;
-import org.apache.logging.log4j.Logger;
 
 
 @Mod(modid = Ores.MODID, version = Ores.VERSION, name = Ores.NAME, acceptedMinecraftVersions = "[1.12, 1.13)")

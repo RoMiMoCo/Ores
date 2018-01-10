@@ -6,7 +6,6 @@ import com.romimoco.ores.util.IHasCustomModel;
 import com.romimoco.ores.util.OreConfig;
 import com.romimoco.ores.util.OreLogger;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
-import net.minecraft.item.ItemAxe;
 import net.minecraft.item.ItemShears;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.model.ModelLoader;

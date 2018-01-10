@@ -1,18 +1,16 @@
 package com.romimoco.ores.integrations;
 
 import blusunrize.immersiveengineering.common.IEContent;
+import blusunrize.immersiveengineering.common.IERecipes;
 import com.romimoco.ores.Items.ModItems;
 import com.romimoco.ores.blocks.BaseOre;
 import com.romimoco.ores.blocks.ModBlocks;
-import com.romimoco.ores.enums.EnumOreValue;
 import com.romimoco.ores.util.OreConfig;
-import com.romimoco.ores.util.StringUtil;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import blusunrize.immersiveengineering.common.IERecipes;
 
 
 public class IEIntegration implements IOreIntegration {

@@ -3,7 +3,10 @@ package com.romimoco.ores.util;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.Logger;
 
-import java.io.*;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class OreLogger {
     private static Logger LOGGER;

@@ -1,11 +1,11 @@
 package com.romimoco.ores.blocks;
 
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.romimoco.ores.Items.BaseGem;
 import com.romimoco.ores.Items.ModItems;
 import com.romimoco.ores.util.IColoredItem;
 import com.romimoco.ores.util.IHasCustomModel;
-import com.google.gson.JsonParser;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;

@@ -1,6 +1,5 @@
 package com.romimoco.ores.world;
 
-import com.romimoco.ores.enums.EnumOreValue;
 import com.romimoco.ores.util.OreConfig;
 import net.minecraft.block.state.pattern.BlockMatcher;
 import net.minecraft.init.Blocks;
