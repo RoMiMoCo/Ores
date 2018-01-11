@@ -63,7 +63,7 @@ public class BaseOre extends BlockOre implements IColoredItem, IHasCustomModel{
 
         this.setUnlocalizedName(Ores.MODID +":ore" + name);
         this.setRegistryName(Ores.MODID, name);
-        this.setCreativeTab(CreativeTabs.MISC);
+        this.setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
 
         OreLogger.localize(this.getUnlocalizedName() + ".name=" + StringUtil.toSentenceCase(this.name)+ " Ore");
     }

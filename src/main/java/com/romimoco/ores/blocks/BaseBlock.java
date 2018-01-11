@@ -39,7 +39,7 @@ public class BaseBlock extends Block implements IColoredItem, IHasCustomModel{
 
         this.setUnlocalizedName(Ores.MODID +":" + name);
         this.setRegistryName(Ores.MODID, name);
-        this.setCreativeTab(CreativeTabs.MISC);
+        this.setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
         OreLogger.localize(this.getUnlocalizedName() + ".name=" + ore.name.substring(0,1).toUpperCase() + ore.name.substring(1) + " Block");
 
     }
