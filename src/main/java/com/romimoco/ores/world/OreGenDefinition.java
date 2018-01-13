@@ -5,6 +5,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.romimoco.ores.blocks.BaseOre;
 import com.romimoco.ores.util.OreLogger;
+import net.minecraftforge.common.BiomeManager;
 
 import java.util.ArrayList;
 
@@ -72,16 +73,16 @@ public class OreGenDefinition {
             } catch (Exception e) {OreLogger.error("No rarity defined for poor "+ this.ore.name +" ore, none will spawn.  Is this intended?");}
             try{
                 lowPercent = Rarities.get("Low").getAsInt();
-            } catch (Exception e) {OreLogger.error("No rarity defined for low-value "+ this.ore.name +" ores, none will spawn.  Is this intended?");}
+            } catch (Exception e) {OreLogger.error("No rarity defined for low-value "+ this.ore.name +" ore, none will spawn.  Is this intended?");}
             try{
                 moderatePercent = Rarities.get("Moderate").getAsInt();
-            } catch (Exception e) {OreLogger.error("No rarity defined for moderate-value "+ this.ore.name +" ores, none will spawn.  Is this intended?");}
+            } catch (Exception e) {OreLogger.error("No rarity defined for moderate-value "+ this.ore.name +" ore, none will spawn.  Is this intended?");}
             try{
                 highPercent = Rarities.get("High").getAsInt();
-            } catch (Exception e) {OreLogger.error("No rarity defined for high-value "+ this.ore.name +" ores, none will spawn.  Is this intended?");}
+            } catch (Exception e) {OreLogger.error("No rarity defined for high-value "+ this.ore.name +" ore, none will spawn.  Is this intended?");}
             try{
                 richPercent = Rarities.get("Rich").getAsInt();
-            } catch (Exception e) {OreLogger.error("No rarity defined for rich ores, "+ this.ore.name +" none will spawn.  Is this intended?");}
+            } catch (Exception e) {OreLogger.error("No rarity defined for rich "+ this.ore.name +" ore, none will spawn.  Is this intended?");}
 
             int total = poorPercent + lowPercent + moderatePercent + highPercent + richPercent;
 

@@ -5,10 +5,17 @@ import net.minecraft.block.state.pattern.BlockMatcher;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldServer;
+import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.IChunkProvider;
+import net.minecraft.world.gen.ChunkGeneratorOverworld;
 import net.minecraft.world.gen.IChunkGenerator;
 import net.minecraft.world.gen.feature.WorldGenMinable;
+import net.minecraftforge.common.BiomeManager;
 import net.minecraftforge.fml.common.IWorldGenerator;
+import net.minecraftforge.fml.relauncher.ReflectionHelper;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.LinkedList;
 import java.util.Random;
@@ -31,15 +38,17 @@ public class OreGenBase implements IWorldGenerator {
     @Override
     public void generate(Random random, int chunkX, int chunkZ, World world, IChunkGenerator chunkGenerator, IChunkProvider chunkProvider) {
        for(OreGenDefinition d : ores) {
-           if(d.biomes == null || d.biomes.contains((world.getBiome(new BlockPos(chunkX * 16, 0, chunkZ * 16)).getBiomeName()))) { //if no biomes specified for spawn, or the current biome is specified
+       //    ((ChunkGeneratorOverworld)chunkGenerator)
+       //    if(d.biomes == null || d.biomes.contains((world.getBiome(new BlockPos(chunkX * 16, 0, chunkZ * 16)).getBiomeName()))) { //if no biomes specified for spawn, or the current biome is specified
                addOreSpawn(world, random, chunkX * 16, chunkZ * 16, 16, 16, d);
-           }
+       //    }
        }
     }
 
 
     private void addOreSpawn(World world, Random random, int xPos, int zPos, int maxX, int maxZ, OreGenDefinition def){
-        String currentBiome = world.getBiome(new BlockPos(xPos, 64, zPos)).getBiomeName();
+
+        String currentBiome =world.getBiomeForCoordsBody(new BlockPos(xPos, 64, zPos)).getRegistryName().getResourcePath();
         for(int i = 0; i < def.spawnChance; i++){
             int x = xPos + random.nextInt(maxX);
             int y = def.minY + random.nextInt(def.maxY - def.minY);
