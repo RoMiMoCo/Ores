@@ -24,6 +24,7 @@ public class BaseShield extends ItemShield implements IHasCustomModel, IColoredI
         this.setRegistryName(Ores.MODID, "shield"+b.name);
         this.setMaxDamage((int)(b.getHardness()/3.0f * 336));
         OreLogger.localize(this.getUnlocalizedName() + ".name=" + StringUtil.toSentenceCase(b.name) + " Shield");
+        this.setCreativeTab(CreativeTabs.COMBAT);
     }
 
     @Override
