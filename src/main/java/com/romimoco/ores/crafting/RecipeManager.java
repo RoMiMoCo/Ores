@@ -323,7 +323,7 @@ public class RecipeManager {
     }
 
     private static void removeVanillaRecipes(String recipe){
-        OreLogger.error("Overriding vanilla recipes, ignore following \"Dangerous alternative prefix\" errors");
+        OreLogger.info("Overriding vanilla recipes, ignore following \"Dangerous alternative prefix\" errors");
         IRecipe replacement = new NoOpRecipe();
         replacement.setRegistryName(new ResourceLocation("minecraft", recipe));
         recipeRegistry.register(replacement);

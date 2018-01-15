@@ -45,19 +45,19 @@ public class OreGenDefinition {
         //Try to parse json
         try {
             this.minY = def.get("MinY").getAsInt();
-        }catch(Exception e){OreLogger.error("No such element MinY");}
+        }catch(Exception e){OreLogger.debug(this.ore.name +": No such element MinY, using default 0");}
 
         try {
             this.maxY = def.get("MaxY").getAsInt();
-        }catch(Exception e){OreLogger.error("No such element MaxY");}
+        }catch(Exception e){OreLogger.debug(this.ore.name + ": No such element MaxY, using default 16");}
 
         try {
             this.spawnChance = def.get("SpawnChance").getAsInt();
-        }catch(Exception e){OreLogger.error("No such element SpawnChance");}
+        }catch(Exception e){OreLogger.debug(this.ore.name + ": No such element SpawnChance, using default 4");}
 
         try{
             this.veinSize = def.get("VeinSize").getAsInt();
-        }catch(Exception e){OreLogger.error("No such element VeinSize");}
+        }catch(Exception e){OreLogger.debug(this.ore.name + ": No such element VeinSize, using default 64");}
 
         //Ore Rarities
         try{
@@ -69,19 +69,19 @@ public class OreGenDefinition {
             int richPercent = 0;
             try{
                 poorPercent = Rarities.get("Poor").getAsInt();
-            } catch (Exception e) {OreLogger.error("No rarity defined for poor "+ this.ore.name +" ore, none will spawn.  Is this intended?");}
+            } catch (Exception e) {OreLogger.debug("No rarity defined for poor "+ this.ore.name +" ore, none will spawn.  Is this intended?");}
             try{
                 lowPercent = Rarities.get("Low").getAsInt();
-            } catch (Exception e) {OreLogger.error("No rarity defined for low-value "+ this.ore.name +" ore, none will spawn.  Is this intended?");}
+            } catch (Exception e) {OreLogger.debug("No rarity defined for low-value "+ this.ore.name +" ore, none will spawn.  Is this intended?");}
             try{
                 moderatePercent = Rarities.get("Moderate").getAsInt();
-            } catch (Exception e) {OreLogger.error("No rarity defined for moderate-value "+ this.ore.name +" ore, none will spawn.  Is this intended?");}
+            } catch (Exception e) {OreLogger.debug("No rarity defined for moderate-value "+ this.ore.name +" ore, none will spawn.  Is this intended?");}
             try{
                 highPercent = Rarities.get("High").getAsInt();
-            } catch (Exception e) {OreLogger.error("No rarity defined for high-value "+ this.ore.name +" ore, none will spawn.  Is this intended?");}
+            } catch (Exception e) {OreLogger.debug("No rarity defined for high-value "+ this.ore.name +" ore, none will spawn.  Is this intended?");}
             try{
                 richPercent = Rarities.get("Rich").getAsInt();
-            } catch (Exception e) {OreLogger.error("No rarity defined for rich "+ this.ore.name +" ore, none will spawn.  Is this intended?");}
+            } catch (Exception e) {OreLogger.debug("No rarity defined for rich "+ this.ore.name +" ore, none will spawn.  Is this intended?");}
 
             int total = poorPercent + lowPercent + moderatePercent + highPercent + richPercent;
 
@@ -99,7 +99,7 @@ public class OreGenDefinition {
             this.rarities[2] = poorPercent + lowPercent + moderatePercent;
             this.rarities[3] = poorPercent + lowPercent + moderatePercent + highPercent;
             this.rarities[4] = poorPercent + lowPercent + moderatePercent + highPercent + richPercent;
-        }catch(Exception e){OreLogger.error("No rarities defined");}
+        }catch(Exception e){OreLogger.debug("No rarities defined for " + this.ore.name + ", All rarities will spawn equally");}
 
         try{
             JsonArray biomes = def.get("Biomes").getAsJsonArray();
@@ -115,7 +115,7 @@ public class OreGenDefinition {
             if(!localBiomes.isEmpty()){
                 this.biomes = localBiomes;
             }
-        }catch (Exception e){OreLogger.error("No biomes specified, "+ this.ore.name +" ore will generate in all biomes");}
+        }catch (Exception e){OreLogger.debug("No biomes specified, "+ this.ore.name +" ore will generate in all biomes");}
     }
 
     //Takes an int between 0 and 100

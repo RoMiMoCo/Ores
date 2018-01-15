@@ -44,6 +44,7 @@ public class Ores
         //Set up all of the integrations here
         if(OreConfig.integrations.TiConIntegration){
             if(Loader.isModLoaded("tconstruct")){
+                OreLogger.info("Integrating with TiCon");
                 OreIntegrations.addIntegration(new TiConIntegration());
             }else{
                 OreLogger.error("Tinkers construct integration requested but Tinkers is not loaded");
@@ -52,6 +53,7 @@ public class Ores
 
         if(OreConfig.integrations.IEIntegration){
             if(Loader.isModLoaded("immersiveengineering")){
+                OreLogger.info("Integrating with Immersive Engineering");
                 OreIntegrations.addIntegration(new IEIntegration());
             }else{
                 OreLogger.error("Immersive Engineering integration requested but Immersive Engineering is not loaded");
@@ -59,6 +61,7 @@ public class Ores
         }
         if(OreConfig.integrations.TEIntegration){
             if(Loader.isModLoaded("thermalexpansion")){
+                OreLogger.info("Integrating with Thermal Expansion");
                 OreIntegrations.addIntegration(new TEIntegration());
             }else{
                 OreLogger.error("Thermal Expansion integration requested but Thermal Expansion is not loaded");
