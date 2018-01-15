@@ -33,6 +33,12 @@ public class BaseGem extends Item implements IColoredItem, IHasCustomModel {
         this.setCreativeTab(CreativeTabs.MISC);
         this.setRegistryName(Ores.MODID, "gem"+name);
 
+        this.type = "gem";
+        try {
+            this.type = definition.get("Type").getAsString();
+        }catch(Exception e){}
+
+
         this.cut = "teardrop";
         try{
             this.cut = definition.get("Cut").getAsString();
@@ -54,6 +60,7 @@ public class BaseGem extends Item implements IColoredItem, IHasCustomModel {
     }
 
     @Override
+    @SideOnly(Side.CLIENT)
     public void initModel() {
         if(this.cut.equals("dust")){
             ModelLoader.setCustomModelResourceLocation(this, 0, new ModelResourceLocation(Ores.NAME + ":basedust_rich"));

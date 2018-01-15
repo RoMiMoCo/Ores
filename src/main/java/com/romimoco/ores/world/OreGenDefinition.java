@@ -5,7 +5,6 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.romimoco.ores.blocks.BaseOre;
 import com.romimoco.ores.util.OreLogger;
-import net.minecraftforge.common.BiomeManager;
 
 import java.util.ArrayList;
 

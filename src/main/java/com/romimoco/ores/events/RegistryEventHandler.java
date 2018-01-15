@@ -22,6 +22,8 @@ import net.minecraft.item.crafting.IRecipe;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.registries.IForgeRegistry;
 
@@ -158,9 +160,10 @@ public class RegistryEventHandler
             r.register(i);
 
             String name = ((BaseGem)i).name;
+            String type = ((BaseGem)i).type;
             name = StringUtil.toSentenceCase(name);
 
-            OreDictionary.registerOre("gem" + name, i);
+            OreDictionary.registerOre(type + name, i);
         }
 
 
@@ -182,6 +185,7 @@ public class RegistryEventHandler
 
 
     @SubscribeEvent
+    @SideOnly(Side.CLIENT)
     public void registerModels(ModelRegistryEvent event){
         for(Block b : ModBlocks.ORES){
             ((IHasCustomModel)b).initModel();
