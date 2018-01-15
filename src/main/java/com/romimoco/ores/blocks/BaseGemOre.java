@@ -45,7 +45,7 @@ public class BaseGemOre extends BaseOre implements IColoredItem, IHasCustomModel
             String type = def.get("Type").getAsString();
 
             if(type == null || !type.equals("gem")){
-                ModItems.MISC.put(this.name + "Gem" , gem);
+                ModItems.MISC.put(gem.type + this.name , gem);
             }else{
                 ModItems.GEMS.put(this.name + "Gem" , gem);
             }
