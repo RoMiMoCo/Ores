@@ -3,6 +3,8 @@ package com.romimoco.ores.lang;
 
 import com.romimoco.ores.util.OreLogger;
 import net.minecraft.client.Minecraft;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -24,6 +26,9 @@ public class i18n {
             if(f.getName().endsWith("lang")){
                 this.loadFile(f);
             }
+        }
+        if(translations.size() == 0){
+            OreLogger.info("Translation requested, but no .lang files found.  Please set genResourcePack=true and run the game at least once to generate the en_us.lang file");
         }
 
     }
@@ -53,8 +58,12 @@ public class i18n {
        }
 
     }
-
+    @SideOnly(Side.CLIENT)
     public String translate(String s){
+        //Edge case where no files have been created.
+        if(translations.size() == 0){
+            return s;
+        }
         String locale = Minecraft.getMinecraft().getLanguageManager().getCurrentLanguage().getLanguageCode();
         int i = 0;
         for(HashMap<String, String> lang : translations){
