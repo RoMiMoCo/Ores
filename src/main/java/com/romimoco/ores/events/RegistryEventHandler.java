@@ -5,6 +5,7 @@ import com.romimoco.ores.Items.BaseGem;
 import com.romimoco.ores.Items.BaseIngot;
 import com.romimoco.ores.Items.ModItems;
 import com.romimoco.ores.blocks.BaseBlock;
+import com.romimoco.ores.blocks.BaseGemOre;
 import com.romimoco.ores.blocks.BaseOre;
 import com.romimoco.ores.blocks.ModBlocks;
 import com.romimoco.ores.blocks.itemBlocks.ItemBlockBaseBlock;
@@ -250,9 +251,7 @@ public class RegistryEventHandler
 
             RecipeManager.registerMiscRecipes((BaseOre)b);
         }
-        for(Item i: ModItems.GEMS.values()){
-            Block b = ModBlocks.GEMS.get(((BaseGem)i).name);
-            //TODO: Refactor this to only create Armor and Tools for gemstones
+        for(Block b: ModBlocks.GEMS.values()){
             if(OreConfig.genArmor){
                 RecipeManager.registerGemArmorRecipes((BaseOre)b);
             }
