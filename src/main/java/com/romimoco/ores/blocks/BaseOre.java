@@ -1,5 +1,7 @@
 package com.romimoco.ores.blocks;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.romimoco.ores.Ores;
 import com.romimoco.ores.util.IColoredItem;
@@ -12,9 +14,14 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.block.statemap.StateMapperBase;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.init.SoundEvents;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemBlock;
+import net.minecraft.item.ItemTool;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -27,6 +34,8 @@ public class BaseOre extends BlockOre implements IColoredItem, IHasCustomModel{
     public String name;
     private int customHarvestLevel;
     public boolean shouldRegister = true;
+    public ItemTool.ToolMaterial toolMaterial;
+    public ItemArmor.ArmorMaterial armorMaterial;
 
     public BaseOre(JsonObject oreDefinition){
         super();
@@ -61,6 +70,8 @@ public class BaseOre extends BlockOre implements IColoredItem, IHasCustomModel{
         this.customHarvestLevel = harvestLevel;
         this.setHarvestLevel("pickaxe", harvestLevel);
 
+        initItemStats(oreDefinition.get("ItemStats"));
+
         this.setUnlocalizedName(Ores.MODID +":ore" + name);
         this.setRegistryName(Ores.MODID, name);
         this.setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
@@ -80,6 +91,60 @@ public class BaseOre extends BlockOre implements IColoredItem, IHasCustomModel{
                 return new ModelResourceLocation(Ores.NAME+":baseore");
             }
         });
+    }
+
+    private void initItemStats(JsonElement itemStats){
+
+        //Tool Stats
+        float toolEfficiency = this.getHardness() * 2;
+        float toolDamage = this.getHardness() * .66f;
+
+        //Armor Stats
+        int armorClassMod = (int)(this.getHardness()/ 3.0f);
+                                            //(int) (this.getHardness() / 3.0f * 2),
+                                            //(int) (this.getHardness() / 3.0f * 5),
+                                            //(int) (this.getHardness() / 3.0f * 6),
+                                            //(int) (this.getHardness() / 3.0f * 2);
+        float armorToughness = 0.0f;
+
+        //Common Stats
+        int enchantability = 9;
+        float durabilityMod = this.getHardness() * 5;
+
+        if(itemStats != null){
+            //Read JSON here
+            JsonObject stats=itemStats.getAsJsonObject();
+
+            try {
+                toolEfficiency = stats.get("Efficiency").getAsFloat();
+            }catch (Exception e){}
+
+
+            try {
+                toolDamage = stats.get("Damage").getAsFloat();
+            }catch (Exception e){}
+
+            try {
+                armorClassMod = stats.get("ArmorClass").getAsInt();
+            }catch (Exception e){}
+
+            try {
+                armorToughness = stats.get("Toughness").getAsFloat();
+            }catch (Exception e){}
+
+            try {
+                enchantability = stats.get("Enchantability").getAsInt();
+            }catch (Exception e){}
+
+            try {
+                durabilityMod =  stats.get("DurabilityMod").getAsFloat();
+            }catch (Exception e){}
+        }
+
+        int[] armorPieceMods = new int[]{armorClassMod * 2, armorClassMod * 5, armorClassMod * 6, armorClassMod * 2};
+        //construct materials
+        this.toolMaterial = EnumHelper.addToolMaterial(this.name, this.getHarvestLevel() + 1, (int)(durabilityMod * 16.666666), toolEfficiency, toolDamage, enchantability);
+        this.armorMaterial = EnumHelper.addArmorMaterial(this.name, Ores.NAME + ":baseArmor", (int)durabilityMod, armorPieceMods, enchantability, SoundEvents.ITEM_ARMOR_EQUIP_GENERIC, armorToughness);
     }
 
     @Override
