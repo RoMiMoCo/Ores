@@ -143,7 +143,7 @@ public class BaseOre extends BlockOre implements IColoredItem, IHasCustomModel{
 
         int[] armorPieceMods = new int[]{armorClassMod * 2, armorClassMod * 5, armorClassMod * 6, armorClassMod * 2};
         //construct materials
-        this.toolMaterial = EnumHelper.addToolMaterial(this.name, this.getHarvestLevel() + 1, (int)(durabilityMod * 16.666666), toolEfficiency, toolDamage, enchantability);
+        this.toolMaterial = EnumHelper.addToolMaterial(this.name, this.getHarvestLevel() + 1, (int)((durabilityMod * 27.25) - 158.75), toolEfficiency, toolDamage, enchantability);
         this.armorMaterial = EnumHelper.addArmorMaterial(this.name, Ores.NAME + ":baseArmor", (int)durabilityMod, armorPieceMods, enchantability, SoundEvents.ITEM_ARMOR_EQUIP_GENERIC, armorToughness);
     }
 
