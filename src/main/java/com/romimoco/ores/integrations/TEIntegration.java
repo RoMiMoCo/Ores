@@ -81,17 +81,7 @@ public class TEIntegration implements IOreIntegration {
         //compactor storage recipes for variant ingots
         BaseIngot ingot = (BaseIngot)ModItems.INGOTS.get(b.name + "Ingot");
         for(int i = 1; i < 5; i ++){
-            CompactorManager.addDefaultStorageRecipe(new ItemStack(ingot, 1, i),new ItemStack(ingot, 1, i-1 ), 2 );
-
-            //These don't seem to work sadly, only the 2x recipe gets used
-            /*
-            if(i > 1){
-                CompactorManager.addDefaultStorageRecipe(new ItemStack(ingot, 1, i),new ItemStack(ingot, 1, i-2 ), 4 );
-            }
-            if(i > 2){
-                CompactorManager.addDefaultStorageRecipe(new ItemStack(ingot, 1, i),new ItemStack(ingot, 1, i-3 ), 8 );
-            }
-            */
+            CompactorManager.addRecipe(CompactorManager.DEFAULT_ENERGY, new ItemStack(ingot, 2, i),new ItemStack(ingot, 1, i-1 ), CompactorManager.Mode.ALL );
         }
     }
 }
