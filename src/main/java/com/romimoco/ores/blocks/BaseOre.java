@@ -93,7 +93,7 @@ public class BaseOre extends BlockOre implements IColoredItem, IHasCustomModel{
         });
     }
 
-    private void initItemStats(JsonElement itemStats){
+    protected void initItemStats(JsonElement itemStats){
 
         //Tool Stats
         float toolEfficiency = this.getHardness() * 2;
