@@ -69,7 +69,7 @@ public class TEIntegration implements IOreIntegration {
         if(OreConfig.genVariants) {
             for(int i = 0; i < 5; i ++) {
                 CrucibleManager.addRecipe(CrucibleManager.DEFAULT_ENERGY, new ItemStack(b, 1, i), new FluidStack(f, 288 / ((int)Math.pow(2,i))));
-                CrucibleManager.addRecipe(CrucibleManager.DEFAULT_ENERGY, new ItemStack(ModItems.INGOTS.get(b.name + "Ingot"), 1, i), new FluidStack(f, 144 / ((int)Math.pow(2,i))));
+                CrucibleManager.addRecipe(CrucibleManager.DEFAULT_ENERGY / (int)Math.pow(2, i), new ItemStack(ModItems.INGOTS.get(b.name + "Ingot"), 1, i), new FluidStack(f, 144 / ((int)Math.pow(2,i))));
             }
         }else {
             CrucibleManager.addRecipe(CrucibleManager.DEFAULT_ENERGY, new ItemStack(b, 1, 0), new FluidStack(f, 288));
@@ -81,7 +81,7 @@ public class TEIntegration implements IOreIntegration {
         //compactor storage recipes for variant ingots
         BaseIngot ingot = (BaseIngot)ModItems.INGOTS.get(b.name + "Ingot");
         for(int i = 1; i < 5; i ++){
-            CompactorManager.addRecipe(CompactorManager.DEFAULT_ENERGY, new ItemStack(ingot, 2, i),new ItemStack(ingot, 1, i-1 ), CompactorManager.Mode.ALL );
+            CompactorManager.addRecipe((int)(CompactorManager.DEFAULT_ENERGY / Math.pow(2, i)), new ItemStack(ingot, 2, i),new ItemStack(ingot, 1, i-1 ), CompactorManager.Mode.ALL );
         }
     }
 }
