@@ -44,7 +44,8 @@ public class OreGenBase implements IWorldGenerator {
 
         for(int i = 0; i < def.spawnChance; i++){
             int x = xPos + random.nextInt(maxX);
-            int y = def.minY + random.nextInt(def.maxY - def.minY);
+            int yRange=def.maxY - def.minY;
+            int y = def.minY + random.nextInt((yRange > 0)?yRange:1);
             int z = zPos + random.nextInt(maxZ);
 
             if(OreConfig.genVariants) {
