@@ -38,7 +38,7 @@ public class Ores
     @Mod.EventHandler
     public void preinit(FMLPreInitializationEvent event)
     {
-        OreLogger.init(event.getModLog());
+        OreLogger.init(event);
         OreLogger.info("Romimoco ores PRE-INIT");
 
         //Set up all of the integrations here

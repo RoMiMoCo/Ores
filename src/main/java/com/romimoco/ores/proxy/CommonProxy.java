@@ -23,7 +23,7 @@ public class CommonProxy {
     public void preInit(FMLPreInitializationEvent event) {
 
 
-        ModBlocks.init();
+        ModBlocks.init(event);
         ModItems.init();
 
         //All items are created, can write the .lang file now if needed
@@ -33,7 +33,7 @@ public class CommonProxy {
 
         if(!OreConfig.requireResourcePack){
             //init the i18n system
-            langs = new i18n();
+            langs = new i18n(event);
         }
 
         //All items are created, can integrate them now

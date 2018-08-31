@@ -3,6 +3,7 @@ package com.romimoco.ores.lang;
 
 import com.romimoco.ores.util.OreLogger;
 import net.minecraft.client.Minecraft;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -18,9 +19,9 @@ public class i18n {
 
     private LinkedList<HashMap<String, String>> translations;
 
-    public i18n(){
+    public i18n(FMLPreInitializationEvent event){
         translations = new LinkedList<>();
-        File[] files = new File("config/Romimoco/ores").listFiles();
+        File[] files = new File(event.getModConfigurationDirectory().getAbsolutePath() + "/Romimoco/ores").listFiles();
 
         for(File f: files ){
             if(f.getName().endsWith("lang")){
