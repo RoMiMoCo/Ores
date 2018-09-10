@@ -9,6 +9,7 @@ import com.romimoco.ores.util.OreLogger;
 import com.romimoco.ores.world.OreGenBase;
 import com.romimoco.ores.world.OreGenDefinition;
 import net.minecraft.block.Block;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 import java.io.File;
@@ -25,7 +26,7 @@ public class ModBlocks {
     public static HashMap<String, Block> BLOCKS = new HashMap<>();
 
 
-    public static void init(){
+    public static void init(FMLPreInitializationEvent event){
         //Read JSON here, init blocks
         JsonParser parser = new JsonParser();
         JsonObject oreDefs;
@@ -33,7 +34,7 @@ public class ModBlocks {
         OreGenBase generator = new OreGenBase();
 
         try {
-            oreDefs = (JsonObject) parser.parse(new FileReader(new File("config/Romimoco/ores/oreDefinitions.json")));
+            oreDefs = (JsonObject) parser.parse(new FileReader(new File(event.getModConfigurationDirectory().getAbsolutePath() + "/Romimoco/ores/oreDefinitions.json")));
         } catch (FileNotFoundException e) {
            OreLogger.error("No Ore-Definitions found.  Create an oreDefinitions.json file in config/Romimoco/ores to define custom ores.");
            return;

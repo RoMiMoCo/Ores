@@ -1,5 +1,6 @@
 package com.romimoco.ores.util;
 
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.Logger;
 
@@ -12,13 +13,13 @@ public class OreLogger {
     private static Logger LOGGER;
     private static BufferedWriter lang;
 
-    public static void init(Logger in){
-        LOGGER = in;
+    public static void init(FMLPreInitializationEvent event){
+        LOGGER = event.getModLog();
 
         //Set up file for creating resource pack
         if(OreConfig.createResourcePack){
             try{
-                lang = new BufferedWriter(new FileWriter(new File("config/Romimoco/ores/en_us.lang")));
+                lang = new BufferedWriter(new FileWriter(new File(event.getModConfigurationDirectory().getAbsolutePath() + "/Romimoco/ores/en_us.lang")));
             }catch(IOException e){
                 error(e.getMessage());
             }
