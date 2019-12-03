@@ -31,27 +31,29 @@ public class BaseGem extends Item implements IColoredItem, IHasCustomModel {
         this.color = b.getColor();
         this.setUnlocalizedName(Ores.MODID + ":gem" + b.name);
         this.setCreativeTab(CreativeTabs.MISC);
-        this.setRegistryName(Ores.MODID, "gem"+name);
+        this.setRegistryName(Ores.MODID, "gem" + name);
 
         this.type = "gem";
         try {
             this.type = definition.get("Type").getAsString();
-        }catch(Exception e){}
+        } catch (Exception e) {
+        }
 
 
         this.cut = "teardrop";
-        try{
+        try {
             this.cut = definition.get("Cut").getAsString();
-        }catch(Exception e){}
+        } catch (Exception e) {
+        }
 
         this.burnTime = 0;
-        try{
+        try {
             this.burnTime = definition.get("BurnTime").getAsInt();
-        }catch(Exception e){}
+        } catch (Exception e) {
+        }
 
 
-
-        OreLogger.localize(this.getUnlocalizedName() + ".name=" + b.name.substring(0,1).toUpperCase() + b.name.substring(1));
+        OreLogger.localize(this.getUnlocalizedName() + ".name=" + b.name.substring(0, 1).toUpperCase() + b.name.substring(1));
     }
 
     @Override
@@ -62,23 +64,22 @@ public class BaseGem extends Item implements IColoredItem, IHasCustomModel {
     @Override
     @SideOnly(Side.CLIENT)
     public void initModel() {
-        if(this.cut.equals("dust")){
+        if (this.cut.equals("dust")) {
             ModelLoader.setCustomModelResourceLocation(this, 0, new ModelResourceLocation(Ores.NAME + ":basedust_rich"));
-        }else{
-            ModelLoader.setCustomModelResourceLocation(this, 0, new ModelResourceLocation(Ores.NAME +":gem_" + this.cut));
+        } else {
+            ModelLoader.setCustomModelResourceLocation(this, 0, new ModelResourceLocation(Ores.NAME + ":gem_" + this.cut));
         }
     }
 
     @Override
-    public int getItemBurnTime(ItemStack stack){
-       return this.burnTime;
+    public int getItemBurnTime(ItemStack stack) {
+        return this.burnTime;
     }
 
     @SideOnly(Side.CLIENT)
     @Override
-    public String getItemStackDisplayName(ItemStack stack)
-    {
-        if(OreConfig.requireResourcePack) {
+    public String getItemStackDisplayName(ItemStack stack) {
+        if (OreConfig.requireResourcePack) {
             return super.getItemStackDisplayName(stack);
         }
         return Ores.proxy.langs.translate(this.getUnlocalizedNameInefficiently(stack) + ".name").trim();

@@ -12,7 +12,7 @@ import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class BaseHoe extends ItemHoe implements IHasCustomModel, IColoredItem{
+public class BaseHoe extends ItemHoe implements IHasCustomModel, IColoredItem {
 
     private int color = 0x000000;
 
@@ -20,25 +20,24 @@ public class BaseHoe extends ItemHoe implements IHasCustomModel, IColoredItem{
         super(t);
         this.color = color;
 
-        this.setUnlocalizedName(Ores.MODID + ":hoe"+t.name());
+        this.setUnlocalizedName(Ores.MODID + ":hoe" + t.name());
 
-        OreLogger.localize(this.getUnlocalizedName() + ".name=" + t.name().substring(0,1).toUpperCase() + t.name().substring(1) + " Hoe");
+        OreLogger.localize(this.getUnlocalizedName() + ".name=" + t.name().substring(0, 1).toUpperCase() + t.name().substring(1) + " Hoe");
     }
 
     @SideOnly(Side.CLIENT)
-    public void initModel(){
+    public void initModel() {
         ModelLoader.setCustomModelResourceLocation(this, 0, new ModelResourceLocation("Minecraft:iron_hoe"));
     }
 
-    public int getColor(){
+    public int getColor() {
         return this.color;
     }
 
     @SideOnly(Side.CLIENT)
     @Override
-    public String getItemStackDisplayName(ItemStack stack)
-    {
-        if(OreConfig.requireResourcePack) {
+    public String getItemStackDisplayName(ItemStack stack) {
+        if (OreConfig.requireResourcePack) {
             return super.getItemStackDisplayName(stack);
         }
         return Ores.proxy.langs.translate(this.getUnlocalizedNameInefficiently(stack) + ".name").trim();

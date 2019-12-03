@@ -28,7 +28,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import static net.minecraftforge.client.model.ModelLoader.setCustomModelResourceLocation;
 
 
-public class BaseOre extends BlockOre implements IColoredItem, IHasCustomModel{
+public class BaseOre extends BlockOre implements IColoredItem, IHasCustomModel {
 
     private int color;
     public String name;
@@ -36,8 +36,17 @@ public class BaseOre extends BlockOre implements IColoredItem, IHasCustomModel{
     public boolean shouldRegister = true;
     public ItemTool.ToolMaterial toolMaterial;
     public ItemArmor.ArmorMaterial armorMaterial;
+    public boolean genVariants = false;
+    public boolean genDusts = false;
+    public boolean genIngots = false;
+    public boolean genFullBlocks = false;
+    public boolean genTools = false;
+    public boolean genArmor = false;
+    public boolean genBuckets = false;
+    public boolean genFluids = false;
+    public boolean genShields = false;
 
-    public BaseOre(JsonObject oreDefinition){
+    public BaseOre(JsonObject oreDefinition) {
         super();
 
         //default values in case of missing json elements
@@ -47,20 +56,29 @@ public class BaseOre extends BlockOre implements IColoredItem, IHasCustomModel{
 
 
         this.name = oreDefinition.get("Name").getAsString();
+        this.genVariants = getOreDefinitionAsBoolean(oreDefinition, "genVariants");
+        this.genDusts = getOreDefinitionAsBoolean(oreDefinition, "genDusts");
+        this.genIngots = getOreDefinitionAsBoolean(oreDefinition, "genIngots");
+        this.genFullBlocks = getOreDefinitionAsBoolean(oreDefinition, "genFullBlocks");
+        this.genTools = getOreDefinitionAsBoolean(oreDefinition, "genTools");
+        this.genArmor = getOreDefinitionAsBoolean(oreDefinition, "genArmor");
+        this.genBuckets = getOreDefinitionAsBoolean(oreDefinition, "genBuckets");
+        this.genFluids = getOreDefinitionAsBoolean(oreDefinition, "genFluids");
+        this.genShields = getOreDefinitionAsBoolean(oreDefinition, "genShields");
 
         try {
             color = Integer.parseInt(oreDefinition.get("Color").getAsString().substring(2), 16);
-        }catch (Exception e){
+        } catch (Exception e) {
         }
 
         try {
             hardness = oreDefinition.get("Hardness").getAsFloat();
-        }catch (Exception e){
+        } catch (Exception e) {
         }
 
         try {
             harvestLevel = oreDefinition.get("Harvestlevel").getAsInt();
-        }catch (Exception e){
+        } catch (Exception e) {
         }
 
         this.color = color;
@@ -72,90 +90,99 @@ public class BaseOre extends BlockOre implements IColoredItem, IHasCustomModel{
 
         initItemStats(oreDefinition.get("ItemStats"));
 
-        this.setUnlocalizedName(Ores.MODID +":ore" + name);
+        this.setUnlocalizedName(Ores.MODID + ":ore" + name);
         this.setRegistryName(Ores.MODID, name);
         this.setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
 
-        OreLogger.localize(this.getUnlocalizedName() + ".name=" + StringUtil.toSentenceCase(this.name)+ " Ore");
+        OreLogger.localize(this.getUnlocalizedName() + ".name=" + StringUtil.toSentenceCase(this.name) + " Ore");
     }
 
+    protected boolean getOreDefinitionAsBoolean(JsonObject oreDefinition, String memberName) {
+        return oreDefinition.has(memberName) && oreDefinition.get(memberName).getAsBoolean();
+    }
 
     @SideOnly(Side.CLIENT)
-    public void initModel(){
+    public void initModel() {
 
-        setCustomModelResourceLocation(ItemBlock.getItemFromBlock(this), 0, new ModelResourceLocation(Ores.NAME+":baseore"));
+        setCustomModelResourceLocation(ItemBlock.getItemFromBlock(this), 0, new ModelResourceLocation(Ores.NAME + ":baseore"));
 
         ModelLoader.setCustomStateMapper(this, new StateMapperBase() {
             @Override
             protected ModelResourceLocation getModelResourceLocation(IBlockState state) {
-                return new ModelResourceLocation(Ores.NAME+":baseore");
+                return new ModelResourceLocation(Ores.NAME + ":baseore");
             }
         });
     }
 
-    protected void initItemStats(JsonElement itemStats){
+    protected void initItemStats(JsonElement itemStats) {
 
         //Tool Stats
         float toolEfficiency = this.getHardness() * 2;
         float toolDamage = this.getHardness() * .66f;
 
         //Armor Stats
-        int armorClassMod = (int)(this.getHardness()/ 3.0f);
-                                            //(int) (this.getHardness() / 3.0f * 2),
-                                            //(int) (this.getHardness() / 3.0f * 5),
-                                            //(int) (this.getHardness() / 3.0f * 6),
-                                            //(int) (this.getHardness() / 3.0f * 2);
+        int armorClassMod = (int) (this.getHardness() / 3.0f);
+        //(int) (this.getHardness() / 3.0f * 2),
+        //(int) (this.getHardness() / 3.0f * 5),
+        //(int) (this.getHardness() / 3.0f * 6),
+        //(int) (this.getHardness() / 3.0f * 2);
         float armorToughness = 0.0f;
 
         //Common Stats
         int enchantability = 9;
         float durabilityMod = this.getHardness() * 5;
 
-        if(itemStats != null){
+        if (itemStats != null) {
             //Read JSON here
-            JsonObject stats=itemStats.getAsJsonObject();
+            JsonObject stats = itemStats.getAsJsonObject();
 
             try {
                 toolEfficiency = stats.get("Efficiency").getAsFloat();
-            }catch (Exception e){}
+            } catch (Exception e) {
+            }
 
 
             try {
                 toolDamage = stats.get("Damage").getAsFloat();
-            }catch (Exception e){}
+            } catch (Exception e) {
+            }
 
             try {
                 armorClassMod = stats.get("ArmorClass").getAsInt();
-            }catch (Exception e){}
+            } catch (Exception e) {
+            }
 
             try {
                 armorToughness = stats.get("Toughness").getAsFloat();
-            }catch (Exception e){}
+            } catch (Exception e) {
+            }
 
             try {
                 enchantability = stats.get("Enchantability").getAsInt();
-            }catch (Exception e){}
+            } catch (Exception e) {
+            }
 
             try {
-                durabilityMod =  stats.get("DurabilityMod").getAsFloat();
-            }catch (Exception e){}
+                durabilityMod = stats.get("DurabilityMod").getAsFloat();
+            } catch (Exception e) {
+            }
         }
 
         int[] armorPieceMods = new int[]{armorClassMod * 2, armorClassMod * 5, armorClassMod * 6, armorClassMod * 2};
         //construct materials
-        this.toolMaterial = EnumHelper.addToolMaterial(this.name, this.getHarvestLevel() + 1, (int)((durabilityMod * 27.25) - 158.75), toolEfficiency, toolDamage, enchantability);
-        this.armorMaterial = EnumHelper.addArmorMaterial(this.name, Ores.NAME + ":baseArmor", (int)durabilityMod, armorPieceMods, enchantability, SoundEvents.ITEM_ARMOR_EQUIP_GENERIC, armorToughness);
+        this.toolMaterial = EnumHelper.addToolMaterial(this.name, this.getHarvestLevel() + 1, (int) ((durabilityMod * 27.25) - 158.75), toolEfficiency, toolDamage, enchantability);
+        this.armorMaterial = EnumHelper.addArmorMaterial(this.name, Ores.NAME + ":baseArmor", (int) durabilityMod, armorPieceMods, enchantability, SoundEvents.ITEM_ARMOR_EQUIP_GENERIC, armorToughness);
     }
 
     @Override
-    protected BlockStateContainer createBlockState(){
+    protected BlockStateContainer createBlockState() {
         return new BlockStateContainer(this);
     }
 
 
     @SideOnly(Side.CLIENT)
     @Override
-    public BlockRenderLayer getBlockLayer(){
+    public BlockRenderLayer getBlockLayer() {
         return BlockRenderLayer.CUTOUT_MIPPED;
     }
 
@@ -163,9 +190,11 @@ public class BaseOre extends BlockOre implements IColoredItem, IHasCustomModel{
         return this.color;
     }
 
-    public float getHardness(){return this.blockHardness;}
+    public float getHardness() {
+        return this.blockHardness;
+    }
 
-    public int getHarvestLevel(){
+    public int getHarvestLevel() {
         return this.customHarvestLevel;
     }
 

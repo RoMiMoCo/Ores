@@ -25,25 +25,24 @@ public class BaseOreWithVariants extends BaseOre {
 
     public static final PropertyEnum PROPERTYOREVALUE = PropertyEnum.create("orevalue", EnumOreValue.class);
 
-    public BaseOreWithVariants(JsonObject oreDefinition){
+    public BaseOreWithVariants(JsonObject oreDefinition) {
         super(oreDefinition);
         this.setDefaultState(this.blockState.getBaseState().withProperty(PROPERTYOREVALUE, EnumOreValue.MODERATE));
     }
 
 
     @SideOnly(Side.CLIENT)
-    public void initModel(){
+    public void initModel() {
 
-        for(int i = 0; i < EnumOreValue.values().length; i++)
-        {
-            setCustomModelResourceLocation(ItemBlock.getItemFromBlock(this), i, new ModelResourceLocation(Ores.NAME+":baseorewithvariants", "orevalue=" + EnumOreValue.byMetadata(i)  ));
+        for (int i = 0; i < EnumOreValue.values().length; i++) {
+            setCustomModelResourceLocation(ItemBlock.getItemFromBlock(this), i, new ModelResourceLocation(Ores.NAME + ":baseorewithvariants", "orevalue=" + EnumOreValue.byMetadata(i)));
         }
 
         ModelLoader.setCustomStateMapper(this, new StateMapperBase() {
             @Override
             protected ModelResourceLocation getModelResourceLocation(IBlockState state) {
-                EnumOreValue tmp = (EnumOreValue)state.getValue(PROPERTYOREVALUE);
-                return new ModelResourceLocation(Ores.NAME+":baseorewithvariants", "orevalue=" + tmp.toString());
+                EnumOreValue tmp = (EnumOreValue) state.getValue(PROPERTYOREVALUE);
+                return new ModelResourceLocation(Ores.NAME + ":baseorewithvariants", "orevalue=" + tmp.toString());
             }
         });
     }
@@ -51,34 +50,32 @@ public class BaseOreWithVariants extends BaseOre {
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void getSubBlocks(CreativeTabs itemIn, NonNullList<ItemStack> list){
-        for(EnumOreValue value: EnumOreValue.values()){
+    public void getSubBlocks(CreativeTabs itemIn, NonNullList<ItemStack> list) {
+        for (EnumOreValue value : EnumOreValue.values()) {
             list.add(new ItemStack(this, 1, value.getMetadata()));
         }
 
     }
 
     @Override
-    public int damageDropped(IBlockState state){
-        return ((EnumOreValue)state.getValue(PROPERTYOREVALUE)).getMetadata();
+    public int damageDropped(IBlockState state) {
+        return ((EnumOreValue) state.getValue(PROPERTYOREVALUE)).getMetadata();
     }
 
     @Override
-    public IBlockState getStateFromMeta(int meta){
+    public IBlockState getStateFromMeta(int meta) {
         return this.getDefaultState().withProperty(PROPERTYOREVALUE, EnumOreValue.byMetadata(meta));
     }
 
 
     @Override
-    public int getMetaFromState(IBlockState state)
-    {
-        return ((EnumOreValue)state.getValue(PROPERTYOREVALUE)).getMetadata();
+    public int getMetaFromState(IBlockState state) {
+        return ((EnumOreValue) state.getValue(PROPERTYOREVALUE)).getMetadata();
     }
 
 
-
     @Override
-    protected BlockStateContainer createBlockState(){
+    protected BlockStateContainer createBlockState() {
         return new BlockStateContainer(this, new IProperty[]{PROPERTYOREVALUE});
     }
 }

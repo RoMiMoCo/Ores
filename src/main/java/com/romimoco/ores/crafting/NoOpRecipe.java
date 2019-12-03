@@ -26,5 +26,5 @@ public class NoOpRecipe extends IForgeRegistryEntry.Impl<IRecipe> implements IRe
     @Override
     public ItemStack getRecipeOutput() {
         return ItemStack.EMPTY;
-	}
+    }
 }

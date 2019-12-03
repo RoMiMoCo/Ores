@@ -19,57 +19,58 @@ public class i18n {
 
     private LinkedList<HashMap<String, String>> translations;
 
-    public i18n(FMLPreInitializationEvent event){
+    public i18n(FMLPreInitializationEvent event) {
         translations = new LinkedList<>();
         File[] files = new File(event.getModConfigurationDirectory().getAbsolutePath() + "/Romimoco/ores").listFiles();
 
-        for(File f: files ){
-            if(f.getName().endsWith("lang")){
+        for (File f : files) {
+            if (f.getName().endsWith("lang")) {
                 this.loadFile(f);
             }
         }
-        if(translations.size() == 0){
+        if (translations.size() == 0) {
             OreLogger.info("Translation requested, but no .lang files found.  Please set genResourcePack=true and run the game at least once to generate the en_us.lang file");
         }
 
     }
 
     private void loadFile(File f) {
-        try{
+        try {
 
-           BufferedReader reader = new BufferedReader(new FileReader(f));
+            BufferedReader reader = new BufferedReader(new FileReader(f));
 
-           HashMap<String, String> lang = new HashMap<>();
-           lang.put("language", f.getName().replace(".lang", ""));
-           String readline= "";
+            HashMap<String, String> lang = new HashMap<>();
+            lang.put("language", f.getName().replace(".lang", ""));
+            String readline = "";
 
 
-           while((readline = reader.readLine()) != null){
-               String[] kv = readline.split("=");
-               String key = kv[0];
-               String value = kv[1];
+            while ((readline = reader.readLine()) != null) {
+                String[] kv = readline.split("=");
+                String key = kv[0];
+                String value = kv[1];
 
-               lang.put(key, value);
+                lang.put(key, value);
 
-           }
+            }
 
-           this.translations.push(lang);
-       }catch(IOException e){
-           OreLogger.error(e.toString());
-       }
+            this.translations.push(lang);
+        } catch (IOException e) {
+            OreLogger.error(e.toString());
+        }
 
     }
+
     @SideOnly(Side.CLIENT)
-    public String translate(String s){
+    public String translate(String s) {
         //Edge case where no files have been created.
-        if(translations.size() == 0){
+        if (translations.size() == 0) {
             return s;
         }
         String locale = Minecraft.getMinecraft().getLanguageManager().getCurrentLanguage().getLanguageCode();
         int i = 0;
-        for(HashMap<String, String> lang : translations){
-            if(lang.get("language").equals(locale)){
-                if(i > 0){
+        for (HashMap<String, String> lang : translations) {
+            if (lang.get("language").equals(locale)) {
+                if (i > 0) {
                     translations.push(translations.remove(i)); //move this to the head of the list to make future lookups faster
                 }
                 return lang.get(s);

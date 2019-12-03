@@ -16,13 +16,13 @@ public class BaseShield extends ItemShield implements IHasCustomModel, IColoredI
 
     private int color;
 
-    public BaseShield(BaseOre b){
+    public BaseShield(BaseOre b) {
         super();
         this.color = b.getColor();
         this.setUnlocalizedName(Ores.MODID + ":shield" + b.name);
         this.setCreativeTab(CreativeTabs.MISC);
-        this.setRegistryName(Ores.MODID, "shield"+b.name);
-        this.setMaxDamage((int)(b.getHardness()/3.0f * 336));
+        this.setRegistryName(Ores.MODID, "shield" + b.name);
+        this.setMaxDamage((int) (b.getHardness() / 3.0f * 336));
         OreLogger.localize(this.getUnlocalizedName() + ".name=" + StringUtil.toSentenceCase(b.name) + " Shield");
         this.setCreativeTab(CreativeTabs.COMBAT);
     }
@@ -34,9 +34,8 @@ public class BaseShield extends ItemShield implements IHasCustomModel, IColoredI
 
     @SideOnly(Side.CLIENT)
     @Override
-    public String getItemStackDisplayName(ItemStack stack)
-    {
-        if(OreConfig.requireResourcePack) {
+    public String getItemStackDisplayName(ItemStack stack) {
+        if (OreConfig.requireResourcePack) {
             return super.getItemStackDisplayName(stack);
         }
         return Ores.proxy.langs.translate(this.getUnlocalizedNameInefficiently(stack) + ".name").trim();
@@ -44,11 +43,11 @@ public class BaseShield extends ItemShield implements IHasCustomModel, IColoredI
 
     @Override
     public void initModel() {
-        ModelLoader.setCustomModelResourceLocation(this, 0, new ModelResourceLocation(Ores.NAME+":base_shield"));
+        ModelLoader.setCustomModelResourceLocation(this, 0, new ModelResourceLocation(Ores.NAME + ":base_shield"));
     }
 
     @Override
-    public boolean isShield(ItemStack stack, EntityLivingBase entity){
+    public boolean isShield(ItemStack stack, EntityLivingBase entity) {
         return true;
     }
 }

@@ -17,19 +17,19 @@ import java.util.HashMap;
 public class ModItems {
     public static HashMap<String, Item> INGOTS = new HashMap<>();
     public static HashMap<String, Item> GEMS = new HashMap<>();
-    public static HashMap<String,Item> DUSTS = new HashMap<>();
-    public static HashMap<String,Item> ARMORS = new HashMap<>();
-    public static HashMap<String,Item> TOOLS = new HashMap<>();
-    public static HashMap<String,Item> MISC = new HashMap<>();
+    public static HashMap<String, Item> DUSTS = new HashMap<>();
+    public static HashMap<String, Item> ARMORS = new HashMap<>();
+    public static HashMap<String, Item> TOOLS = new HashMap<>();
+    public static HashMap<String, Item> MISC = new HashMap<>();
 
-    public static void init(){
+    public static void init() {
 
         //for each of the ores we generated in ModBlocks:
-        for(Block b : ModBlocks.ORES){
+        for (Block b : ModBlocks.ORES) {
 
-            BaseOre ore = (BaseOre)b;
+            BaseOre ore = (BaseOre) b;
             //ingot
-            if(OreConfig.genIngots) {
+            if (OreConfig.genIngots || ore.genIngots) {
                 if (OreConfig.genVariants) {
                     INGOTS.put(ore.name + "Ingot", new BaseIngotWithVariants(ore));
                 } else {
@@ -37,7 +37,7 @@ public class ModItems {
                 }
             }
             //dusts
-            if(OreConfig.genDusts) {
+            if (OreConfig.genDusts || ore.genDusts) {
                 if (OreConfig.genVariants) {
                     DUSTS.put(ore.name + "Dust", new BaseDustWithVariants(ore));
                 } else {
@@ -45,39 +45,38 @@ public class ModItems {
                 }
             }
             //tools
-            if(OreConfig.genTools){
+            if (OreConfig.genTools || ore.genTools) {
                 genTools(ore);
             }
             //armors
-            if(OreConfig.genArmor){
+            if (OreConfig.genArmor || ore.genArmor) {
                 genArmor(ore);
             }
             //buckets
-           // if(OreConfig.genBuckets) {
-            //    MISC.put(ore.name + "Bucket", new BaseBucket(ore));
-           // }
+//            if(OreConfig.genBuckets || ore.genBuckets) {
+//               MISC.put(ore.name + "Bucket", new BaseBucket(ore));
+//            }
 
-            if(OreConfig.genShields){
+            if (OreConfig.genShields || ore.genShields) {
                 MISC.put(ore.name + "Shield", new BaseShield(ore));
             }
         }
 
         //GEMS
-        for(Block b: ModBlocks.GEMS.values()){
+        for (BaseOre b : ModBlocks.GEMS.values()) {
 
-            if(OreConfig.genTools){
-                genTools((BaseOre)b);
+            if (OreConfig.genTools || b.genTools) {
+                genTools(b);
             }
 
-            if(OreConfig.genArmor) {
-                genArmor((BaseOre)b);
+            if (OreConfig.genArmor || b.genArmor) {
+                genArmor(b);
             }
         }
     }
 
 
-
-    private static void genTools(BaseOre ore){
+    private static void genTools(BaseOre ore) {
         ItemTool.ToolMaterial t = ore.toolMaterial;
         TOOLS.put(ore.name + "Pickaxe", new BasePickaxe(t, ore.getColor()).setRegistryName(Ores.MODID, ore.name + "Pickaxe"));
         TOOLS.put(ore.name + "Axe", new BaseAxe(t, ore.getColor()).setRegistryName(Ores.MODID, ore.name + "Axe"));
@@ -87,7 +86,7 @@ public class ModItems {
         TOOLS.put(ore.name + "Shears", new BaseShears(t, ore.getColor()).setRegistryName(Ores.MODID, ore.name + "Shears"));
     }
 
-    private static void genArmor(BaseOre ore){
+    private static void genArmor(BaseOre ore) {
         ItemArmor.ArmorMaterial a = ore.armorMaterial;
         ARMORS.put(ore.name + "Helmet", new BaseArmor(a, 1, EntityEquipmentSlot.HEAD, ore.getColor()).setRegistryName(Ores.MODID, a.name() + "Helmet"));
         ARMORS.put(ore.name + "Chestplate", new BaseArmor(a, 1, EntityEquipmentSlot.CHEST, ore.getColor()).setRegistryName(Ores.MODID, a.name() + "Chestplate"));

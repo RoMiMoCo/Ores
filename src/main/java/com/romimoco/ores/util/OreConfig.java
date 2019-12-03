@@ -9,7 +9,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
-@Config(modid = Ores.MODID, name = "Romimoco/ores/"+ Ores.NAME)
+@Config(modid = Ores.MODID, name = "Romimoco/ores/" + Ores.NAME)
 public class OreConfig {
 
     //private static final String CATEGORY_GENERAL = "general";
@@ -19,64 +19,64 @@ public class OreConfig {
     public static final Recipes recipes = new Recipes();
     public static final Integrations integrations = new Integrations();
 
-        @Config.RequiresMcRestart
-        @Comment("Generate Variants for ores")
-        public static boolean genVariants;
+    @Config.RequiresMcRestart
+    @Comment("Generate Variants for ores")
+    public static boolean genVariants;
 
-        @Config.RequiresMcRestart
-        @Comment("Generate dusts for each ore")
-        public static boolean genDusts;
+    @Config.RequiresMcRestart
+    @Comment("Generate dusts for each ore")
+    public static boolean genDusts;
 
-        @Config.RequiresMcRestart
-        @Comment("Generate ingots for each ore")
-        public static boolean genIngots;
+    @Config.RequiresMcRestart
+    @Comment("Generate ingots for each ore")
+    public static boolean genIngots;
 
-        @Config.RequiresMcRestart
-        @Comment("Generate full Blocks for each ore")
-        public static boolean genFullBlocks;
+    @Config.RequiresMcRestart
+    @Comment("Generate full Blocks for each ore")
+    public static boolean genFullBlocks;
 
-        @Config.RequiresMcRestart
-        @Comment("Generate tools for each ore")
-        public static boolean genTools;
+    @Config.RequiresMcRestart
+    @Comment("Generate tools for each ore")
+    public static boolean genTools;
 
-        @Config.RequiresMcRestart
-        @Comment("Generate armor sets for each ore")
-        public static boolean genArmor;
+    @Config.RequiresMcRestart
+    @Comment("Generate armor sets for each ore")
+    public static boolean genArmor;
 
-        @Config.RequiresMcRestart
-        @Comment("Generate buckets for each ore")
-        public static boolean genBuckets;
+    @Config.RequiresMcRestart
+    @Comment("Generate buckets for each ore")
+    public static boolean genBuckets;
 
-        @Config.RequiresMcRestart
-        @Comment("Generate fluids for each ore")
-        public static boolean genFluids;
+    @Config.RequiresMcRestart
+    @Comment("Generate fluids for each ore")
+    public static boolean genFluids;
 
 
-        @Config.RequiresMcRestart
-        @Comment("Generate Shields for each ore")
-        public static boolean genShields;
+    @Config.RequiresMcRestart
+    @Comment("Generate Shields for each ore")
+    public static boolean genShields;
 
-        @Config.RequiresMcRestart
-        @Comment("Create a resource pack for english localization")
-        public static boolean createResourcePack;
+    @Config.RequiresMcRestart
+    @Comment("Create a resource pack for english localization")
+    public static boolean createResourcePack;
 
-        @Config.RequiresMcRestart
-        @Comment("Require a resource pack to be installed for localizations to work.  Slight memory decrease and faster lookups")
-        public static boolean requireResourcePack;
+    @Config.RequiresMcRestart
+    @Comment("Require a resource pack to be installed for localizations to work.  Slight memory decrease and faster lookups")
+    public static boolean requireResourcePack;
 
     public static class Worldgen {
 
         @Config.RequiresWorldRestart
         @Comment("Disable world generation of minecraft iron ore")
-        public  boolean disableVanillaIron;
+        public boolean disableVanillaIron;
 
         @Config.RequiresWorldRestart
         @Comment("Disable world generation of minecraft coal ore")
-        public  boolean disableVanillaCoal;
+        public boolean disableVanillaCoal;
 
         @Config.RequiresWorldRestart
         @Comment("Disable world generation of minecraft gold ore")
-        public  boolean disableVanillaGold;
+        public boolean disableVanillaGold;
 
         @Config.RequiresWorldRestart
         @Comment("Disable world generation of minecraft redstone ore")
@@ -111,7 +111,7 @@ public class OreConfig {
 
     }
 
-    public static class Integrations{
+    public static class Integrations {
         @Comment("Add Tinkers Construct Smelting and Casting for all ores")
         public boolean TiConIntegration;
 
@@ -124,13 +124,10 @@ public class OreConfig {
     }
 
     @Mod.EventBusSubscriber(modid = Ores.MODID)
-    private static class Handler
-    {
+    private static class Handler {
         @SubscribeEvent(priority = EventPriority.NORMAL)
-        public static void onConfigChanged(ConfigChangedEvent.OnConfigChangedEvent event)
-        {
-            if (event.getModID().equals(Ores.MODID))
-            {
+        public static void onConfigChanged(ConfigChangedEvent.OnConfigChangedEvent event) {
+            if (event.getModID().equals(Ores.MODID)) {
                 ConfigManager.sync(Ores.MODID, Config.Type.INSTANCE);
             }
         }

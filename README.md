@@ -23,6 +23,8 @@ oreDefinitions.json has the following format.
       "Color": "0xCC0000",
       "Hardness":"2.5",
       "Harvestlevel":"2",
+      "genIngots": true,
+      "genBuckets": true,
       "Generation":{
         "MinY": 32,
         "MaxY": 64,

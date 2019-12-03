@@ -13,9 +13,8 @@ import javax.annotation.Nullable;
 public class OreColor implements IBlockColor, IItemColor {
     @Override
     public int colorMultiplier(IBlockState state, @Nullable IBlockAccess worldIn, @Nullable BlockPos pos, int tintIndex) {
-        if(state.getBlock() instanceof IColoredItem)
-        {
-            return ((IColoredItem)state.getBlock()).getColor();
+        if (state.getBlock() instanceof IColoredItem) {
+            return ((IColoredItem) state.getBlock()).getColor();
         }
         return 0;
     }
@@ -23,11 +22,10 @@ public class OreColor implements IBlockColor, IItemColor {
 
     @Override
     public int colorMultiplier(ItemStack stack, int tintIndex) {
-        if(stack.getItem() instanceof ItemBlock && ((ItemBlock)stack.getItem()).getBlock() instanceof IColoredItem){
-            return ((IColoredItem)((ItemBlock)stack.getItem()).getBlock()).getColor();
-        }
-        else if(stack.getItem() instanceof IColoredItem){
-            return(((IColoredItem) stack.getItem()).getColor());
+        if (stack.getItem() instanceof ItemBlock && ((ItemBlock) stack.getItem()).getBlock() instanceof IColoredItem) {
+            return ((IColoredItem) ((ItemBlock) stack.getItem()).getBlock()).getColor();
+        } else if (stack.getItem() instanceof IColoredItem) {
+            return (((IColoredItem) stack.getItem()).getColor());
         }
         return 0;
     }

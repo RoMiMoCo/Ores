@@ -30,35 +30,35 @@ public class ClientProxy extends CommonProxy {
 
         //register item/blockColorHandlers
         OreColor colorHandler = new OreColor();
-        for(Block B : ModBlocks.ORES) {
+        for (Block B : ModBlocks.ORES) {
             Minecraft.getMinecraft().getBlockColors().registerBlockColorHandler(colorHandler, B);
             Minecraft.getMinecraft().getItemColors().registerItemColorHandler(colorHandler, B);
         }
-        for(Block B : ModBlocks.GEMS.values()) {
+        for (Block B : ModBlocks.GEMS.values()) {
             Minecraft.getMinecraft().getBlockColors().registerBlockColorHandler(colorHandler, B);
             Minecraft.getMinecraft().getItemColors().registerItemColorHandler(colorHandler, B);
         }
-        for(Block B : ModBlocks.BLOCKS.values()) {
+        for (Block B : ModBlocks.BLOCKS.values()) {
             Minecraft.getMinecraft().getBlockColors().registerBlockColorHandler(colorHandler, B);
             Minecraft.getMinecraft().getItemColors().registerItemColorHandler(colorHandler, B);
         }
-        for(Item i : ModItems.INGOTS.values()){
+        for (Item i : ModItems.INGOTS.values()) {
             Minecraft.getMinecraft().getItemColors().registerItemColorHandler(colorHandler, i);
         }
-        for(Item i : ModItems.GEMS.values()){
+        for (Item i : ModItems.GEMS.values()) {
             Minecraft.getMinecraft().getItemColors().registerItemColorHandler(colorHandler, i);
         }
-        for(Item i : ModItems.DUSTS.values()){
+        for (Item i : ModItems.DUSTS.values()) {
             Minecraft.getMinecraft().getItemColors().registerItemColorHandler(colorHandler, i);
         }
-        for(Item i : ModItems.ARMORS.values()){
+        for (Item i : ModItems.ARMORS.values()) {
             Minecraft.getMinecraft().getItemColors().registerItemColorHandler(colorHandler, i);
         }
-        for(Item i : ModItems.TOOLS.values()){
+        for (Item i : ModItems.TOOLS.values()) {
             Minecraft.getMinecraft().getItemColors().registerItemColorHandler(colorHandler, i);
         }
-        for(Item i : ModItems.MISC.values()){
-            if(!(i instanceof BaseBucket)) {
+        for (Item i : ModItems.MISC.values()) {
+            if (!(i instanceof BaseBucket)) {
                 Minecraft.getMinecraft().getItemColors().registerItemColorHandler(colorHandler, i);
             }
         }

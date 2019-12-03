@@ -17,40 +17,38 @@ public class OreGenBase implements IWorldGenerator {
     private LinkedList<OreGenDefinition> ores;
 
 
-
-    public OreGenBase(){
+    public OreGenBase() {
         ores = new LinkedList<OreGenDefinition>();
     }
 
-    public void add(OreGenDefinition def){
+    public void add(OreGenDefinition def) {
         ores.add(def);
     }
 
 
-
     @Override
     public void generate(Random random, int chunkX, int chunkZ, World world, IChunkGenerator chunkGenerator, IChunkProvider chunkProvider) {
-       for(OreGenDefinition d : ores) {
+        for (OreGenDefinition d : ores) {
 
-       String currentBiome =world.getBiomeForCoordsBody(new BlockPos((chunkX * 16) + 8, 64, (chunkZ * 16)+8)).getRegistryName().getResourcePath();
-           if(d.biomes == null || d.biomes.contains(currentBiome)) { //if no biomes specified for spawn, or the current biome is specified
-               addOreSpawn(world, random, chunkX * 16, chunkZ * 16, 16, 16, d);
-           }
-       }
+            String currentBiome = world.getBiomeForCoordsBody(new BlockPos((chunkX * 16) + 8, 64, (chunkZ * 16) + 8)).getRegistryName().getResourcePath();
+            if (d.biomes == null || d.biomes.contains(currentBiome)) { //if no biomes specified for spawn, or the current biome is specified
+                addOreSpawn(world, random, chunkX * 16, chunkZ * 16, 16, 16, d);
+            }
+        }
     }
 
 
-    private void addOreSpawn(World world, Random random, int xPos, int zPos, int maxX, int maxZ, OreGenDefinition def){
+    private void addOreSpawn(World world, Random random, int xPos, int zPos, int maxX, int maxZ, OreGenDefinition def) {
 
-        for(int i = 0; i < def.spawnChance; i++){
+        for (int i = 0; i < def.spawnChance; i++) {
             int x = xPos + random.nextInt(maxX);
-            int yRange=def.maxY - def.minY;
-            int y = def.minY + random.nextInt((yRange > 0)?yRange:1);
+            int yRange = def.maxY - def.minY;
+            int y = def.minY + random.nextInt((yRange > 0) ? yRange : 1);
             int z = zPos + random.nextInt(maxZ);
 
-            if(OreConfig.genVariants) {
+            if (OreConfig.genVariants) {
                 (new WorldGenMinable(def.ore.getStateFromMeta(def.getMetaToSpawn(random.nextInt(100))), def.veinSize, BlockMatcher.forBlock(Blocks.STONE))).generate(world, random, new BlockPos(x, y, z));
-            }else{
+            } else {
                 (new WorldGenMinable(def.ore.getDefaultState(), def.veinSize, BlockMatcher.forBlock(Blocks.STONE))).generate(world, random, new BlockPos(x, y, z));
             }
         }

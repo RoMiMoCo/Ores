@@ -22,8 +22,7 @@ import net.minecraftforge.registries.IForgeRegistry;
 
 
 @Mod(modid = Ores.MODID, version = Ores.VERSION, name = Ores.NAME, acceptedMinecraftVersions = "[1.12, 1.13)")
-public class Ores
-{
+public class Ores {
     public static final String MODID = "romimocoores";
     public static final String NAME = "ores";
     public static final String VERSION = "0.4.1";
@@ -36,34 +35,33 @@ public class Ores
     public static CommonProxy proxy;
 
     @Mod.EventHandler
-    public void preinit(FMLPreInitializationEvent event)
-    {
+    public void preinit(FMLPreInitializationEvent event) {
         OreLogger.init(event);
         OreLogger.info("Romimoco ores PRE-INIT");
 
         //Set up all of the integrations here
-        if(OreConfig.integrations.TiConIntegration){
-            if(Loader.isModLoaded("tconstruct")){
+        if (OreConfig.integrations.TiConIntegration) {
+            if (Loader.isModLoaded("tconstruct")) {
                 OreLogger.info("Integrating with TiCon");
                 OreIntegrations.addIntegration(new TiConIntegration());
-            }else{
+            } else {
                 OreLogger.error("Tinkers construct integration requested but Tinkers is not loaded");
             }
         }
 
-        if(OreConfig.integrations.IEIntegration){
-            if(Loader.isModLoaded("immersiveengineering")){
+        if (OreConfig.integrations.IEIntegration) {
+            if (Loader.isModLoaded("immersiveengineering")) {
                 OreLogger.info("Integrating with Immersive Engineering");
                 OreIntegrations.addIntegration(new IEIntegration());
-            }else{
+            } else {
                 OreLogger.error("Immersive Engineering integration requested but Immersive Engineering is not loaded");
             }
         }
-        if(OreConfig.integrations.TEIntegration){
-            if(Loader.isModLoaded("thermalexpansion")){
+        if (OreConfig.integrations.TEIntegration) {
+            if (Loader.isModLoaded("thermalexpansion")) {
                 OreLogger.info("Integrating with Thermal Expansion");
                 OreIntegrations.addIntegration(new TEIntegration());
-            }else{
+            } else {
                 OreLogger.error("Thermal Expansion integration requested but Thermal Expansion is not loaded");
             }
         }
@@ -81,15 +79,13 @@ public class Ores
 
 
     @Mod.EventHandler
-    public void init(FMLInitializationEvent event)
-    {
+    public void init(FMLInitializationEvent event) {
         OreLogger.info("Romimoco ores INIT");
         proxy.init(event);
     }
 
     @Mod.EventHandler
-    public void postinit(FMLPostInitializationEvent event)
-    {
+    public void postinit(FMLPostInitializationEvent event) {
         IForgeRegistry<IRecipe> recipes = ForgeRegistries.RECIPES;
         OreLogger.info("Romimoco ores POST-INIT");
         proxy.postInit(event);

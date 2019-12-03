@@ -12,7 +12,7 @@ public class FluidHandlerBaseBucket extends FluidHandlerItemStackSimple implemen
     }
 
 
-    public boolean canFillFluidType(FluidStack fluid){
+    public boolean canFillFluidType(FluidStack fluid) {
         return fluid.getFluid() == FluidRegistry.WATER ||
                 fluid.getFluid() == FluidRegistry.LAVA ||
                 fluid.getFluid().getName().equals("milk") ||

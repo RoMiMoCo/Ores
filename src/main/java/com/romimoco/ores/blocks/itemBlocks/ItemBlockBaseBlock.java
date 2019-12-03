@@ -15,9 +15,8 @@ public class ItemBlockBaseBlock extends ItemBlock {
 
     @SideOnly(Side.CLIENT)
     @Override
-    public String getItemStackDisplayName(ItemStack stack)
-    {
-        if(OreConfig.requireResourcePack) {
+    public String getItemStackDisplayName(ItemStack stack) {
+        if (OreConfig.requireResourcePack) {
             return super.getItemStackDisplayName(stack);
         }
         return Ores.proxy.langs.translate(this.getUnlocalizedNameInefficiently(stack) + ".name").trim();

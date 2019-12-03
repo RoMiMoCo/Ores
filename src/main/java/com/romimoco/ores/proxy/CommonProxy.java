@@ -27,17 +27,17 @@ public class CommonProxy {
         ModItems.init();
 
         //All items are created, can write the .lang file now if needed
-        if(OreConfig.createResourcePack) {
+        if (OreConfig.createResourcePack) {
             OreLogger.commitLocalization();
         }
 
-        if(!OreConfig.requireResourcePack){
+        if (!OreConfig.requireResourcePack) {
             //init the i18n system
             langs = new i18n(event);
         }
 
         //All items are created, can integrate them now
-        for(IOreIntegration i: OreIntegrations.integrations){
+        for (IOreIntegration i : OreIntegrations.integrations) {
             i.preInit(event);
         }
     }
@@ -45,7 +45,7 @@ public class CommonProxy {
 
     public void init(FMLInitializationEvent event) {
 
-        for(IOreIntegration i: OreIntegrations.integrations){
+        for (IOreIntegration i : OreIntegrations.integrations) {
             i.Init(event);
         }
     }
@@ -53,7 +53,7 @@ public class CommonProxy {
 
     public void postInit(FMLPostInitializationEvent event) {
 
-        for(IOreIntegration i: OreIntegrations.integrations){
+        for (IOreIntegration i : OreIntegrations.integrations) {
             i.postInit(event);
         }
     }
