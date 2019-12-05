@@ -4,10 +4,8 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.Logger;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
 
 public class OreLogger {
     private static Logger LOGGER;
@@ -19,7 +17,9 @@ public class OreLogger {
         //Set up file for creating resource pack
         if (OreConfig.createResourcePack) {
             try {
-                lang = new BufferedWriter(new FileWriter(new File(event.getModConfigurationDirectory().getAbsolutePath() + "/Romimoco/ores/en_us.lang")));
+                lang = new BufferedWriter(
+                        new OutputStreamWriter(new FileOutputStream(new File(event.getModConfigurationDirectory().getAbsolutePath() + "/Romimoco/ores/en_us.lang")), StandardCharsets.UTF_8)
+                );
             } catch (IOException e) {
                 error(e.getMessage());
             }

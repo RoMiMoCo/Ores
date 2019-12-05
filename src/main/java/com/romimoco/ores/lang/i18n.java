@@ -21,9 +21,11 @@ public class i18n {
         translations = new LinkedList<>();
         File[] files = new File(event.getModConfigurationDirectory().getAbsolutePath() + "/Romimoco/ores").listFiles();
 
-        for (File f : files) {
-            if (f.getName().endsWith("lang")) {
-                this.loadFile(f);
+        if (null != files) {
+            for (File f : files) {
+                if (f.getName().endsWith("lang")) {
+                    this.loadFile(f);
+                }
             }
         }
         if (translations.size() == 0) {
