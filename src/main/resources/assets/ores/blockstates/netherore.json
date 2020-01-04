@@ -1,0 +1,15 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "textures": {
+      "base": "minecraft:blocks/netherrack",
+      "overlay": "ores:blocks/baseore_high",
+      "particle": "minecraft:blocks/netherrack"
+    },
+    "model": "ores:netherore"
+  },
+  "variants":{
+    "normal":[{}],
+    "inventory":[{}]
+  }
+}

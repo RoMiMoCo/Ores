@@ -7,7 +7,7 @@ oreDefinitions.json has the following format.
 {
   "OreList": [
     {
-      "Name" : "iron",
+      "Name" : "Iron",
       "Color": "0xF3D1BB",
       "Hardness":"3",
       "Harvestlevel":"3",
@@ -19,23 +19,43 @@ oreDefinitions.json has the following format.
       }
     },
     {
-      "Name" : "copper",
+      "Name" : "Сopper",
       "Color": "0xCC0000",
       "Hardness":"2.5",
       "Harvestlevel":"2",
       "genIngots": true,
       "genBuckets": true,
+      "genVariants": true,
       "Generation":{
-        "MinY": 32,
-        "MaxY": 64,
-        "SpawnChance": 8,
-        "VeinSize": 8
-      }
+        "Dimensions": [
+          {
+            "ID": 0,
+            "MinY": 1,
+            "MaxY": 40,
+            "SpawnChance": 30,
+            "VeinSize": 4
+          },
+          {
+            "ID": 1,
+            "MinY": 0,
+            "MaxY": 255,
+            "SpawnChance": 30,
+            "VeinSize": 4
+          },
+          {
+            "ID": -1,
+            "MinY": 0,
+            "MaxY": 255,
+            "SpawnChance": 40,
+            "VeinSize": 4
+          }
+       ]
+     }
     }
   ],
  "GemList":[
     {
-      "Name" : "diamond",
+      "Name" : "Diamond",
       "Color": "0x1589ff",
       "Hardness":"2.2",
       "Harvestlevel":"4",
@@ -48,7 +68,7 @@ oreDefinitions.json has the following format.
       }
     },
     {
-      "Name" : "ruby",
+      "Name" : "Ruby",
       "Color": "0xff0000",
       "Hardness":"2.2",
       "Harvestlevel":"4",

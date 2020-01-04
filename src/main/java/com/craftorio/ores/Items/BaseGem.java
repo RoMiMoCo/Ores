@@ -1,0 +1,87 @@
+package com.craftorio.ores.Items;
+
+import com.google.gson.JsonObject;
+import com.craftorio.ores.Ores;
+import com.craftorio.ores.blocks.BaseGemOre;
+import com.craftorio.ores.util.IColoredItem;
+import com.craftorio.ores.util.IHasCustomModel;
+import com.craftorio.ores.util.OreConfig;
+import com.craftorio.ores.util.OreLogger;
+import com.craftorio.ores.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+
+
+public class BaseGem extends Item implements IColoredItem, IHasCustomModel {
+
+    private int color;
+    public String name;
+    private String cut;
+    private int burnTime;
+    public String type;
+
+    public BaseGem(JsonObject definition, BaseGemOre b) {
+
+        super();
+        this.name = b.name;
+        this.color = b.getColor();
+        this.setTranslationKey(Ores.MODID + ":gem" + b.name);
+        this.setCreativeTab(CreativeTabs.MISC);
+        this.setRegistryName(Ores.MODID, "gem" + name);
+
+        this.type = "gem";
+        try {
+            this.type = definition.get("Type").getAsString();
+        } catch (Exception e) {
+        }
+
+
+        this.cut = "teardrop";
+        try {
+            this.cut = definition.get("Cut").getAsString();
+        } catch (Exception e) {
+        }
+
+        this.burnTime = 0;
+        try {
+            this.burnTime = definition.get("BurnTime").getAsInt();
+        } catch (Exception e) {
+        }
+
+
+        OreLogger.localize(this.getTranslationKey() + ".name=" + b.name.substring(0, 1).toUpperCase() + b.name.substring(1));
+    }
+
+    @Override
+    public int getColor() {
+        return this.color;
+    }
+
+    @Override
+    @SideOnly(Side.CLIENT)
+    public void initModel() {
+        if (this.cut.equals("dust")) {
+            ModelLoader.setCustomModelResourceLocation(this, 0, new ModelResourceLocation(Ores.NAME + ":basedust_rich"));
+        } else {
+            ModelLoader.setCustomModelResourceLocation(this, 0, new ModelResourceLocation(Ores.NAME + ":gem_" + this.cut));
+        }
+    }
+
+    @Override
+    public int getItemBurnTime(ItemStack stack) {
+        return this.burnTime;
+    }
+
+    @SideOnly(Side.CLIENT)
+    @Override
+    public String getItemStackDisplayName(ItemStack stack) {
+        if (OreConfig.requireResourcePack) {
+            return super.getItemStackDisplayName(stack);
+        }
+        return Ores.proxy.langs.translate(this.getUnlocalizedNameInefficiently(stack) + ".name").trim();
+    }
+}

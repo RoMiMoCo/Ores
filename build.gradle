@@ -11,9 +11,9 @@ apply plugin: 'net.minecraftforge.gradle.forge'
 //Only edit below this line, the above code adds and enables the necessary things for Forge to be setup.
 
 
-version = "0.4.3"
-group = "com.romimoco.ores" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
-archivesBaseName = "romimoco-ores"
+version = "0.4.4"
+group = "com.craftorio.ores" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+archivesBaseName = "craftorio-ores"
 
 sourceCompatibility = targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
 compileJava {
@@ -21,7 +21,7 @@ compileJava {
 }
 
 minecraft {
-    version = "1.12.2-14.23.4.2727"
+    version = "1.12.2-14.23.5.2838"
     runDir = "run"
     
     // the mappings can be changed at any time, and must be in the following format.
@@ -29,7 +29,7 @@ minecraft {
     // stable_#            stables are built at the discretion of the MCP team.
     // Use non-default mappings at your own risk. they may not always work.
     // simply re-run your setup task after changing the mappings to update your workspace.
-    mappings = "snapshot_20180703"
+    mappings = "snapshot_20180814"
     // makeObfSourceJar = false // an Srg named sources jar is made by default. uncomment this to disable.
 }
 
@@ -38,8 +38,6 @@ repositories {
        name 'DVS1 Maven FS'
         url 'http://dvs1.progwml6.com/files/maven'
     }
-
-
 }
 
 dependencies {
