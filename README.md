@@ -87,13 +87,77 @@ oreDefinitions.json has the following format.
 }
 ```
 
+Example for custom dimension
+> The example will generate sulfur and tin ores which drops IC2 Sulfur dust and the tin ingot in Overworld and TwilightForest dimensions
+```json
+{
+  "OreList": [
+    {
+      "Name" : "Tin",
+      "Color": "0x9AFEFF",
+      "Hardness":"2",
+      "Harvestlevel":"1",
+      "genIngots": true,
+      "Generation":{
+        "Dimensions": [
+          {
+            "ID": 0,
+            "MinY": 1,
+            "MaxY": 40,
+            "SpawnChance": 50,
+            "VeinSize": 4
+          },
+          {
+            "ID": 7,
+            "LikeID": 0,
+            "MinY": 1,
+            "MaxY": 64,
+            "SpawnChance": 60,
+            "VeinSize": 4
+          }
+        ]
+      }
+    }
+  ],
+  "GemList":[
+    {
+      "Name" : "Sulfur",
+      "Color": "0xfffc00",
+      "Hardness":"2.2",
+      "Harvestlevel":"1",
+      "Drops":"ic2:dust/16",
+      "genVariants": true,
+      "Generation":{
+        "Dimensions": [
+          {
+            "ID": 0,
+            "MinY": 1,
+            "MaxY": 40,
+            "SpawnChance": 30,
+            "VeinSize": 4
+          },
+          {
+            "ID": 7,
+            "LikeID": 0,
+            "MinY": 1,
+            "MaxY": 40,
+            "SpawnChance": 30,
+            "VeinSize": 4
+          }
+        ]
+      }
+    }
+  ]
+}
+```
+
 Ores:
   * Drops itself when mined
   * Smelts into an ingot
   * Variants smelt into variant ingots
   * Will generate Ore, Ingots, Block, Tools, Armor, Dusts (based on config entries)
 
-Gems: ( >= v0.2.0)
+Gems:
   * Drops an Item when mined
   * Unsmeltable (currently)
   * Drops can be custom defined or a string such as "minecraft:diamond" 
