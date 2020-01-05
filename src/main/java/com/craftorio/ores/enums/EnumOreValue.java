@@ -55,6 +55,18 @@ public enum EnumOreValue implements IStringSerializable {
     private final int worldId;
     private final int valueId;
     private static final HashMap<Integer, EnumOreValue> META_LOOKUP = new HashMap<>();
+    public static final int VARIANT_POOR = 4;
+    public static final int VARIANT_LOW = 3;
+    public static final int VARIANT_MODERATE = 2;
+    public static final int VARIANT_HIGH = 1;
+    public static final int VARIANT_RICH = 0;
+    private static ArrayList<Integer> variants = new ArrayList<Integer>() {{
+        add(VARIANT_POOR);
+        add(VARIANT_LOW);
+        add(VARIANT_MODERATE);
+        add(VARIANT_HIGH);
+        add(VARIANT_RICH);
+    }};
 
     public int getMetadata() {
         return this.meta;
@@ -99,15 +111,15 @@ public enum EnumOreValue implements IStringSerializable {
 
     public static String ingotNameByMetadata(int meta) {
         switch (byMetadata(meta).valueId) {
-            case 4:
+            case VARIANT_POOR:
                 return "nugget";
-            case 3:
+            case VARIANT_LOW:
                 return "shard";
-            case 2:
+            case VARIANT_MODERATE:
                 return "chunk";
-            case 1:
+            case VARIANT_HIGH:
                 return "hunk";
-            case 0:
+            case VARIANT_RICH:
             default:
                 return "ingot";
         }
@@ -115,15 +127,15 @@ public enum EnumOreValue implements IStringSerializable {
 
     public static String dustNameByMetadata(int meta) {
         switch (byMetadata(meta).valueId) {
-            case 4:
+            case VARIANT_POOR:
                 return "tiny";
-            case 3:
+            case VARIANT_LOW:
                 return "small";
-            case 2:
+            case VARIANT_MODERATE:
                 return "medium";
-            case 1:
+            case VARIANT_HIGH:
                 return "large";
-            case 0:
+            case VARIANT_RICH:
             default:
                 return "huge";
         }
@@ -138,6 +150,8 @@ public enum EnumOreValue implements IStringSerializable {
     public int getVariant() {
         return getValueId();
     }
+
+    public static ArrayList<Integer> getVariants() { return variants; }
 
     public int getWorldId() {
         return worldId;

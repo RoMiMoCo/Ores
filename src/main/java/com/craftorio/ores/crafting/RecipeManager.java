@@ -40,12 +40,28 @@ public class RecipeManager {
     public static void registerSmeltingRecipes(BaseOre b) {
         if (b.genVariants) {
             for (EnumOreValue v : EnumOreValue.values()) {
-                GameRegistry.addSmelting(new ItemStack(b, 1, v.getMetadata()), new ItemStack(ModItems.INGOTS.get(b.name + "Ingot"), 1, v.getMetadata()), 0.0f);
-                GameRegistry.addSmelting(new ItemStack(ModItems.DUSTS.get(b.name + "Dust"), 1, v.getMetadata()), new ItemStack(ModItems.INGOTS.get(b.name + "Ingot"), 1, v.getMetadata()), 0.0f);
+                GameRegistry.addSmelting(
+                        new ItemStack(b, 1, v.getMetadata()),
+                        new ItemStack(ModItems.INGOTS.get(b.name + "Ingot"), 1, v.getVariant()),
+                        0.7f-((float)v.getVariant()/10)
+                );
+                GameRegistry.addSmelting(
+                        new ItemStack(ModItems.DUSTS.get(b.name + "Dust"), 1, v.getMetadata()),
+                        new ItemStack(ModItems.INGOTS.get(b.name + "Ingot"), 1, v.getVariant()),
+                        0.7f-((float)v.getVariant()/10)
+                );
             }
         } else {
-            GameRegistry.addSmelting(b, new ItemStack(ModItems.INGOTS.get(b.name + "Ingot")), 0.0f);
-            GameRegistry.addSmelting(b, new ItemStack(ModItems.DUSTS.get(b.name + "Dust")), 0.0f);
+            GameRegistry.addSmelting(
+                    b,
+                    new ItemStack(ModItems.INGOTS.get(b.name + "Ingot")),
+                    0.7f
+            );
+            GameRegistry.addSmelting(
+                    new ItemStack(ModItems.DUSTS.get(b.name + "Dust")),
+                    new ItemStack(ModItems.INGOTS.get(b.name + "Ingot")),
+                    0.7f
+            );
         }
     }
 
@@ -79,7 +95,6 @@ public class RecipeManager {
             removeVanillaRecipes(name + "_chestplate");
             removeVanillaRecipes(name + "_boots");
             removeVanillaRecipes(name + "_leggings");
-
         }
 
         BaseArmor helmet = (BaseArmor) ModItems.ARMORS.get(b.name + "Helmet");

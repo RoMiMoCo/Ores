@@ -25,7 +25,7 @@ public class BaseDustWithVariants extends BaseDust implements IHasCustomModel, I
         this.setHasSubtypes(true);
         this.setCreativeTab(CreativeTabs.MISC);
 
-        for (EnumOreValue v : EnumOreValue.values()) {
+        for (EnumOreValue v : EnumOreValue.overworldOres) {
             OreLogger.localize(this.getTranslationKey(new ItemStack(this, 1, v.getMetadata())) + ".name=" + EnumOreValue.dustNameByMetadata(v.getMetadata()).substring(0, 1).toUpperCase() +
                     EnumOreValue.dustNameByMetadata(v.getMetadata()).substring(1) + " pile of " + b.name.substring(0, 1).toUpperCase() + b.name.substring(1) + " Dust");
         }
@@ -35,8 +35,8 @@ public class BaseDustWithVariants extends BaseDust implements IHasCustomModel, I
     @SideOnly(Side.CLIENT)
     public void initModel() {
 
-        for (int i = 0; i < EnumOreValue.values().length; i++) {
-            ModelLoader.setCustomModelResourceLocation(this, i, new ModelResourceLocation(Ores.NAME + ":basedust_" + EnumOreValue.byMetadata(i)));
+        for (EnumOreValue v : EnumOreValue.overworldOres) {
+            ModelLoader.setCustomModelResourceLocation(this, v.getMetadata(), new ModelResourceLocation(Ores.NAME + ":basedust_" + v));
         }
     }
 
@@ -44,7 +44,7 @@ public class BaseDustWithVariants extends BaseDust implements IHasCustomModel, I
     @SideOnly(Side.CLIENT)
     public void getSubItems(CreativeTabs itemIn, NonNullList<ItemStack> list) {
         if (this.isInCreativeTab(itemIn)) {
-            for (EnumOreValue value : EnumOreValue.values()) {
+            for (EnumOreValue value : EnumOreValue.overworldOres) {
                 list.add(new ItemStack(this, 1, value.getMetadata()));
             }
         }

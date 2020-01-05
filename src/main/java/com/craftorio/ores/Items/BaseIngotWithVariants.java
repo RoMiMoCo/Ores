@@ -25,7 +25,7 @@ public class BaseIngotWithVariants extends BaseIngot implements IHasCustomModel,
         this.setHasSubtypes(true);
         this.setCreativeTab(CreativeTabs.MISC);
 
-        for (EnumOreValue v : EnumOreValue.values()) {
+        for (EnumOreValue v : EnumOreValue.overworldOres) {
             OreLogger.localize(this.getTranslationKey(new ItemStack(this, 1, v.getMetadata())) + ".name=" + b.name.substring(0, 1).toUpperCase() + b.name.substring(1) + " " +
                     EnumOreValue.ingotNameByMetadata(v.getMetadata()).substring(0, 1).toUpperCase() + EnumOreValue.ingotNameByMetadata(v.getMetadata()).substring(1));
         }
@@ -34,9 +34,8 @@ public class BaseIngotWithVariants extends BaseIngot implements IHasCustomModel,
 
     @SideOnly(Side.CLIENT)
     public void initModel() {
-
-        for (int i = 0; i < EnumOreValue.values().length; i++) {
-            ModelLoader.setCustomModelResourceLocation(this, i, new ModelResourceLocation(Ores.NAME + ":baseIngot_" + EnumOreValue.byMetadata(i)));
+        for (EnumOreValue v : EnumOreValue.overworldOres) {
+            ModelLoader.setCustomModelResourceLocation(this, v.getMetadata(), new ModelResourceLocation(Ores.NAME + ":baseIngot_" + v));
         }
     }
 
@@ -44,8 +43,8 @@ public class BaseIngotWithVariants extends BaseIngot implements IHasCustomModel,
     @SideOnly(Side.CLIENT)
     public void getSubItems(CreativeTabs itemIn, NonNullList<ItemStack> list) {
         if (this.isInCreativeTab(itemIn)) {
-            for (EnumOreValue value : EnumOreValue.values()) {
-                list.add(new ItemStack(this, 1, value.getMetadata()));
+            for (EnumOreValue v : EnumOreValue.overworldOres) {
+                list.add(new ItemStack(this, 1, v.getMetadata()));
             }
         }
     }

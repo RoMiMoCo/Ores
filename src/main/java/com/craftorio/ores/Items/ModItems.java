@@ -27,27 +27,27 @@ public class ModItems {
 
             BaseOre ore = (BaseOre) b;
             //ingot
-            if (OreConfig.genIngots || ore.genIngots) {
-                if (OreConfig.genVariants) {
+            if (ore.genIngots) {
+                if (ore.genVariants) {
                     INGOTS.put(ore.name + "Ingot", new BaseIngotWithVariants(ore));
                 } else {
                     INGOTS.put(ore.name + "Ingot", new BaseIngot(ore));
                 }
             }
             //dusts
-            if (OreConfig.genDusts || ore.genDusts) {
-                if (OreConfig.genVariants) {
+            if (ore.genDusts) {
+                if (ore.genVariants) {
                     DUSTS.put(ore.name + "Dust", new BaseDustWithVariants(ore));
                 } else {
                     DUSTS.put(ore.name + "Dust", new BaseDust(ore));
                 }
             }
             //tools
-            if (OreConfig.genTools || ore.genTools) {
+            if (ore.genTools) {
                 genTools(ore);
             }
             //armors
-            if (OreConfig.genArmor || ore.genArmor) {
+            if (ore.genArmor) {
                 genArmor(ore);
             }
             //buckets
@@ -55,20 +55,20 @@ public class ModItems {
 //               MISC.put(ore.name + "Bucket", new BaseBucket(ore));
 //            }
 
-            if (OreConfig.genShields || ore.genShields) {
+            if (ore.genShields) {
                 MISC.put(ore.name + "Shield", new BaseShield(ore));
             }
         }
 
         //GEMS
-        for (BaseOre b : ModBlocks.GEMS.values()) {
+        for (BaseOre gem : ModBlocks.GEMS.values()) {
 
-            if (OreConfig.genTools || b.genTools) {
-                genTools(b);
+            if (gem.genTools) {
+                genTools(gem);
             }
 
-            if (OreConfig.genArmor || b.genArmor) {
-                genArmor(b);
+            if (gem.genArmor) {
+                genArmor(gem);
             }
         }
     }
