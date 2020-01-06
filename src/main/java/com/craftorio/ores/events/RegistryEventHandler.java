@@ -1,6 +1,7 @@
 package com.craftorio.ores.events;
 
 import com.craftorio.ores.Items.BaseGem;
+import com.craftorio.ores.blocks.BaseGemOre;
 import com.craftorio.ores.crafting.RecipeManager;
 import com.craftorio.ores.enums.EnumOreValue;
 import com.craftorio.ores.util.IHasCustomModel;
@@ -35,12 +36,12 @@ public class RegistryEventHandler {
         OreLogger.info("Registering Blocks");
         IForgeRegistry<Block> r = event.getRegistry();
 
-        for (Block b : ModBlocks.ORES) {
-            if (((BaseOre) b).shouldRegister)
+        for (BaseOre b : ModBlocks.ORES) {
+            if (b.shouldRegister)
                 r.register(b);
         }
-        for (Block b : ModBlocks.GEMS.values()) {
-            if (((BaseOre) b).shouldRegister)
+        for (BaseGemOre b : ModBlocks.GEMS.values()) {
+            if (b.shouldRegister)
                 r.register(b);
         }
 
@@ -56,112 +57,110 @@ public class RegistryEventHandler {
         IForgeRegistry<Item> r = event.getRegistry();
         //Register ItemBlocks for blocks
         for (BaseOre ore : ModBlocks.ORES) {
-
-
             if (!ore.shouldRegister) {
                 continue;
             }
 
-            ItemBlock i = new ItemBlockBaseOre(ore);
+            ItemBlock item = new ItemBlockBaseOre(ore);
 
-            r.register(i.setRegistryName(ore.getRegistryName()));
+            r.register(item.setRegistryName(ore.getRegistryName()));
             String name = ore.name;
             name = name.substring(0, 1).toUpperCase() + name.substring(1);
             OreLogger.debug(name);
 
             for (int d : ore.dimensions) {
                 if (ore.genVariants) {
-                    OreDictionary.registerOre("ore" + name + "poor", new ItemStack(i, 1, EnumOreValue.byWorldValue(d, 4).getMetadata()));
-                    OreDictionary.registerOre("ore" + name + "low", new ItemStack(i, 1, EnumOreValue.byWorldValue(d, 3).getMetadata()));
-                    OreDictionary.registerOre("ore" + name + "moderate", new ItemStack(i, 1, EnumOreValue.byWorldValue(d, 2).getMetadata()));
-                    OreDictionary.registerOre("ore" + name + "high", new ItemStack(i, 1, EnumOreValue.byWorldValue(d, 1).getMetadata()));
-                    OreDictionary.registerOre("ore" + name, new ItemStack(i, 1, EnumOreValue.byWorldValue(d, 0).getMetadata()));
+                    OreDictionary.registerOre("ore" + name + "poor", new ItemStack(item, 1, EnumOreValue.byWorldValue(d, 4).getMetadata()));
+                    OreDictionary.registerOre("ore" + name + "low", new ItemStack(item, 1, EnumOreValue.byWorldValue(d, 3).getMetadata()));
+                    OreDictionary.registerOre("ore" + name + "moderate", new ItemStack(item, 1, EnumOreValue.byWorldValue(d, 2).getMetadata()));
+                    OreDictionary.registerOre("ore" + name + "high", new ItemStack(item, 1, EnumOreValue.byWorldValue(d, 1).getMetadata()));
+                    OreDictionary.registerOre("ore" + name, new ItemStack(item, 1, EnumOreValue.byWorldValue(d, 0).getMetadata()));
                 } else {
-                    OreDictionary.registerOre("ore" + name, new ItemStack(i, 1, EnumOreValue.byWorld(d).getMetadata()));
+                    OreDictionary.registerOre("ore" + name, new ItemStack(item, 1, EnumOreValue.byWorld(d).getMetadata()));
                 }
             }
         }
-        for (Block b : ModBlocks.GEMS.values()) {
-            if (!((BaseOre) b).shouldRegister) {
+        for (BaseGemOre gemOre : ModBlocks.GEMS.values()) {
+            if (!gemOre.shouldRegister) {
                 continue;
             }
 
-            ItemBlock i = new ItemBlockBaseOre(b);
+            ItemBlock item = new ItemBlockBaseOre(gemOre);
 
-            r.register(i.setRegistryName(b.getRegistryName()));
-            String name = ((BaseOre) b).name;
+            r.register(item.setRegistryName(gemOre.getRegistryName()));
+            String name = gemOre.name;
             name = name.substring(0, 1).toUpperCase() + name.substring(1);
             OreLogger.debug(name);
 
-            if (OreConfig.genVariants) {
-                OreDictionary.registerOre("ore" + name + "poor", new ItemStack(i, 1, 4));
-                OreDictionary.registerOre("ore" + name + "low", new ItemStack(i, 1, 3));
-                OreDictionary.registerOre("ore" + name + "moderate", new ItemStack(i, 1, 2));
-                OreDictionary.registerOre("ore" + name + "high", new ItemStack(i, 1, 1));
-                OreDictionary.registerOre("ore" + name, new ItemStack(i, 1, 0));
+            if (gemOre.genVariants) {
+                OreDictionary.registerOre("ore" + name + "poor", new ItemStack(item, 1, 4));
+                OreDictionary.registerOre("ore" + name + "low", new ItemStack(item, 1, 3));
+                OreDictionary.registerOre("ore" + name + "moderate", new ItemStack(item, 1, 2));
+                OreDictionary.registerOre("ore" + name + "high", new ItemStack(item, 1, 1));
+                OreDictionary.registerOre("ore" + name, new ItemStack(item, 1, 0));
             } else {
-                OreDictionary.registerOre("ore" + name, i);
+                OreDictionary.registerOre("ore" + name, item);
             }
         }
 
-        for (Block b : ModBlocks.BLOCKS.values()) {
-            ItemBlock i = new ItemBlockBaseBlock(b);
+        for (Block block : ModBlocks.BLOCKS.values()) {
+            ItemBlock i = new ItemBlockBaseBlock(block);
 
-            r.register(i.setRegistryName(b.getRegistryName()));
-            String name = ((BaseBlock) b).name;
+            r.register(i.setRegistryName(block.getRegistryName()));
+            String name = ((BaseBlock) block).name;
             name = name.substring(0, 1).toUpperCase() + name.substring(1);
             OreLogger.debug(name);
 
-            OreDictionary.registerOre("block" + name, b);
+            OreDictionary.registerOre("block" + name, block);
         }
 
         //Register the remaining items
-        for (Item i : ModItems.INGOTS.values()) {
-            r.register(i);
-            String name = ((BaseIngot) i).name;
+        for (BaseIngot ingot : ModItems.INGOTS.values()) {
+            r.register(ingot);
+            String name = ingot.name;
             name = name.substring(0, 1).toUpperCase() + name.substring(1);
-            if (OreConfig.genVariants) {
-                OreDictionary.registerOre("nugget" + name, new ItemStack(i, 1, 4));
-                OreDictionary.registerOre("shard" + name, new ItemStack(i, 1, 3));
-                OreDictionary.registerOre("chunk" + name, new ItemStack(i, 1, 2));
-                OreDictionary.registerOre("hunk" + name, new ItemStack(i, 1, 1));
-                OreDictionary.registerOre("ingot" + name, new ItemStack(i, 1, 0));
+            if (ingot.getOre().genVariants) {
+                OreDictionary.registerOre("nugget" + name, new ItemStack(ingot, 1, 4));
+                OreDictionary.registerOre("shard" + name, new ItemStack(ingot, 1, 3));
+                OreDictionary.registerOre("chunk" + name, new ItemStack(ingot, 1, 2));
+                OreDictionary.registerOre("hunk" + name, new ItemStack(ingot, 1, 1));
+                OreDictionary.registerOre("ingot" + name, new ItemStack(ingot, 1, 0));
 
                 //TODO: Revisit making this a custom ingredient.  this is hacky as all hell
-                OreDictionary.registerOre("mat" + name, new ItemStack(i, 1, 4));
-                OreDictionary.registerOre("mat" + name, new ItemStack(i, 1, 3));
-                OreDictionary.registerOre("mat" + name, new ItemStack(i, 1, 2));
-                OreDictionary.registerOre("mat" + name, new ItemStack(i, 1, 1));
-                OreDictionary.registerOre("mat" + name, new ItemStack(i, 1, 0));
+                OreDictionary.registerOre("mat" + name, new ItemStack(ingot, 1, 4));
+                OreDictionary.registerOre("mat" + name, new ItemStack(ingot, 1, 3));
+                OreDictionary.registerOre("mat" + name, new ItemStack(ingot, 1, 2));
+                OreDictionary.registerOre("mat" + name, new ItemStack(ingot, 1, 1));
+                OreDictionary.registerOre("mat" + name, new ItemStack(ingot, 1, 0));
 
             } else {
-                OreDictionary.registerOre("ingot" + name, i);
+                OreDictionary.registerOre("ingot" + name, ingot);
             }
         }
 
-        for (Item i : ModItems.DUSTS.values()) {
-            r.register(i);
-            String name = ((BaseDust) i).name;
+        for (BaseDust dust : ModItems.DUSTS.values()) {
+            r.register(dust);
+            String name = dust.name;
             name = name.substring(0, 1).toUpperCase() + name.substring(1);
-            if (OreConfig.genVariants) {
-                OreDictionary.registerOre("dust" + name + "tiny", new ItemStack(i, 1, 4));
-                OreDictionary.registerOre("dust" + name + "small", new ItemStack(i, 1, 3));
-                OreDictionary.registerOre("dust" + name + "med", new ItemStack(i, 1, 2));
-                OreDictionary.registerOre("dust" + name + "large", new ItemStack(i, 1, 1));
-                OreDictionary.registerOre("dust" + name, new ItemStack(i, 1, 0));
+            if (dust.getOre().genVariants) {
+                OreDictionary.registerOre("dust" + name + "tiny", new ItemStack(dust, 1, 4));
+                OreDictionary.registerOre("dust" + name + "small", new ItemStack(dust, 1, 3));
+                OreDictionary.registerOre("dust" + name + "med", new ItemStack(dust, 1, 2));
+                OreDictionary.registerOre("dust" + name + "large", new ItemStack(dust, 1, 1));
+                OreDictionary.registerOre("dust" + name, new ItemStack(dust, 1, 0));
             } else {
-                OreDictionary.registerOre("dust" + name, i);
+                OreDictionary.registerOre("dust" + name, dust);
             }
         }
 
-        for (Item i : ModItems.GEMS.values()) {
-            r.register(i);
+        for (BaseGem gem : ModItems.GEMS.values()) {
+            r.register(gem);
 
-            String name = ((BaseGem) i).name;
-            String type = ((BaseGem) i).type;
+            String name = gem.name;
+            String type = gem.type;
             name = StringUtil.toSentenceCase(name);
 
-            OreDictionary.registerOre(type + name, i);
+            OreDictionary.registerOre(type + name, gem);
         }
 
 
@@ -222,46 +221,44 @@ public class RegistryEventHandler {
         RecipeManager.init(registry);
 
         //now register all the recipes
-        for (Block b : ModBlocks.ORES) {
-            if (((BaseOre) b).shouldRegister) {
-                RecipeManager.registerSmeltingRecipes((BaseOre) b);
+        for (BaseOre ore : ModBlocks.ORES) {
+            if ((ore).shouldRegister) {
+                RecipeManager.registerSmeltingRecipes(ore);
             }
             if (OreConfig.genArmor) {
-                RecipeManager.registerArmorRecipes((BaseOre) b, registry);
+                RecipeManager.registerArmorRecipes(ore, registry);
             }
 
             if (OreConfig.genTools) {
-                RecipeManager.registerToolRecipes((BaseOre) b);
+                RecipeManager.registerToolRecipes(ore);
             }
 
             if (OreConfig.genShields) {
-                RecipeManager.registerShieldRecipes((BaseOre) b);
+                RecipeManager.registerShieldRecipes(ore);
             }
 
             if (OreConfig.genFullBlocks) {
-                RecipeManager.registerMetalBlockRecipes((BaseOre) b);
+                RecipeManager.registerMetalBlockRecipes(ore);
             }
 
-            if (OreConfig.genVariants && OreConfig.recipes.variantCombinationRecipes) {
-                RecipeManager.registerVariantCombinationRecipes((BaseOre) b);
+            if (ore.genVariants && OreConfig.recipes.variantCombinationRecipes) {
+                RecipeManager.registerVariantCombinationRecipes(ore);
             }
 
-            RecipeManager.registerMiscRecipes((BaseOre) b);
+            RecipeManager.registerMiscRecipes(ore);
         }
-        for (Block b : ModBlocks.GEMS.values()) {
+        for (BaseOre gemOre : ModBlocks.GEMS.values()) {
             if (OreConfig.genArmor) {
-                RecipeManager.registerGemArmorRecipes((BaseOre) b);
+                RecipeManager.registerGemArmorRecipes(gemOre);
             }
 
             if (OreConfig.genTools) {
-                RecipeManager.registerGemToolRecipes((BaseOre) b);
+                RecipeManager.registerGemToolRecipes(gemOre);
             }
 
             if (OreConfig.genFullBlocks) {
-                RecipeManager.registerGemBlockRecipes((BaseOre) b);
+                RecipeManager.registerGemBlockRecipes(gemOre);
             }
-
         }
-
     }
 }

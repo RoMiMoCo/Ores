@@ -35,12 +35,29 @@ minecraft {
 
 repositories {
     maven { //Tinkers
-       name 'DVS1 Maven FS'
-        url 'http://dvs1.progwml6.com/files/maven'
+        name "DVS1 Maven FS"
+        url "http://dvs1.progwml6.com/files/maven"
+    }
+    maven {
+        name "IC2 Maven"
+        url "http://maven.ic2.player.to/"
+    }
+
+    maven {
+        // location of a maven mirror for JEI files, as a fallback
+        name "ModMaven"
+        url "https://modmaven.k-4u.nl"
+    }
+
+    maven {
+        // location of a maven mirror for ImmersiveEngineering files
+        name "blamejared"
+        url "https://maven.blamejared.com"
     }
 }
 
 dependencies {
+
     // you may put jars on which you depend on in ./libs
     // or you may define them like so..
     //compile "some.group:artifact:version:classifier"
@@ -62,7 +79,17 @@ dependencies {
     // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
     // http://www.gradle.org/docs/current/userguide/dependency_management.html
 
-    compileOnly fileTree(dir:'libs', includes: ['*.jar'])
+    deobfProvided "mezz.jei:jei_1.12.2:${jeiversion}:api"
+    runtime "mezz.jei:jei_1.12.2:${jeiversion}"
+
+    deobfCompile "blusunrize:ImmersiveEngineering:${ieversion}"
+    deobfCompile "cofh:ThermalExpansion:1.12.2-${teversion}:universal"
+    deobfCompile "slimeknights:TConstruct:1.12.2-${ticversion}"
+
+    deobfProvided "net.industrial-craft:industrialcraft-2:${ic2version}:api"
+    runtime "net.industrial-craft:industrialcraft-2:${ic2version}"
+
+    //compileOnly fileTree(dir:'libs', includes: ['*.jar'])
 }
 
 processResources {

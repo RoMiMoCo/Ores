@@ -18,9 +18,11 @@ public class BaseIngot extends Item implements IColoredItem, IHasCustomModel {
 
     private int color;
     public String name;
+    private BaseOre ore;
 
     public BaseIngot(BaseOre b) {
         super();
+        this.ore = b;
         this.name = b.name;
         this.color = b.getColor();
         this.setTranslationKey(Ores.MODID + ":ingot" + b.name);
@@ -29,6 +31,11 @@ public class BaseIngot extends Item implements IColoredItem, IHasCustomModel {
 
         OreLogger.localize(this.getTranslationKey() + ".name=" + b.name.substring(0, 1).toUpperCase() + b.name.substring(1) + " Ingot");
 
+    }
+
+    public BaseOre getOre()
+    {
+        return ore;
     }
 
 

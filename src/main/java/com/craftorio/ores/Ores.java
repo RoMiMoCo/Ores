@@ -1,13 +1,10 @@
 package com.craftorio.ores;
 
+import com.craftorio.ores.integrations.*;
 import com.craftorio.ores.util.OreConfig;
 import com.craftorio.ores.util.OreLogger;
 import com.craftorio.ores.events.OreGenEventHandler;
 import com.craftorio.ores.events.RegistryEventHandler;
-import com.craftorio.ores.integrations.IEIntegration;
-import com.craftorio.ores.integrations.OreIntegrations;
-import com.craftorio.ores.integrations.TEIntegration;
-import com.craftorio.ores.integrations.TiConIntegration;
 import com.craftorio.ores.proxy.CommonProxy;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraftforge.common.MinecraftForge;
@@ -48,7 +45,14 @@ public class Ores {
                 OreLogger.error("Tinkers construct integration requested but Tinkers is not loaded");
             }
         }
-
+        if (OreConfig.integrations.IC2Integration) {
+            if (Loader.isModLoaded("ic2")) {
+                OreLogger.info("Integrating with Industrial Craft 2");
+                OreIntegrations.addIntegration(new IC2Integration());
+            } else {
+                OreLogger.error("Industrial Craft 2 integration requested but Industrial Craft 2 is not loaded");
+            }
+        }
         if (OreConfig.integrations.IEIntegration) {
             if (Loader.isModLoaded("immersiveengineering")) {
                 OreLogger.info("Integrating with Immersive Engineering");

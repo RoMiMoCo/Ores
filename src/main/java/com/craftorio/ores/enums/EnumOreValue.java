@@ -1,6 +1,7 @@
 package com.craftorio.ores.enums;
 
 import com.craftorio.ores.Ores;
+import com.craftorio.ores.blocks.BaseOre;
 import com.craftorio.ores.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.util.IStringSerializable;
 import net.minecraft.world.DimensionType;
@@ -89,7 +90,7 @@ public enum EnumOreValue implements IStringSerializable {
 
     public static EnumOreValue byWorld(int dimId) {
         for (EnumOreValue value : values()) {
-            if (dimId == value.worldId && 0 == value.valueId) {
+            if (dimId == value.worldId && VARIANT_RICH == value.valueId) {
                 return value;
             }
         }
@@ -107,6 +108,21 @@ public enum EnumOreValue implements IStringSerializable {
             }
         }
         return OVERWORLD_RICH;
+    }
+
+    public static ArrayList<EnumOreValue> oreValues(BaseOre ore)
+    {
+        ArrayList<EnumOreValue> oreValues = new ArrayList<>();
+        for (EnumOreValue v : values()) {
+            if (ore.dimensions.contains(v.getDimId())) {
+                if (!ore.genVariants && v.getVariant() > 0) {
+                    continue;
+                }
+                oreValues.add(v);
+            }
+        }
+
+        return oreValues;
     }
 
     public static String ingotNameByMetadata(int meta) {

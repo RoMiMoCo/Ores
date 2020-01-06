@@ -314,7 +314,7 @@ public class RecipeManager {
         //Ore-Doubling recipe
         if (OreConfig.recipes.simpleDustRecipe) {
             String name = StringUtil.toSentenceCase(b.name);
-            if (OreConfig.genVariants) {
+            if (b.genVariants) {
                 BaseDustWithVariants baseDust = (BaseDustWithVariants) ModItems.DUSTS.get(b.name + "Dust");
                 ItemStack smallPile = new ItemStack(baseDust, 1, 3);
                 ItemStack medPile = new ItemStack(baseDust, 1, 2);

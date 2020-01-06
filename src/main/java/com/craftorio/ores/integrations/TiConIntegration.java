@@ -1,10 +1,9 @@
 package com.craftorio.ores.integrations;
 
-import com.craftorio.ores.util.OreConfig;
 import com.craftorio.ores.Items.ModItems;
 import com.craftorio.ores.blocks.BaseOre;
 import com.craftorio.ores.blocks.ModBlocks;
-import net.minecraft.block.Block;
+import com.craftorio.ores.enums.EnumOreValue;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
@@ -25,9 +24,9 @@ public class TiConIntegration implements IOreIntegration {
     public void Init(FMLInitializationEvent event) {
 
 
-        for (Block b : ModBlocks.ORES) {
-            addMelting((BaseOre) b);
-            addCasting((BaseOre) b);
+        for (BaseOre b : ModBlocks.ORES) {
+            addMelting(b);
+            addCasting(b);
         }
     }
 
@@ -36,58 +35,34 @@ public class TiConIntegration implements IOreIntegration {
 
     }
 
-    private void addMelting(BaseOre b) {
-        Fluid moltenOre = new ticonFluid(((BaseOre) b));
+    private void addMelting(BaseOre ore) {
+        Fluid moltenOre = new ticonFluid(ore);
 
         if (!FluidRegistry.registerFluid(moltenOre)) { //if the fluid already exists, just use it
             moltenOre = FluidRegistry.getFluid(moltenOre.getName());
         }
 
-
-        if (b.shouldRegister) {
-            if (OreConfig.genVariants) {
-                for (int i = 0; i < 5; i++) {
-                    int amt = (int) Math.pow(2, 4 - i) * 18;
-                    TinkerRegistry.registerMelting(new ItemStack(b, 1, i), moltenOre, amt);
-                    TinkerRegistry.registerMelting(new ItemStack(ModItems.INGOTS.get(b.name + "Ingot"), 1, i), moltenOre, amt / 2);
-                    if (OreConfig.genDusts) {
-                        TinkerRegistry.registerMelting(new ItemStack(ModItems.DUSTS.get(b.name + "Dust"), 1, i), moltenOre, amt / 2);
-                    }
-                }
-            } else { //just register the melting for the meta 0's
-                TinkerRegistry.registerMelting(b, moltenOre, 288);
-                TinkerRegistry.registerMelting(new ItemStack(ModItems.INGOTS.get(b.name + "Ingot"), 1, 0), moltenOre, 144);
-                if (OreConfig.genDusts) {
-                    TinkerRegistry.registerMelting(new ItemStack(ModItems.DUSTS.get(b.name + "Dust"), 1, 0), moltenOre, 144);
-                }
+        for (EnumOreValue value : EnumOreValue.oreValues(ore)) {
+            int i = value.getVariant();
+            int amt = i > 0 ? (int) Math.pow(2, 4 - i) * 18 : 288;
+            if (ore.shouldRegister) {
+                TinkerRegistry.registerMelting(new ItemStack(ore, 1, value.getMetadata()), moltenOre, amt);
             }
-        } else { //Even if we don't register the ore, we still need to add melting for the ingots / dusts
-            if (OreConfig.genVariants) {
-                for (int i = 0; i < 5; i++) {
-                    int amt = (int) Math.pow(2, 4 - i) * 18;
-                    TinkerRegistry.registerMelting(new ItemStack(ModItems.INGOTS.get(b.name + "Ingot"), 1, i), moltenOre, amt / 2);
-                    if (OreConfig.genDusts) {
-                        TinkerRegistry.registerMelting(new ItemStack(ModItems.DUSTS.get(b.name + "Dust"), 1, i), moltenOre, amt / 2);
-                    }
-                }
-            } else {
-                TinkerRegistry.registerMelting(new ItemStack(ModItems.INGOTS.get(b.name + "Ingot"), 1, 0), moltenOre, 144);
-                if (OreConfig.genDusts) {
-                    TinkerRegistry.registerMelting(new ItemStack(ModItems.DUSTS.get(b.name + "Dust"), 1, 0), moltenOre, 144);
-                }
+            TinkerRegistry.registerMelting(new ItemStack(ModItems.INGOTS.get(ore.name + "Ingot"), 1, i), moltenOre, amt / 2);
+            if (ore.genDusts) {
+                TinkerRegistry.registerMelting(new ItemStack(ModItems.DUSTS.get(ore.name + "Dust"), 1, i), moltenOre, amt / 2);
             }
         }
     }
 
 
-    private void addCasting(BaseOre b) {
-        if (OreConfig.genVariants) {
-            TinkerRegistry.registerTableCasting(new ItemStack(ModItems.INGOTS.get(b.name + "Ingot"), 1, 4), TinkerSmeltery.castNugget, FluidRegistry.getFluid(b.name), 9);
-            TinkerRegistry.registerTableCasting(new ItemStack(ModItems.INGOTS.get(b.name + "Ingot"), 1, 0), TinkerSmeltery.castIngot, FluidRegistry.getFluid(b.name), 144);
+    private void addCasting(BaseOre ore) {
+        if (ore.genVariants) {
+            TinkerRegistry.registerTableCasting(new ItemStack(ModItems.INGOTS.get(ore.name + "Ingot"), 1, 4), TinkerSmeltery.castNugget, FluidRegistry.getFluid(ore.name), 9);
         } else {
-            TinkerRegistry.registerTableCasting(new ItemStack(ModItems.INGOTS.get(b.name + "Ingot"), 1, 4), TinkerSmeltery.castNugget, FluidRegistry.getFluid(b.name), 16);
-            TinkerRegistry.registerTableCasting(new ItemStack(ModItems.INGOTS.get(b.name + "Ingot"), 1, 0), TinkerSmeltery.castIngot, FluidRegistry.getFluid(b.name), 144);
+            TinkerRegistry.registerTableCasting(new ItemStack(ModItems.INGOTS.get(ore.name + "Ingot"), 1, 4), TinkerSmeltery.castNugget, FluidRegistry.getFluid(ore.name), 16);
         }
+        TinkerRegistry.registerTableCasting(new ItemStack(ModItems.INGOTS.get(ore.name + "Ingot"), 1, 0), TinkerSmeltery.castIngot, FluidRegistry.getFluid(ore.name), 144);
     }
 
     private class ticonFluid extends FluidMolten {
@@ -97,5 +72,4 @@ public class TiConIntegration implements IOreIntegration {
             this.setTemperature(800);
         }
     }
-
 }

@@ -3,13 +3,12 @@ package com.craftorio.ores.integrations;
 import cofh.thermalexpansion.util.managers.machine.CompactorManager;
 import cofh.thermalexpansion.util.managers.machine.CrucibleManager;
 import cofh.thermalexpansion.util.managers.machine.PulverizerManager;
-import com.craftorio.ores.util.OreConfig;
 import com.craftorio.ores.Items.BaseDust;
 import com.craftorio.ores.Items.BaseIngot;
 import com.craftorio.ores.Items.ModItems;
 import com.craftorio.ores.blocks.BaseOre;
 import com.craftorio.ores.blocks.ModBlocks;
-import net.minecraft.block.Block;
+import com.craftorio.ores.enums.EnumOreValue;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
@@ -26,18 +25,17 @@ public class TEIntegration implements IOreIntegration {
 
     @Override
     public void Init(FMLInitializationEvent event) {
-        for (Block b : ModBlocks.ORES) {
-
-            if (OreConfig.genDusts) {
-                integratePulverizer((BaseOre) b);
+        for (BaseOre ore : ModBlocks.ORES) {
+            if (ore.genDusts) {
+                integratePulverizer(ore);
             }
 
-            if (FluidRegistry.isFluidRegistered(((BaseOre) b).name)) {
-                integrateMagmaCrucible(((BaseOre) b), FluidRegistry.getFluid(((BaseOre) b).name));
+            if (FluidRegistry.isFluidRegistered(ore.name)) {
+                integrateMagmaCrucible(ore, FluidRegistry.getFluid(ore.name));
             }
 
-            if (OreConfig.genVariants) {
-                integrateCompactor((BaseOre) b);
+            if (ore.genVariants) {
+                integrateCompactor(ore);
             }
         }
     }
@@ -48,40 +46,34 @@ public class TEIntegration implements IOreIntegration {
 
     }
 
-    private void integratePulverizer(BaseOre b) {
+    private void integratePulverizer(BaseOre ore) {
         //add grinding to dusts if ores and dusts are enabled
-        BaseDust Dust = (BaseDust) ModItems.DUSTS.get(b.name + "Dust");
-        BaseIngot Ingot = (BaseIngot) ModItems.INGOTS.get(b.name + "Ingot");
-
-        if (OreConfig.genVariants) {
-            for (int i = 0; i < 5; i++) {
-                PulverizerManager.addRecipe(PulverizerManager.DEFAULT_ENERGY, new ItemStack(b, 1, i), new ItemStack(Dust, i == 0 ? 2 : 1, i == 0 ? i : i - 1));
-                PulverizerManager.addRecipe((PulverizerManager.DEFAULT_ENERGY / 2) / (int) Math.pow(2, i), new ItemStack(Ingot, 1, i), new ItemStack(Dust, 1, i));
-            }
-        } else {
-            PulverizerManager.addRecipe(PulverizerManager.DEFAULT_ENERGY, new ItemStack(b, 1, 0), new ItemStack(Dust, 2, 0));
-            PulverizerManager.addRecipe(PulverizerManager.DEFAULT_ENERGY / 2, new ItemStack(Ingot, 1, 0), new ItemStack(Dust, 2, 0));
+        BaseDust Dust = ModItems.DUSTS.get(ore.name + "Dust");
+        BaseIngot Ingot = ModItems.INGOTS.get(ore.name + "Ingot");
+        for (EnumOreValue value : EnumOreValue.oreValues(ore)) {
+            PulverizerManager.addRecipe(PulverizerManager.DEFAULT_ENERGY, new ItemStack(ore, 1, value.getMetadata()), new ItemStack(Dust, 2, value.getVariant()));
+            PulverizerManager.addRecipe(PulverizerManager.DEFAULT_ENERGY / 2, new ItemStack(Ingot, 1, value.getVariant()), new ItemStack(Dust, 2, value.getVariant()));
         }
     }
 
-    private void integrateMagmaCrucible(BaseOre b, Fluid f) {
+    private void integrateMagmaCrucible(BaseOre ore, Fluid f) {
         //if fluid exists add melting
-        if (OreConfig.genVariants) {
-            for (int i = 0; i < 5; i++) {
-                CrucibleManager.addRecipe(CrucibleManager.DEFAULT_ENERGY, new ItemStack(b, 1, i), new FluidStack(f, 288 / ((int) Math.pow(2, i))));
-                CrucibleManager.addRecipe(CrucibleManager.DEFAULT_ENERGY / (int) Math.pow(2, i), new ItemStack(ModItems.INGOTS.get(b.name + "Ingot"), 1, i), new FluidStack(f, 144 / ((int) Math.pow(2, i))));
+        if (ore.genVariants) {
+            for (EnumOreValue value : EnumOreValue.oreValues(ore)) {
+                CrucibleManager.addRecipe(CrucibleManager.DEFAULT_ENERGY, new ItemStack(ore, 1, value.getMetadata()), new FluidStack(f, 288 / ((int) Math.pow(2, value.getVariant()))));
+                CrucibleManager.addRecipe(CrucibleManager.DEFAULT_ENERGY / (int) Math.pow(2, value.getVariant()), new ItemStack(ModItems.INGOTS.get(ore.name + "Ingot"), 1, value.getVariant()), new FluidStack(f, 144 / ((int) Math.pow(2, value.getVariant()))));
             }
         } else {
-            CrucibleManager.addRecipe(CrucibleManager.DEFAULT_ENERGY, new ItemStack(b, 1, 0), new FluidStack(f, 288));
-            CrucibleManager.addRecipe(CrucibleManager.DEFAULT_ENERGY, new ItemStack(ModItems.INGOTS.get(b.name + "Ingot"), 1, 0), new FluidStack(f, 144));
+            CrucibleManager.addRecipe(CrucibleManager.DEFAULT_ENERGY, new ItemStack(ore, 1, 0), new FluidStack(f, 288));
+            CrucibleManager.addRecipe(CrucibleManager.DEFAULT_ENERGY, new ItemStack(ModItems.INGOTS.get(ore.name + "Ingot"), 1, 0), new FluidStack(f, 144));
         }
     }
 
-    private void integrateCompactor(BaseOre b) {
+    private void integrateCompactor(BaseOre ore) {
         //compactor storage recipes for variant ingots
-        BaseIngot ingot = (BaseIngot) ModItems.INGOTS.get(b.name + "Ingot");
-        for (int i = 1; i < 5; i++) {
-            CompactorManager.addRecipe((int) (CompactorManager.DEFAULT_ENERGY / Math.pow(2, i)), new ItemStack(ingot, 2, i), new ItemStack(ingot, 1, i - 1), CompactorManager.Mode.ALL);
+        BaseIngot ingot = ModItems.INGOTS.get(ore.name + "Ingot");
+        for (EnumOreValue value : EnumOreValue.oreValues(ore)) {
+            CompactorManager.addRecipe((int) (CompactorManager.DEFAULT_ENERGY / Math.pow(2, value.getVariant())), new ItemStack(ingot, 2, value.getVariant()+1), new ItemStack(ingot, 1, value.getVariant()), CompactorManager.Mode.ALL);
         }
     }
 }

@@ -13,9 +13,9 @@ import net.minecraft.item.ItemTool;
 import java.util.HashMap;
 
 public class ModItems {
-    public static HashMap<String, Item> INGOTS = new HashMap<>();
-    public static HashMap<String, Item> GEMS = new HashMap<>();
-    public static HashMap<String, Item> DUSTS = new HashMap<>();
+    public static HashMap<String, BaseIngot> INGOTS = new HashMap<>();
+    public static HashMap<String, BaseGem> GEMS = new HashMap<>();
+    public static HashMap<String, BaseDust> DUSTS = new HashMap<>();
     public static HashMap<String, Item> ARMORS = new HashMap<>();
     public static HashMap<String, Item> TOOLS = new HashMap<>();
     public static HashMap<String, Item> MISC = new HashMap<>();
@@ -23,9 +23,7 @@ public class ModItems {
     public static void init() {
 
         //for each of the ores we generated in ModBlocks:
-        for (Block b : ModBlocks.ORES) {
-
-            BaseOre ore = (BaseOre) b;
+        for (BaseOre ore : ModBlocks.ORES) {
             //ingot
             if (ore.genIngots) {
                 if (ore.genVariants) {

@@ -18,9 +18,11 @@ public class BaseDust extends Item implements IColoredItem, IHasCustomModel {
 
     private int color;
     public String name;
+    private BaseOre ore;
 
     public BaseDust(BaseOre b) {
         super();
+        this.ore = b;
         this.name = b.name;
         this.color = b.getColor();
         this.setTranslationKey(Ores.MODID + ":dust" + b.name);
@@ -31,6 +33,10 @@ public class BaseDust extends Item implements IColoredItem, IHasCustomModel {
 
     }
 
+    public BaseOre getOre()
+    {
+        return ore;
+    }
 
     @SideOnly(Side.CLIENT)
     public void initModel() {

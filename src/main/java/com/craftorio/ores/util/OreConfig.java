@@ -121,6 +121,8 @@ public class OreConfig {
         @Comment("Add Immersive Engineering Smelting and Crushing for all ores")
         public boolean IEIntegration;
 
+        @Comment("Add Industrial Craft 2 macerator recipes for all ores")
+        public boolean IC2Integration;
     }
 
     @Mod.EventBusSubscriber(modid = Ores.MODID)

@@ -1,5 +1,6 @@
 package com.craftorio.ores.Items;
 
+import com.craftorio.ores.blocks.BaseOre;
 import com.google.gson.JsonObject;
 import com.craftorio.ores.Ores;
 import com.craftorio.ores.blocks.BaseGemOre;
@@ -23,10 +24,12 @@ public class BaseGem extends Item implements IColoredItem, IHasCustomModel {
     private String cut;
     private int burnTime;
     public String type;
+    private BaseOre ore;
 
     public BaseGem(JsonObject definition, BaseGemOre b) {
 
         super();
+        this.ore = b;
         this.name = b.name;
         this.color = b.getColor();
         this.setTranslationKey(Ores.MODID + ":gem" + b.name);
@@ -54,6 +57,11 @@ public class BaseGem extends Item implements IColoredItem, IHasCustomModel {
 
 
         OreLogger.localize(this.getTranslationKey() + ".name=" + b.name.substring(0, 1).toUpperCase() + b.name.substring(1));
+    }
+
+    public BaseOre getOre()
+    {
+        return ore;
     }
 
     @Override
