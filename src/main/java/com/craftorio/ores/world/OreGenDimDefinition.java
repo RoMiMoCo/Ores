@@ -36,11 +36,6 @@ public class OreGenDimDefinition {
         }
     }
 
-    private int getJsonInt(JsonObject ob, String k)
-    {
-        return ob.get(k).getAsInt();
-    }
-
     public OreGenDimDefinition(BaseOre ore, JsonObject def) {
         if (def == null)
             return; //no ore gen specified
@@ -53,7 +48,7 @@ public class OreGenDimDefinition {
         this.veinSize = getJsonInt(def, "VeinSize", this.veinSize);
         this.rarities = new int[]{20, 40, 60, 80, 100};//equal chance to spawn
         this.biomes = null;
-        this.dimId = getJsonInt(def, "ID");
+        this.dimId = getJsonInt(def, "ID", DimensionType.OVERWORLD.getId());
         this.dimLike = getJsonInt(def, "LikeID", (supportedDims.contains(dimId) ? dimId : DimensionType.OVERWORLD.getId()));
 
         //Ore Rarities
