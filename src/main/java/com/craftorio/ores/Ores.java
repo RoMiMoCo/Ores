@@ -70,6 +70,11 @@ public class Ores {
             }
         }
 
+        if (Loader.isModLoaded("jeresources")) {
+            OreLogger.info("Integrating with Just Enough Resources");
+            OreIntegrations.addIntegration(new JERIntegration());
+        }
+
         proxy.preInit(event);
 
         MinecraftForge.EVENT_BUS.register(new RegistryEventHandler());

@@ -21,7 +21,7 @@ compileJava {
 }
 
 minecraft {
-    version = "1.12.2-14.23.5.2838"
+    version = "${minecraft_version}-14.23.5.2838"
     runDir = "run"
     
     // the mappings can be changed at any time, and must be in the following format.
@@ -54,40 +54,26 @@ repositories {
         name "blamejared"
         url "https://maven.blamejared.com"
     }
+
+    maven { // JustEnoughResources
+        name = "bintray-way2muchnoise"
+        url  "https://dl.bintray.com/way2muchnoise/dev/"
+    }
 }
 
 dependencies {
 
-    // you may put jars on which you depend on in ./libs
-    // or you may define them like so..
-    //compile "some.group:artifact:version:classifier"
-    //compile "some.group:artifact:version"
-      
-    // real examples
-    //compile 'com.mod-buildcraft:buildcraft:6.0.8:dev'  // adds buildcraft to the dev env
-    //compile 'com.googlecode.efficient-java-matrix-library:ejml:0.24' // adds ejml to the dev env
-
-    // the 'provided' configuration is for optional dependencies that exist at compile-time but might not at runtime.
-    //provided 'com.mod-buildcraft:buildcraft:6.0.8:dev'
-
-    // the deobf configurations:  'deobfCompile' and 'deobfProvided' are the same as the normal compile and provided,
-    // except that these dependencies get remapped to your current MCP mappings
-    //deobfCompile 'com.mod-buildcraft:buildcraft:6.0.8:dev'
-    //deobfProvided 'com.mod-buildcraft:buildcraft:6.0.8:dev'
-
-    // for more info...
-    // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
-    // http://www.gradle.org/docs/current/userguide/dependency_management.html
-
-    deobfProvided "mezz.jei:jei_1.12.2:${jeiversion}:api"
-    runtime "mezz.jei:jei_1.12.2:${jeiversion}"
+    deobfProvided "mezz.jei:jei_${minecraft_version}:${jeiversion}:api"
+    runtime "mezz.jei:jei_${minecraft_version}:${jeiversion}"
 
     deobfCompile "blusunrize:ImmersiveEngineering:${ieversion}"
-    deobfCompile "cofh:ThermalExpansion:1.12.2-${teversion}:universal"
-    deobfCompile "slimeknights:TConstruct:1.12.2-${ticversion}"
+    deobfCompile "cofh:ThermalExpansion:${minecraft_version}-${teversion}:universal"
+    deobfCompile "slimeknights:TConstruct:${minecraft_version}-${ticversion}"
 
     deobfProvided "net.industrial-craft:industrialcraft-2:${ic2version}:api"
     runtime "net.industrial-craft:industrialcraft-2:${ic2version}"
+
+    provided "jeresources:JustEnoughResources-${minecraft_version}:${jerversion}:deobf"
 
     //compileOnly fileTree(dir:'libs', includes: ['*.jar'])
 }

@@ -125,6 +125,21 @@ public enum EnumOreValue implements IStringSerializable {
         return oreValues;
     }
 
+    public static ArrayList<EnumOreValue> oreValues(BaseOre ore, int worldId)
+    {
+        ArrayList<EnumOreValue> oreValues = new ArrayList<>();
+        for (EnumOreValue v : values()) {
+            if (v.getDimId() == worldId) {
+                if (!ore.genVariants && v.getVariant() > 0) {
+                    continue;
+                }
+                oreValues.add(v);
+            }
+        }
+
+        return oreValues;
+    }
+
     public static String ingotNameByMetadata(int meta) {
         switch (byMetadata(meta).valueId) {
             case VARIANT_POOR:

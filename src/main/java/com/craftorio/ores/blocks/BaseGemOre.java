@@ -122,8 +122,18 @@ public class BaseGemOre extends BaseOre implements IColoredItem, IHasCustomModel
 
     @Override
     public Item getItemDropped(IBlockState state, Random rand, int fortune) {
+        return getItemDropped();
+    }
+
+    public Item getItemDropped() {
         return ForgeRegistries.ITEMS.getValue(new ResourceLocation(drop));
     }
+
+    public int getItemMetaDropped() {
+        return this.dropMeta;
+    }
+
+
 
     @Override
     public int damageDropped(IBlockState state) {

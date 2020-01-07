@@ -46,16 +46,13 @@ public class ModBlocks {
             for (JsonElement j : oreArray) {
                 String name = ((JsonObject) j).get("Name").getAsString();
                 OreLogger.debug("Initializing " + name);
-
-                ORES.push(new BaseOre((JsonObject) j));
-                JsonObject OreGen = ((JsonObject) j).getAsJsonObject("Generation");
-                if (OreGen != null) {
-                    generator.add(new OreGenDefinition(ORES.peek(), OreGen));
-                } else {
-                    ORES.peek().shouldRegister = false;//do not register ore blocks for ores that shouldn't generate
+                BaseOre ore = new BaseOre((JsonObject) j);
+                ORES.push(ore);
+                if (null != ore.oreGenDefinition) {
+                    generator.add(ore.oreGenDefinition);
                 }
                 if (OreConfig.genFullBlocks) {
-                    BLOCKS.put(ORES.peek().name + "Block", new BaseBlock(ORES.peek()));
+                    BLOCKS.put(ore.name + "Block", new BaseBlock(ore));
                 }
             }
         }

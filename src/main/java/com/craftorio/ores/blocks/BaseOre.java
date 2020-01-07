@@ -6,6 +6,7 @@ import com.craftorio.ores.util.IColoredItem;
 import com.craftorio.ores.util.IHasCustomModel;
 import com.craftorio.ores.util.OreLogger;
 import com.craftorio.ores.util.StringUtil;
+import com.craftorio.ores.world.OreGenDefinition;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -40,7 +41,7 @@ public class BaseOre extends BlockOre implements IColoredItem, IHasCustomModel {
     private int color;
     public String name;
     private int customHarvestLevel;
-    public boolean shouldRegister = true;
+    public boolean shouldRegister = false;
     public ItemTool.ToolMaterial toolMaterial;
     public ItemArmor.ArmorMaterial armorMaterial;
     public boolean genVariants = false;
@@ -52,6 +53,7 @@ public class BaseOre extends BlockOre implements IColoredItem, IHasCustomModel {
     public boolean genBuckets = false;
     public boolean genFluids = false;
     public boolean genShields = false;
+    public OreGenDefinition oreGenDefinition;
 
     public ArrayList<Integer> dimensions = new ArrayList<>();
 
@@ -79,6 +81,8 @@ public class BaseOre extends BlockOre implements IColoredItem, IHasCustomModel {
 
         JsonObject generation = getOreDefinitionAsObject(oreDefinition, "Generation");
         if (null != generation) {
+            shouldRegister = true;
+            oreGenDefinition = new OreGenDefinition(this, generation);
             JsonArray dimensions = getOreDefinitionAsArray(generation, "Dimensions");
             if (null != dimensions) {
                 for (JsonElement d : dimensions) {

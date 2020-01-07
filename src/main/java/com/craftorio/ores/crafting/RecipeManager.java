@@ -37,30 +37,17 @@ public class RecipeManager {
         recipeRegistry = in;
     }
 
-    public static void registerSmeltingRecipes(BaseOre b) {
-        if (b.genVariants) {
-            for (EnumOreValue v : EnumOreValue.values()) {
-                GameRegistry.addSmelting(
-                        new ItemStack(b, 1, v.getMetadata()),
-                        new ItemStack(ModItems.INGOTS.get(b.name + "Ingot"), 1, v.getVariant()),
-                        0.7f-((float)v.getVariant()/10)
-                );
-                GameRegistry.addSmelting(
-                        new ItemStack(ModItems.DUSTS.get(b.name + "Dust"), 1, v.getMetadata()),
-                        new ItemStack(ModItems.INGOTS.get(b.name + "Ingot"), 1, v.getVariant()),
-                        0.7f-((float)v.getVariant()/10)
-                );
-            }
-        } else {
+    public static void registerSmeltingRecipes(BaseOre ore) {
+        for (EnumOreValue v : EnumOreValue.oreValues(ore)) {
             GameRegistry.addSmelting(
-                    b,
-                    new ItemStack(ModItems.INGOTS.get(b.name + "Ingot")),
-                    0.7f
+                    new ItemStack(ore, 1, v.getMetadata()),
+                    new ItemStack(ModItems.INGOTS.get(ore.name + "Ingot"), 1, v.getVariant()),
+                    0.7f-((float)v.getVariant()/10)
             );
             GameRegistry.addSmelting(
-                    new ItemStack(ModItems.DUSTS.get(b.name + "Dust")),
-                    new ItemStack(ModItems.INGOTS.get(b.name + "Ingot")),
-                    0.7f
+                    new ItemStack(ModItems.DUSTS.get(ore.name + "Dust"), 1, v.getVariant()),
+                    new ItemStack(ModItems.INGOTS.get(ore.name + "Ingot"), 1, v.getVariant()),
+                    0.7f-((float)v.getVariant()/10)
             );
         }
     }
