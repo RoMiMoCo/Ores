@@ -288,21 +288,21 @@ public class RecipeManager {
     }
 
 
-    public static void registerMiscRecipes(BaseOre b) {
-        String resourcePathBase = "recipe" + b.name;
-        String oreDictName = "ingot" + b.name.substring(0, 1).toUpperCase() + b.name.substring(1);
+    public static void registerMiscRecipes(BaseOre ore) {
+        String resourcePathBase = "recipe" + ore.name;
+        String oreDictName = "ingot" + ore.name.substring(0, 1).toUpperCase() + ore.name.substring(1);
 
         //Buckets
-        if (OreConfig.genBuckets || b.genBuckets) {
-            BaseBucket bucket = (BaseBucket) ModItems.MISC.get(b.name + "Bucket");
+        if (ore.genBuckets) {
+            BaseBucket bucket = (BaseBucket) ModItems.MISC.get(ore.name + "Bucket");
             registerShapedOreRecipe(resourcePathBase + "Bucket", new ItemStack(bucket, 1, 0), "x x", " x ", 'x', oreDictName);
         }
 
         //Ore-Doubling recipe
         if (OreConfig.recipes.simpleDustRecipe) {
-            String name = StringUtil.toSentenceCase(b.name);
-            if (b.genVariants) {
-                BaseDustWithVariants baseDust = (BaseDustWithVariants) ModItems.DUSTS.get(b.name + "Dust");
+            String name = StringUtil.toSentenceCase(ore.name);
+            if (ore.genVariants) {
+                BaseDustWithVariants baseDust = (BaseDustWithVariants) ModItems.DUSTS.get(ore.name + "Dust");
                 ItemStack smallPile = new ItemStack(baseDust, 1, 3);
                 ItemStack medPile = new ItemStack(baseDust, 1, 2);
                 ItemStack largePile = new ItemStack(baseDust, 1, 1);
@@ -314,7 +314,7 @@ public class RecipeManager {
                 registerShapedOreCrushingRecipe(resourcePathBase + "hugePileCrush", hugePile, "ooo", "oxo", "rpr", 'r', "dustRedstone", 'p', Blocks.PISTON, 'o', "obsidian", 'x', "ore" + name + "high");
                 registerShapedOreCrushingRecipe(resourcePathBase + "hugePilex2Crush", hugePilex2, "ooo", "oxo", "rpr", 'r', "dustRedstone", 'p', Blocks.PISTON, 'o', "obsidian", 'x', "ore" + name);
             } else {
-                BaseDust baseDust = (BaseDust) ModItems.DUSTS.get(b.name + "Dust");
+                BaseDust baseDust = (BaseDust) ModItems.DUSTS.get(ore.name + "Dust");
                 ItemStack dust = new ItemStack(baseDust, 2, 0);
                 registerShapedOreCrushingRecipe(resourcePathBase + "dustCrush", dust, "ooo", "oxo", "rpr", 'r', "dustRedstone", 'p', Blocks.PISTON, 'o', "blockObsidian", 'x', "ore" + name);
             }

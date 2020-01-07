@@ -51,7 +51,7 @@ public class ModBlocks {
                 if (null != ore.oreGenDefinition) {
                     generator.add(ore.oreGenDefinition);
                 }
-                if (OreConfig.genFullBlocks) {
+                if (ore.genFullBlocks) {
                     BLOCKS.put(ore.name + "Block", new BaseBlock(ore));
                 }
             }

@@ -222,22 +222,22 @@ public class RegistryEventHandler {
 
         //now register all the recipes
         for (BaseOre ore : ModBlocks.ORES) {
-            if ((ore).shouldRegister) {
+            if (ore.shouldRegister) {
                 RecipeManager.registerSmeltingRecipes(ore);
             }
-            if (OreConfig.genArmor) {
+            if (ore.genArmor) {
                 RecipeManager.registerArmorRecipes(ore, registry);
             }
 
-            if (OreConfig.genTools) {
+            if (ore.genTools) {
                 RecipeManager.registerToolRecipes(ore);
             }
 
-            if (OreConfig.genShields) {
+            if (ore.genShields) {
                 RecipeManager.registerShieldRecipes(ore);
             }
 
-            if (OreConfig.genFullBlocks) {
+            if (ore.genFullBlocks) {
                 RecipeManager.registerMetalBlockRecipes(ore);
             }
 
@@ -248,15 +248,15 @@ public class RegistryEventHandler {
             RecipeManager.registerMiscRecipes(ore);
         }
         for (BaseOre gemOre : ModBlocks.GEMS.values()) {
-            if (OreConfig.genArmor) {
+            if (gemOre.genArmor) {
                 RecipeManager.registerGemArmorRecipes(gemOre);
             }
 
-            if (OreConfig.genTools) {
+            if (gemOre.genTools) {
                 RecipeManager.registerGemToolRecipes(gemOre);
             }
 
-            if (OreConfig.genFullBlocks) {
+            if (gemOre.genFullBlocks) {
                 RecipeManager.registerGemBlockRecipes(gemOre);
             }
         }
