@@ -6,7 +6,9 @@ import com.craftorio.ores.Items.ModItems;
 import com.craftorio.ores.blocks.BaseOre;
 import com.craftorio.ores.blocks.ModBlocks;
 import com.craftorio.ores.enums.EnumOreValue;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -81,5 +83,10 @@ public class IEIntegration implements IOreIntegration {
                 IERecipes.addArcRecipe(new ItemStack(ModItems.INGOTS.get(ore.name + "Ingot"), 1, 0), new ItemStack(ModItems.DUSTS.get(ore.name + "Dust"), 1, 0), 200, 512, new ItemStack(IEContent.itemMaterial, 1, 7)).setSpecialRecipeType("Ores");
             }
         }
+    }
+
+    public void registerItems(RegistryEvent.Register<Item> event)
+    {
+
     }
 }

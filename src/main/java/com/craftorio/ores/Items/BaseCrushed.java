@@ -2,12 +2,12 @@ package com.craftorio.ores.Items;
 
 import com.craftorio.ores.Ores;
 import com.craftorio.ores.blocks.BaseOre;
+import com.craftorio.ores.client.renderer.block.model.ModelResourceLocation;
 import com.craftorio.ores.enums.EnumOreValue;
 import com.craftorio.ores.util.IColoredItem;
 import com.craftorio.ores.util.IHasCustomModel;
 import com.craftorio.ores.util.OreConfig;
 import com.craftorio.ores.util.OreLogger;
-import com.craftorio.ores.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -16,29 +16,37 @@ import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class BaseDust extends Item implements IColoredItem, IHasCustomModel {
+public class BaseCrushed extends Item implements IColoredItem, IHasCustomModel {
 
     private int color;
     public String name;
     private BaseOre ore;
 
-    public BaseDust(BaseOre b) {
+    public BaseCrushed(BaseOre b) {
         super();
         this.ore = b;
         this.name = b.name;
         this.color = b.getColor();
-        this.setTranslationKey(Ores.MODID + ":dust" + b.name);
+        this.setTranslationKey(Ores.MODID + ":crushed" + this.ore.name);
         this.setCreativeTab(CreativeTabs.MISC);
-        this.setRegistryName(Ores.MODID, "dust" + name);
+        this.setRegistryName(Ores.MODID, "crushed" + this.ore.name);
 
         if (ore.genVariants) {
             this.setHasSubtypes(true);
+        }
+
+        if (ore.genVariants) {
             for (EnumOreValue v : EnumOreValue.overworldOres) {
-                OreLogger.localize(this.getTranslationKey(new ItemStack(this, 1, v.getMetadata())) + ".name=" + EnumOreValue.dustNameByMetadata(v.getVariant()).substring(0, 1).toUpperCase() +
-                        EnumOreValue.dustNameByMetadata(v.getVariant()).substring(1) + " pile of " + b.name.substring(0, 1).toUpperCase() + b.name.substring(1) + " Dust");
+//                String variantName = EnumOreValue.oreNameByMetadata(v.getVariant());
+//                String variant = variantName.substring(0, 1).toUpperCase() + variantName.substring(1);
+//                String name = "Crushed " + variant + " " + b.name.substring(0, 1).toUpperCase() + b.name.substring(1);
+//                String variant = variantName.substring(0, 1).toUpperCase() + variantName.substring(1);
+                String name = "Crushed " + b.name.substring(0, 1).toUpperCase() + b.name.substring(1);
+                OreLogger.localize(this.getTranslationKey(new ItemStack(this, 1, v.getVariant())) + ".name=" + name);
             }
         } else {
-                OreLogger.localize(this.getTranslationKey() + ".name=" + b.name.substring(0, 1).toUpperCase() + b.name.substring(1) + " Dust");
+            String name = "Crushed " + b.name.substring(0, 1).toUpperCase() + b.name.substring(1);
+            OreLogger.localize(this.getTranslationKey() + ".name=" + name);
         }
     }
 
@@ -51,10 +59,10 @@ public class BaseDust extends Item implements IColoredItem, IHasCustomModel {
     public void initModel() {
         if (ore.genVariants) {
             for (EnumOreValue v : EnumOreValue.overworldOres) {
-                ModelLoader.setCustomModelResourceLocation(this, v.getMetadata(), new ModelResourceLocation(Ores.NAME + ":basedust_" + v));
+                ModelLoader.setCustomModelResourceLocation(this, v.getMetadata(), new ModelResourceLocation(Ores.NAME + ":crushed_" + EnumOreValue.oreNameByMetadata(v.getVariant())));
             }
         } else {
-            ModelLoader.setCustomModelResourceLocation(this, 0, new ModelResourceLocation(Ores.NAME + ":basedust"));
+            ModelLoader.setCustomModelResourceLocation(this, 0, new ModelResourceLocation(Ores.NAME + ":crushed_" + EnumOreValue.oreNameByMetadata(EnumOreValue.VARIANT_RICH)));
         }
     }
 
@@ -88,7 +96,7 @@ public class BaseDust extends Item implements IColoredItem, IHasCustomModel {
     @Override
     public String getTranslationKey(ItemStack stack) {
         if (ore.genVariants) {
-            return super.getTranslationKey().replaceFirst("dust", EnumOreValue.dustNameByMetadata(stack.getMetadata())) + "dust";
+            return super.getTranslationKey().replaceFirst("crushed", EnumOreValue.oreNameByMetadata(stack.getMetadata())) + "crushed";
         }
 
         return super.getTranslationKey(stack);

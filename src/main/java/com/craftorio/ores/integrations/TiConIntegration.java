@@ -4,7 +4,9 @@ import com.craftorio.ores.Items.ModItems;
 import com.craftorio.ores.blocks.BaseOre;
 import com.craftorio.ores.blocks.ModBlocks;
 import com.craftorio.ores.enums.EnumOreValue;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -71,5 +73,10 @@ public class TiConIntegration implements IOreIntegration {
             super(b.name, b.getColor());
             this.setTemperature(800);
         }
+    }
+
+    public void registerItems(RegistryEvent.Register<Item> event)
+    {
+
     }
 }

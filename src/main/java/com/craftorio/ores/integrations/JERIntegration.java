@@ -10,8 +10,10 @@ import jeresources.api.drop.LootDrop;
 import jeresources.api.restrictions.DimensionRestriction;
 import jeresources.api.restrictions.Restriction;
 import jeresources.compatibility.JERAPI;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.DimensionManager;
+import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -76,5 +78,10 @@ public class JERIntegration implements IOreIntegration {
         for (BaseGemOre ore : ModBlocks.GEMS.values()) {
             registerWorldGen(ore);
         }
+    }
+
+    public void registerItems(RegistryEvent.Register<Item> event)
+    {
+
     }
 }

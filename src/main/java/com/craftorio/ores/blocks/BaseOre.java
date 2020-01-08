@@ -7,6 +7,7 @@ import com.craftorio.ores.util.IHasCustomModel;
 import com.craftorio.ores.util.OreLogger;
 import com.craftorio.ores.util.StringUtil;
 import com.craftorio.ores.world.OreGenDefinition;
+import com.craftorio.ores.world.OreGenDimDefinition;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -83,16 +84,13 @@ public class BaseOre extends BlockOre implements IColoredItem, IHasCustomModel {
         if (null != generation) {
             shouldRegister = true;
             oreGenDefinition = new OreGenDefinition(this, generation);
-            JsonArray dimensions = getOreDefinitionAsArray(generation, "Dimensions");
-            if (null != dimensions) {
-                for (JsonElement d : dimensions) {
-                    try {
-                        Integer dimId = getJsonInt(d, "ID");
-                        if (!this.dimensions.contains(dimId)) {
-                            this.dimensions.add(dimId);
-                        }
-                    } catch (Exception e) {
+            for (OreGenDimDefinition dimDef : oreGenDefinition.oreGenDimDefinitions.values()) {
+                try {
+                    Integer dimId = dimDef.dimLike;
+                    if (!this.dimensions.contains(dimId)) {
+                        this.dimensions.add(dimId);
                     }
+                } catch (Exception e) {
                 }
             }
         }

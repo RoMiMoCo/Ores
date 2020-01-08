@@ -213,7 +213,7 @@ public class RecipeManager {
         String oreDictName = "ingot" + b.name.substring(0, 1).toUpperCase() + b.name.substring(1);
 
         BaseIngotWithVariants baseIngot = (BaseIngotWithVariants) ModItems.INGOTS.get(b.name + "Ingot");
-        BaseDustWithVariants baseDust = (BaseDustWithVariants) ModItems.DUSTS.get(b.name + "Dust");
+        BaseDust baseDust = ModItems.DUSTS.get(b.name + "Dust");
 
         ItemStack nugget = new ItemStack(baseIngot, 1, 4);
         ItemStack shard = new ItemStack(baseIngot, 1, 3);
@@ -302,7 +302,7 @@ public class RecipeManager {
         if (OreConfig.recipes.simpleDustRecipe) {
             String name = StringUtil.toSentenceCase(ore.name);
             if (ore.genVariants) {
-                BaseDustWithVariants baseDust = (BaseDustWithVariants) ModItems.DUSTS.get(ore.name + "Dust");
+                BaseDust baseDust = ModItems.DUSTS.get(ore.name + "Dust");
                 ItemStack smallPile = new ItemStack(baseDust, 1, 3);
                 ItemStack medPile = new ItemStack(baseDust, 1, 2);
                 ItemStack largePile = new ItemStack(baseDust, 1, 1);

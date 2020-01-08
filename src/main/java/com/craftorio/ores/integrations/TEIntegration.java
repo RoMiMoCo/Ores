@@ -9,7 +9,9 @@ import com.craftorio.ores.Items.ModItems;
 import com.craftorio.ores.blocks.BaseOre;
 import com.craftorio.ores.blocks.ModBlocks;
 import com.craftorio.ores.enums.EnumOreValue;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
@@ -75,5 +77,10 @@ public class TEIntegration implements IOreIntegration {
         for (EnumOreValue value : EnumOreValue.oreValues(ore)) {
             CompactorManager.addRecipe((int) (CompactorManager.DEFAULT_ENERGY / Math.pow(2, value.getVariant())), new ItemStack(ingot, 2, value.getVariant()+1), new ItemStack(ingot, 1, value.getVariant()), CompactorManager.Mode.ALL);
         }
+    }
+
+    public void registerItems(RegistryEvent.Register<Item> event)
+    {
+
     }
 }

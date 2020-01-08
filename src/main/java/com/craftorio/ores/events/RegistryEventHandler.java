@@ -4,6 +4,8 @@ import com.craftorio.ores.Items.BaseGem;
 import com.craftorio.ores.blocks.BaseGemOre;
 import com.craftorio.ores.crafting.RecipeManager;
 import com.craftorio.ores.enums.EnumOreValue;
+import com.craftorio.ores.integrations.IOreIntegration;
+import com.craftorio.ores.integrations.OreIntegrations;
 import com.craftorio.ores.util.IHasCustomModel;
 import com.craftorio.ores.util.OreConfig;
 import com.craftorio.ores.util.OreLogger;
@@ -51,10 +53,14 @@ public class RegistryEventHandler {
 
     }
 
+    private String ucfirst(String str) {
+        return str.substring(0, 1).toUpperCase() + str.substring(1);
+    }
+
     @SubscribeEvent
     public void registerItems(RegistryEvent.Register<Item> event) {
 
-        IForgeRegistry<Item> r = event.getRegistry();
+        IForgeRegistry<Item> registry = event.getRegistry();
         //Register ItemBlocks for blocks
         for (BaseOre ore : ModBlocks.ORES) {
             if (!ore.shouldRegister) {
@@ -63,7 +69,7 @@ public class RegistryEventHandler {
 
             ItemBlock item = new ItemBlockBaseOre(ore);
 
-            r.register(item.setRegistryName(ore.getRegistryName()));
+            registry.register(item.setRegistryName(ore.getRegistryName()));
             String name = ore.name;
             name = name.substring(0, 1).toUpperCase() + name.substring(1);
             OreLogger.debug(name);
@@ -87,7 +93,7 @@ public class RegistryEventHandler {
 
             ItemBlock item = new ItemBlockBaseOre(gemOre);
 
-            r.register(item.setRegistryName(gemOre.getRegistryName()));
+            registry.register(item.setRegistryName(gemOre.getRegistryName()));
             String name = gemOre.name;
             name = name.substring(0, 1).toUpperCase() + name.substring(1);
             OreLogger.debug(name);
@@ -106,7 +112,7 @@ public class RegistryEventHandler {
         for (Block block : ModBlocks.BLOCKS.values()) {
             ItemBlock i = new ItemBlockBaseBlock(block);
 
-            r.register(i.setRegistryName(block.getRegistryName()));
+            registry.register(i.setRegistryName(block.getRegistryName()));
             String name = ((BaseBlock) block).name;
             name = name.substring(0, 1).toUpperCase() + name.substring(1);
             OreLogger.debug(name);
@@ -116,45 +122,53 @@ public class RegistryEventHandler {
 
         //Register the remaining items
         for (BaseIngot ingot : ModItems.INGOTS.values()) {
-            r.register(ingot);
-            String name = ingot.name;
-            name = name.substring(0, 1).toUpperCase() + name.substring(1);
+            registry.register(ingot);
+            String name = ucfirst(ingot.name);
             if (ingot.getOre().genVariants) {
-                OreDictionary.registerOre("nugget" + name, new ItemStack(ingot, 1, 4));
-                OreDictionary.registerOre("shard" + name, new ItemStack(ingot, 1, 3));
-                OreDictionary.registerOre("chunk" + name, new ItemStack(ingot, 1, 2));
-                OreDictionary.registerOre("hunk" + name, new ItemStack(ingot, 1, 1));
-                OreDictionary.registerOre("ingot" + name, new ItemStack(ingot, 1, 0));
+                for ( int v : EnumOreValue.getVariants()) {
+                        String ingotName;
+                    if (v > 0) {
+                        ingotName = EnumOreValue.ingotNameByMetadata(v) + name;
+                    } else {
+                        ingotName = name;
+                    }
+                    OreDictionary.registerOre(ingotName, new ItemStack(ingot, 1, v));
+                    if (0 == v) {
+                        OreDictionary.registerOre("mat" + name, new ItemStack(ingot, 1, 0));
+                    }
+                    //TODO: Revisit making this a custom ingredient.  this is hacky as all hell
+//                    OreDictionary.registerOre("mat" + name, new ItemStack(ingot, 1, 4));
+//                    OreDictionary.registerOre("mat" + name, new ItemStack(ingot, 1, 3));
+//                    OreDictionary.registerOre("mat" + name, new ItemStack(ingot, 1, 2));
+//                    OreDictionary.registerOre("mat" + name, new ItemStack(ingot, 1, 1));
+//                    OreDictionary.registerOre("mat" + name, new ItemStack(ingot, 1, 0));
 
-                //TODO: Revisit making this a custom ingredient.  this is hacky as all hell
-                OreDictionary.registerOre("mat" + name, new ItemStack(ingot, 1, 4));
-                OreDictionary.registerOre("mat" + name, new ItemStack(ingot, 1, 3));
-                OreDictionary.registerOre("mat" + name, new ItemStack(ingot, 1, 2));
-                OreDictionary.registerOre("mat" + name, new ItemStack(ingot, 1, 1));
-                OreDictionary.registerOre("mat" + name, new ItemStack(ingot, 1, 0));
-
+                }
             } else {
                 OreDictionary.registerOre("ingot" + name, ingot);
             }
         }
 
         for (BaseDust dust : ModItems.DUSTS.values()) {
-            r.register(dust);
-            String name = dust.name;
-            name = name.substring(0, 1).toUpperCase() + name.substring(1);
+            registry.register(dust);
+            String name = ucfirst(dust.name);
             if (dust.getOre().genVariants) {
-                OreDictionary.registerOre("dust" + name + "tiny", new ItemStack(dust, 1, 4));
-                OreDictionary.registerOre("dust" + name + "small", new ItemStack(dust, 1, 3));
-                OreDictionary.registerOre("dust" + name + "med", new ItemStack(dust, 1, 2));
-                OreDictionary.registerOre("dust" + name + "large", new ItemStack(dust, 1, 1));
-                OreDictionary.registerOre("dust" + name, new ItemStack(dust, 1, 0));
+                for ( int v : EnumOreValue.getVariants()) {
+                    String dustName;
+                    if (v > 0) {
+                        dustName = "dust" + ucfirst(EnumOreValue.dustNameByMetadata(v)) + name;
+                    } else {
+                        dustName = "dust" + name;
+                    }
+                    OreDictionary.registerOre(dustName, new ItemStack(dust, 1, v));
+                }
             } else {
                 OreDictionary.registerOre("dust" + name, dust);
             }
         }
 
         for (BaseGem gem : ModItems.GEMS.values()) {
-            r.register(gem);
+            registry.register(gem);
 
             String name = gem.name;
             String type = gem.type;
@@ -165,19 +179,22 @@ public class RegistryEventHandler {
 
 
         for (Item i : ModItems.TOOLS.values()) {
-            r.register(i);
+            registry.register(i);
         }
         for (Item i : ModItems.ARMORS.values()) {
-            r.register(i);
+            registry.register(i);
         }
         for (Item i : ModItems.MISC.values()) {
-            r.register(i);
+            registry.register(i);
 
             if (i instanceof BaseGem) {
                 OreDictionary.registerOre(((BaseGem) i).type + StringUtil.toSentenceCase((((BaseGem) i).name)), i);
             }
         }
 
+        for (IOreIntegration i : OreIntegrations.integrations) {
+            i.registerItems(event);
+        }
     }
 
 

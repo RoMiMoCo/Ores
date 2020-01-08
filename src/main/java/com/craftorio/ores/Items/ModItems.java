@@ -3,8 +3,6 @@ package com.craftorio.ores.Items;
 import com.craftorio.ores.Ores;
 import com.craftorio.ores.blocks.BaseOre;
 import com.craftorio.ores.blocks.ModBlocks;
-import com.craftorio.ores.util.OreConfig;
-import net.minecraft.block.Block;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
@@ -34,11 +32,7 @@ public class ModItems {
             }
             //dusts
             if (ore.genDusts) {
-                if (ore.genVariants) {
-                    DUSTS.put(ore.name + "Dust", new BaseDustWithVariants(ore));
-                } else {
-                    DUSTS.put(ore.name + "Dust", new BaseDust(ore));
-                }
+                DUSTS.put(ore.name + "Dust", new BaseDust(ore));
             }
             //tools
             if (ore.genTools) {

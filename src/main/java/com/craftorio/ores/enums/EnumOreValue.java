@@ -172,6 +172,22 @@ public enum EnumOreValue implements IStringSerializable {
         }
     }
 
+    public static String oreNameByMetadata(int meta) {
+        switch (byMetadata(meta).valueId) {
+            case VARIANT_POOR:
+                return "poor";
+            case VARIANT_LOW:
+                return "low";
+            case VARIANT_MODERATE:
+                return "moderate";
+            case VARIANT_HIGH:
+                return "high";
+            case VARIANT_RICH:
+            default:
+                return "rich";
+        }
+    }
+
     public String getName() {
         return this.name;
     }
