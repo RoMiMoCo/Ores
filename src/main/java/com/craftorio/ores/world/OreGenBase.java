@@ -24,10 +24,12 @@ public class OreGenBase implements IWorldGenerator {
     @Override
     public void generate(Random random, int chunkX, int chunkZ, World world, IChunkGenerator chunkGenerator, IChunkProvider chunkProvider) {
         for (OreGenDefinition def : ores) {
-            OreGenDimDefinition dimDef = def.oreGenDimDefinitions.get(world.provider.getDimensionType().getId());
-            String currentBiome = world.getBiomeForCoordsBody(new BlockPos((chunkX * 16) + 8, 64, (chunkZ * 16) + 8)).getRegistryName().getPath();
-            if (dimDef.biomes == null || dimDef.biomes.contains(currentBiome)) { //if no biomes specified for spawn, or the current biome is specified
-                addOreSpawn(world, random, chunkX * 16, chunkZ * 16, 16, 16, def);
+            if (def.oreGenDimDefinitions.containsKey(world.provider.getDimensionType().getId())) {
+                OreGenDimDefinition dimDef = def.oreGenDimDefinitions.get(world.provider.getDimensionType().getId());
+                String currentBiome = world.getBiomeForCoordsBody(new BlockPos((chunkX * 16) + 8, 64, (chunkZ * 16) + 8)).getRegistryName().getPath();
+                if (dimDef.biomes == null || dimDef.biomes.contains(currentBiome)) { //if no biomes specified for spawn, or the current biome is specified
+                    addOreSpawn(world, random, chunkX * 16, chunkZ * 16, 16, 16, def);
+                }
             }
         }
     }

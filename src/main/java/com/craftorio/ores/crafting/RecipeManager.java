@@ -323,7 +323,7 @@ public class RecipeManager {
 
     }
 
-    private static void removeVanillaRecipes(String recipe) {
+    public static void removeVanillaRecipes(String recipe) {
         OreLogger.info("Overriding vanilla recipes, ignore following \"Dangerous alternative prefix\" errors");
         IRecipe replacement = new NoOpRecipe();
         replacement.setRegistryName(new ResourceLocation("minecraft", recipe));
@@ -336,7 +336,7 @@ public class RecipeManager {
      * of the following code
      * (I'm not a jerk)
      */
-    private static void registerShapedOreRecipe(String id, ItemStack output, Object... recipe) {
+    public static void registerShapedOreRecipe(String id, ItemStack output, Object... recipe) {
 
         ResourceLocation location = new ResourceLocation(Ores.MODID, id);
         ShapedOreRecipe or = new ShapedOreRecipe(location, output, recipe);
@@ -345,7 +345,7 @@ public class RecipeManager {
     }
 
 
-    private static void registerShapedOreCrushingRecipe(String id, ItemStack output, Object... recipe) {
+    public static void registerShapedOreCrushingRecipe(String id, ItemStack output, Object... recipe) {
 
         ResourceLocation location = new ResourceLocation(Ores.MODID, id);
         ShapedOreCrushingRecipe or = new ShapedOreCrushingRecipe(location, output, recipe);
@@ -354,7 +354,7 @@ public class RecipeManager {
         recipeRegistry.register(or);
     }
 
-    private static void registerShapedOreMetadataRecipe(String id, ItemStack output, Object... recipe) {
+    public static void registerShapedOreMetadataRecipe(String id, ItemStack output, Object... recipe) {
 
         ResourceLocation location = new ResourceLocation(Ores.MODID, id);
         ShapedOreMetadataRecipe or = new ShapedOreMetadataRecipe(location, output, recipe);
@@ -363,7 +363,7 @@ public class RecipeManager {
         recipeRegistry.register(or);
     }
 
-    private static void registerShapelessOreRecipe(String id, ItemStack output, Object... recipe) {
+    public static void registerShapelessOreRecipe(String id, ItemStack output, Object... recipe) {
 
         ResourceLocation location = new ResourceLocation(Ores.MODID, id);
         ShapelessOreRecipe or = new ShapelessOreRecipe(location, output, recipe);
@@ -373,7 +373,7 @@ public class RecipeManager {
     }
 
 
-    private static void registerShapelessRecipe(String id, ItemStack output, Object... recipe) {
+    public static void registerShapelessRecipe(String id, ItemStack output, Object... recipe) {
 
         ResourceLocation location = new ResourceLocation(Ores.MODID, id);
         ShapelessRecipes or = new ShapelessRecipes(location.getNamespace(), output, buildInput(recipe));

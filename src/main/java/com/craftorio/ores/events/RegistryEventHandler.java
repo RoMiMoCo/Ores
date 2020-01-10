@@ -23,6 +23,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.world.DimensionType;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -123,29 +124,24 @@ public class RegistryEventHandler {
         //Register the remaining items
         for (BaseIngot ingot : ModItems.INGOTS.values()) {
             registry.register(ingot);
-            String name = ucfirst(ingot.name);
+            String oreName = ucfirst(ingot.name);
             if (ingot.getOre().genVariants) {
-                for ( int v : EnumOreValue.getVariants()) {
-                        String ingotName;
-                    if (v > 0) {
-                        ingotName = EnumOreValue.ingotNameByMetadata(v) + name;
-                    } else {
-                        ingotName = name;
-                    }
-                    OreDictionary.registerOre(ingotName, new ItemStack(ingot, 1, v));
-                    if (0 == v) {
-                        OreDictionary.registerOre("mat" + name, new ItemStack(ingot, 1, 0));
-                    }
+                for ( EnumOreValue v : EnumOreValue.oreValues(ingot.getOre(), DimensionType.OVERWORLD.getId())) {
+                    String variantName = EnumOreValue.ingotNameByMetadata(v.getMetadata()) + oreName;
+                    OreDictionary.registerOre(variantName, new ItemStack(ingot, 1, v.getMetadata()));
+                    OreDictionary.registerOre("mat" + oreName, new ItemStack(ingot, 1, v.getMetadata()));
+//                    if (0 == v) {
+//                        OreDictionary.registerOre("mat" + oreName, new ItemStack(ingot, 1, 0));
+//                    }
                     //TODO: Revisit making this a custom ingredient.  this is hacky as all hell
-//                    OreDictionary.registerOre("mat" + name, new ItemStack(ingot, 1, 4));
-//                    OreDictionary.registerOre("mat" + name, new ItemStack(ingot, 1, 3));
-//                    OreDictionary.registerOre("mat" + name, new ItemStack(ingot, 1, 2));
-//                    OreDictionary.registerOre("mat" + name, new ItemStack(ingot, 1, 1));
-//                    OreDictionary.registerOre("mat" + name, new ItemStack(ingot, 1, 0));
-
+//                    OreDictionary.registerOre("mat" + oreName, new ItemStack(ingot, 1, 4));
+//                    OreDictionary.registerOre("mat" + oreName, new ItemStack(ingot, 1, 3));
+//                    OreDictionary.registerOre("mat" + oreName, new ItemStack(ingot, 1, 2));
+//                    OreDictionary.registerOre("mat" + oreName, new ItemStack(ingot, 1, 1));
+//                    OreDictionary.registerOre("mat" + oreName, new ItemStack(ingot, 1, 0));
                 }
             } else {
-                OreDictionary.registerOre("ingot" + name, ingot);
+                OreDictionary.registerOre("ingot" + oreName, ingot);
             }
         }
 
