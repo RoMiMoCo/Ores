@@ -184,6 +184,7 @@ public class BaseOre extends BlockOre implements IColoredItem, IHasCustomModel {
         }
     }
 
+    @SideOnly(Side.CLIENT)
     protected void initModel(String suffix) {
 
         for (int d : dimensions) {
@@ -204,6 +205,7 @@ public class BaseOre extends BlockOre implements IColoredItem, IHasCustomModel {
         });
     }
 
+    @SideOnly(Side.CLIENT)
     protected void initModelWithVariants(String suffix) {
 
         for (int d : dimensions) {

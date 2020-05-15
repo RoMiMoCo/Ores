@@ -44,13 +44,10 @@ public class BaseBlock extends Block implements IColoredItem, IHasCustomModel {
 
     }
 
-    @SideOnly(Side.CLIENT)
     @Override
+    @SideOnly(Side.CLIENT)
     public void initModel() {
-
-
         if (this.type.equals("Gem")) {
-
             ModelLoader.setCustomModelResourceLocation(ItemBlock.getItemFromBlock(this), 0, new ModelResourceLocation(Ores.NAME + ":basegemblock"));
 
             ModelLoader.setCustomStateMapper(this, new StateMapperBase() {
