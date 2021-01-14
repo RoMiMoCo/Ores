@@ -7,7 +7,7 @@ oreDefinitions.json has the following format.
 {
   "OreList": [
     {
-      "Name" : "iron",
+      "Name" : "Iron",
       "Color": "0xF3D1BB",
       "Hardness":"3",
       "Harvestlevel":"3",
@@ -19,21 +19,43 @@ oreDefinitions.json has the following format.
       }
     },
     {
-      "Name" : "copper",
+      "Name" : "Сopper",
       "Color": "0xCC0000",
       "Hardness":"2.5",
       "Harvestlevel":"2",
+      "genIngots": true,
+      "genBuckets": true,
+      "genVariants": true,
       "Generation":{
-        "MinY": 32,
-        "MaxY": 64,
-        "SpawnChance": 8,
-        "VeinSize": 8
-      }
+        "Dimensions": [
+          {
+            "ID": 0,
+            "MinY": 1,
+            "MaxY": 40,
+            "SpawnChance": 30,
+            "VeinSize": 4
+          },
+          {
+            "ID": 1,
+            "MinY": 0,
+            "MaxY": 255,
+            "SpawnChance": 30,
+            "VeinSize": 4
+          },
+          {
+            "ID": -1,
+            "MinY": 0,
+            "MaxY": 255,
+            "SpawnChance": 40,
+            "VeinSize": 4
+          }
+       ]
+     }
     }
   ],
  "GemList":[
     {
-      "Name" : "diamond",
+      "Name" : "Diamond",
       "Color": "0x1589ff",
       "Hardness":"2.2",
       "Harvestlevel":"4",
@@ -46,7 +68,7 @@ oreDefinitions.json has the following format.
       }
     },
     {
-      "Name" : "ruby",
+      "Name" : "Ruby",
       "Color": "0xff0000",
       "Hardness":"2.2",
       "Harvestlevel":"4",
@@ -65,13 +87,77 @@ oreDefinitions.json has the following format.
 }
 ```
 
+Example for custom dimension
+> The example will generate sulfur and tin ores which drops IC2 Sulfur dust and the tin ingot in Overworld and TwilightForest dimensions
+```json
+{
+  "OreList": [
+    {
+      "Name" : "Tin",
+      "Color": "0x9AFEFF",
+      "Hardness":"2",
+      "Harvestlevel":"1",
+      "genIngots": true,
+      "Generation":{
+        "Dimensions": [
+          {
+            "ID": 0,
+            "MinY": 1,
+            "MaxY": 40,
+            "SpawnChance": 50,
+            "VeinSize": 4
+          },
+          {
+            "ID": 7,
+            "LikeID": 0,
+            "MinY": 1,
+            "MaxY": 64,
+            "SpawnChance": 60,
+            "VeinSize": 4
+          }
+        ]
+      }
+    }
+  ],
+  "GemList":[
+    {
+      "Name" : "Sulfur",
+      "Color": "0xfffc00",
+      "Hardness":"2.2",
+      "Harvestlevel":"1",
+      "Drops":"ic2:dust/16",
+      "genVariants": true,
+      "Generation":{
+        "Dimensions": [
+          {
+            "ID": 0,
+            "MinY": 1,
+            "MaxY": 40,
+            "SpawnChance": 30,
+            "VeinSize": 4
+          },
+          {
+            "ID": 7,
+            "LikeID": 0,
+            "MinY": 1,
+            "MaxY": 40,
+            "SpawnChance": 30,
+            "VeinSize": 4
+          }
+        ]
+      }
+    }
+  ]
+}
+```
+
 Ores:
   * Drops itself when mined
   * Smelts into an ingot
   * Variants smelt into variant ingots
   * Will generate Ore, Ingots, Block, Tools, Armor, Dusts (based on config entries)
 
-Gems: ( >= v0.2.0)
+Gems:
   * Drops an Item when mined
   * Unsmeltable (currently)
   * Drops can be custom defined or a string such as "minecraft:diamond" 

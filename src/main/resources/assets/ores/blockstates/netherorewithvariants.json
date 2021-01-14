@@ -2,37 +2,37 @@
   "forge_marker": 1,
   "defaults": {
     "textures": {
-      "base": "minecraft:blocks/stone",
+      "base": "minecraft:blocks/netherrack",
       "overlay": "ores:blocks/baseore_moderate",
-      "particle":"minecraft:blocks/stone"
+      "particle":"minecraft:blocks/netherrack"
     },
-    "model": "ores:baseore"
+    "model": "ores:netherore"
   },
   "variants": {
     "normal":[{}],
     "inventory":[{}],
     "orevalue": {
-      "poor": {
+      "poor_nether": {
         "textures": {
           "overlay": "ores:blocks/baseore_poor"
         }
       },
-      "low": {
+      "low_nether": {
         "textures": {
           "overlay": "ores:blocks/baseore_low"
         }
       },
-      "moderate": {
+      "moderate_nether": {
         "textures": {
           "overlay": "ores:blocks/baseore_moderate"
         }
       },
-      "high": {
+      "high_nether": {
         "textures": {
           "overlay": "ores:blocks/baseore_high"
         }
       },
-      "rich": {
+      "rich_nether": {
         "textures": {
           "overlay": "ores:blocks/baseore_rich"
         }

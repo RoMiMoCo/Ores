@@ -11,9 +11,9 @@ apply plugin: 'net.minecraftforge.gradle.forge'
 //Only edit below this line, the above code adds and enables the necessary things for Forge to be setup.
 
 
-version = "0.4.2"
-group = "com.romimoco.ores" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
-archivesBaseName = "romimoco-ores"
+version = "0.6.0"
+group = "com.craftorio.ores" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+archivesBaseName = "craftorio-ores"
 
 sourceCompatibility = targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
 compileJava {
@@ -21,7 +21,7 @@ compileJava {
 }
 
 minecraft {
-    version = "1.12.2-14.23.4.2727"
+    version = "${minecraft_version}-14.23.5.2838"
     runDir = "run"
     
     // the mappings can be changed at any time, and must be in the following format.
@@ -29,42 +29,53 @@ minecraft {
     // stable_#            stables are built at the discretion of the MCP team.
     // Use non-default mappings at your own risk. they may not always work.
     // simply re-run your setup task after changing the mappings to update your workspace.
-    mappings = "snapshot_20180703"
+    mappings = "snapshot_20180814"
     // makeObfSourceJar = false // an Srg named sources jar is made by default. uncomment this to disable.
 }
 
 repositories {
     maven { //Tinkers
-       name 'DVS1 Maven FS'
-        url 'http://dvs1.progwml6.com/files/maven'
+        name "DVS1 Maven FS"
+        url "http://dvs1.progwml6.com/files/maven"
+    }
+    maven {
+        name "IC2 Maven"
+        url "http://maven.ic2.player.to/"
     }
 
+    maven {
+        // location of a maven mirror for JEI files, as a fallback
+        name "ModMaven"
+        url "https://modmaven.k-4u.nl"
+    }
 
+    maven {
+        // location of a maven mirror for ImmersiveEngineering files
+        name "blamejared"
+        url "https://maven.blamejared.com"
+    }
+
+    maven { // JustEnoughResources
+        name = "bintray-way2muchnoise"
+        url  "https://dl.bintray.com/way2muchnoise/dev/"
+    }
 }
 
 dependencies {
-    // you may put jars on which you depend on in ./libs
-    // or you may define them like so..
-    //compile "some.group:artifact:version:classifier"
-    //compile "some.group:artifact:version"
-      
-    // real examples
-    //compile 'com.mod-buildcraft:buildcraft:6.0.8:dev'  // adds buildcraft to the dev env
-    //compile 'com.googlecode.efficient-java-matrix-library:ejml:0.24' // adds ejml to the dev env
 
-    // the 'provided' configuration is for optional dependencies that exist at compile-time but might not at runtime.
-    //provided 'com.mod-buildcraft:buildcraft:6.0.8:dev'
+    deobfProvided "mezz.jei:jei_${minecraft_version}:${jeiversion}:api"
+    runtime "mezz.jei:jei_${minecraft_version}:${jeiversion}"
 
-    // the deobf configurations:  'deobfCompile' and 'deobfProvided' are the same as the normal compile and provided,
-    // except that these dependencies get remapped to your current MCP mappings
-    //deobfCompile 'com.mod-buildcraft:buildcraft:6.0.8:dev'
-    //deobfProvided 'com.mod-buildcraft:buildcraft:6.0.8:dev'
+    deobfCompile "blusunrize:ImmersiveEngineering:${ieversion}"
+    deobfCompile "cofh:ThermalExpansion:${minecraft_version}-${teversion}:universal"
+    deobfCompile "slimeknights:TConstruct:${minecraft_version}-${ticversion}"
 
-    // for more info...
-    // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
-    // http://www.gradle.org/docs/current/userguide/dependency_management.html
+    deobfProvided "net.industrial-craft:industrialcraft-2:${ic2version}:api"
+    runtime "net.industrial-craft:industrialcraft-2:${ic2version}"
 
-    compileOnly fileTree(dir:'libs', includes: ['*.jar'])
+    provided "jeresources:JustEnoughResources-${minecraft_version}:${jerversion}:deobf"
+
+    //compileOnly fileTree(dir:'libs', includes: ['*.jar'])
 }
 
 processResources {

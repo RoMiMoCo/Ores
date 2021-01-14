@@ -1,13 +1,13 @@
 [
 {
-  "modid": "romimocoores",
-  "name": "RoMiMoCo-Ores",
+  "modid": "craftorioores",
+  "name": "Ores",
   "description": "Add JSON Defined ores, and associated items",
   "version": "${version}",
   "mcversion": "${mcversion}",
-  "url": "https://minecraft.curseforge.com/projects/romimoco-ores",
+  "url": "https://github.com/craftorio/Ores",
   "updateUrl": "",
-  "authorList": ["the_rooster"],
+  "authorList": ["the_rooster", "sergeycherepanov"],
   "credits": "Forge and FML, Choonster's Testmod3, The COFH guys for making their mods visible-source",
   "logoFile": "",
   "screenshots": [],

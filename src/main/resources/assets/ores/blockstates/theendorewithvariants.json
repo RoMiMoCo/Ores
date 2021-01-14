@@ -2,37 +2,37 @@
   "forge_marker": 1,
   "defaults": {
     "textures": {
-      "base": "minecraft:blocks/stone",
+      "base": "minecraft:blocks/end_stone",
       "overlay": "ores:blocks/baseore_moderate",
-      "particle":"minecraft:blocks/stone"
+      "particle":"minecraft:blocks/end_stone"
     },
-    "model": "ores:baseore"
+    "model": "ores:theendore"
   },
   "variants": {
     "normal":[{}],
     "inventory":[{}],
     "orevalue": {
-      "poor": {
+      "poor_end": {
         "textures": {
           "overlay": "ores:blocks/baseore_poor"
         }
       },
-      "low": {
+      "low_end": {
         "textures": {
           "overlay": "ores:blocks/baseore_low"
         }
       },
-      "moderate": {
+      "moderate_end": {
         "textures": {
           "overlay": "ores:blocks/baseore_moderate"
         }
       },
-      "high": {
+      "high_end": {
         "textures": {
           "overlay": "ores:blocks/baseore_high"
         }
       },
-      "rich": {
+      "rich_end": {
         "textures": {
           "overlay": "ores:blocks/baseore_rich"
         }
